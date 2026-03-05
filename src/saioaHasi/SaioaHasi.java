@@ -1,15 +1,14 @@
-package ejekutablea;
+package saioaHasi;
 
-public class index {
+public class SaioaHasi {
 
-	public index() {
+	public SaioaHasi() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Prueba");
-
+		System.out.println("kaixo");
 	}
 
 }
