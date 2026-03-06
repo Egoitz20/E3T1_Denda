@@ -1,14 +1,14 @@
-package saioaHasi;
+package bezeroLeihoak.saioInformazioa;
 
-public class SaioaHasi {
+public class SaioInformazioa {
 
-	public SaioaHasi() {
+	public SaioInformazioa() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("kaixo");
+
 	}
 
 }
