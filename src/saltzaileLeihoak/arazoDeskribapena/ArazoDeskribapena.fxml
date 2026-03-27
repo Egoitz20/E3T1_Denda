@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="25.0" layoutY="89.0" prefHeight="222.0" prefWidth="551.0" />
+      <Label layoutX="25.0" layoutY="45.0" prefHeight="34.0" prefWidth="202.0" text="Arazoaren Bezero Izena: ...." textAlignment="RIGHT" />
+      <Label layoutX="25.0" layoutY="6.0" prefHeight="39.0" prefWidth="237.0" text="Kontzeptu izena: ..." />
+      <Label layoutX="25.0" layoutY="322.0" prefHeight="34.0" prefWidth="202.0" text="Arazoaren data: ...." textAlignment="RIGHT" />
+      <Button layoutX="417.0" layoutY="344.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="72.0" text="Itzuli" />
+      <Button layoutX="504.0" layoutY="344.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="72.0" text="OK" />
+   </children>
+</Pane>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" prefWidth="400"
+	prefHeight="350">
+	<children>
+		<VBox alignment="TOP_CENTER" spacing="15" layoutX="20"
+			layoutY="20" prefWidth="360" prefHeight="310">
+			<children>
+
+				<Label text="Erregistratu">
+					<font>
+						<Font name="System Bold" size="24" />
+					</font>
+				</Label>
+
+				<VBox spacing="5" prefWidth="360">
+					<children>
+						<Label text="Erabiltzaile berria:" />
+						<TextField promptText="Erabiltzailea..." />
+					</children>
+				</VBox>
+
+				<VBox spacing="5" prefWidth="360">
+					<children>
+						<Label text="Pasahitza:" />
+						<PasswordField promptText="Pasahitza..." />
+					</children>
+				</VBox>
+
+				<VBox spacing="5" prefWidth="360">
+					<children>
+						<Label text="Pasahitza errepikatu:" />
+						<PasswordField promptText="Errepikatu pasahitza..." />
+					</children>
+				</VBox>
+
+				<HBox spacing="20" alignment="CENTER">
+					<children>
+						<Button text="Erabiltzaile sortu" prefWidth="150" />
+						<Button text="Itzuli" prefWidth="150" />
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</children>
+</AnchorPane>

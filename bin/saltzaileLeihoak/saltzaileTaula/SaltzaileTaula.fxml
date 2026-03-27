@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutY="37.0" prefHeight="271.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="34.0" text="ID" />
+          <TableColumn prefWidth="129.0" text="Izena-Abizenak" />
+            <TableColumn prefWidth="102.0" text="Erabiltzailea" />
+            <TableColumn prefWidth="104.0" text="Pasahitza" />
+            <TableColumn prefWidth="137.0" text="Emaila" />
+            <TableColumn minWidth="1.0" prefWidth="93.0" text="Telefonoa" />
+        </columns>
+      </TableView>
+      <ImageView fitHeight="33.0" fitWidth="27.0" layoutX="14.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../irudiak/lupa.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="11.0" layoutY="348.0" mnemonicParsing="false" text="Itzuli">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <TextField layoutX="51.0" layoutY="316.0" prefHeight="25.0" prefWidth="198.0" promptText="Ipini izena, kodea edo erabiltzailea" />
+      <Label layoutX="195.0" layoutY="4.0" text="Saltzaile informazioa">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      <Pagination layoutX="513.0" layoutY="306.0" prefHeight="45.0" prefWidth="73.0" />
+   </children>
+</Pane>

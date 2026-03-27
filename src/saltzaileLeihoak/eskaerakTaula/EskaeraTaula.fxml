@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="215.0" layoutY="5.0" text="Ikusi Produktuak">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      <TableView layoutY="32.0" prefHeight="300.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="237.0" text="Produktu Izena" />
+          <TableColumn prefWidth="107.0" text="Kopurua" />
+            <TableColumn prefWidth="99.0" text="Eskari Egoera" />
+            <TableColumn prefWidth="93.0" text="Eskaera Data" />
+            <TableColumn prefWidth="63.0" text="Saltzailea" />
+        </columns>
+      </TableView>
+      <Pagination layoutX="522.0" layoutY="339.0" prefHeight="57.0" prefWidth="61.0" />
+      <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" text="OK">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

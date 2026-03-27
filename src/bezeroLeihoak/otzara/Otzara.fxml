@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="14.0" layoutY="46.0" prefHeight="320.0" prefWidth="350.0">
+         <children>
+            <Label layoutX="14.0" layoutY="22.0" text="Produktu ID:" />
+            <Label layoutX="14.0" layoutY="60.0" text="Produktu izena:" />
+            <Label layoutX="14.0" layoutY="96.0" text="Produktu salneurria:" />
+            <Label layoutX="14.0" layoutY="129.0" text="Kopurua:" />
+            <TextField layoutX="105.0" layoutY="18.0" />
+            <TextField layoutX="105.0" layoutY="56.0" />
+            <TextField layoutX="130.0" layoutY="92.0" />
+            <TextField layoutX="67.0" layoutY="125.0" />
+            <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="279.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../irudiak/papelera-de-reciclaje.png" />
+               </image>
+            </ImageView>
+            <ScrollBar layoutX="329.0" layoutY="8.0" orientation="VERTICAL" prefHeight="302.0" prefWidth="14.0" />
+            <Separator layoutX="4.0" layoutY="161.0" prefHeight="5.0" prefWidth="320.0" />
+            <TextField layoutX="267.0" layoutY="134.0" prefHeight="25.0" prefWidth="23.0" text="1" />
+            <Button layoutX="243.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="21.0" text="-" />
+            <Button layoutX="293.0" layoutY="134.0" mnemonicParsing="false" text="+" />
+         </children>
+      </Pane>
+      <Pane layoutX="383.0" layoutY="76.0" prefHeight="201.0" prefWidth="350.0">
+         <children>
+            <Label layoutX="14.0" layoutY="22.0" text="Totala:" />
+            <Label layoutX="14.0" layoutY="60.0" text="+ 21% IVA:" />
+            <Label layoutX="14.0" layoutY="96.0" text="Ordaintzeko guztira:" />
+            <TextField layoutX="105.0" layoutY="18.0" prefHeight="25.0" prefWidth="219.0" />
+            <TextField layoutX="105.0" layoutY="56.0" prefHeight="25.0" prefWidth="219.0" />
+            <TextField layoutX="14.0" layoutY="120.0" prefHeight="25.0" prefWidth="309.0" />
+            <Button layoutX="275.0" layoutY="162.0" mnemonicParsing="false" text="EROSI" underline="true" />
+         </children>
+      </Pane>
+      <Label layoutX="342.0" layoutY="16.0" text="Otzara">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="670.0" layoutY="309.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Itzuli" underline="true" />
+      <ImageView fitHeight="52.0" fitWidth="59.0" layoutX="693.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../irudiak/usuario.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
