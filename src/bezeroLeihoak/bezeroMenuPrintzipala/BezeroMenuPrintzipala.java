@@ -1,14 +1,27 @@
 package bezeroLeihoak.bezeroMenuPrintzipala;
 
-public class BezeroMenuPrintzipala {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class BezeroMenuPrintzipala extends Application {
 
 	public BezeroMenuPrintzipala() {
-		// TODO Auto-generated constructor stub
+
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroMenuPrintzipala.fxml"));
+		Scene scene = new Scene(loader.load());
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Bezero Menu Printzipala");
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		launch();
 	}
-
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" prefWidth="400"
+<AnchorPane fx:controller="orokorLeihoak.erregistratu.ErregistratuKontrolagailua" xmlns:fx="http://javafx.com/fxml" prefWidth="400"
 	prefHeight="350">
 	<children>
 		<VBox alignment="TOP_CENTER" spacing="15" layoutX="20"
@@ -21,28 +21,28 @@
 				<VBox spacing="5" prefWidth="360">
 					<children>
 						<Label text="Erabiltzaile berria:" />
-						<TextField promptText="Erabiltzailea..." />
+						<TextField fx:id="erabiltzaileBerria" promptText="Erabiltzailea..." />
 					</children>
 				</VBox>
 
 				<VBox spacing="5" prefWidth="360">
 					<children>
 						<Label text="Pasahitza:" />
-						<PasswordField promptText="Pasahitza..." />
+						<PasswordField fx:id="pasahitzaBerria" promptText="Pasahitza..." />
 					</children>
 				</VBox>
 
 				<VBox spacing="5" prefWidth="360">
 					<children>
 						<Label text="Pasahitza errepikatu:" />
-						<PasswordField promptText="Errepikatu pasahitza..." />
+						<PasswordField fx:id="errepikatuPasahitzaBerria" promptText="Errepikatu pasahitza..." />
 					</children>
 				</VBox>
 
 				<HBox spacing="20" alignment="CENTER">
 					<children>
-						<Button text="Erabiltzaile sortu" prefWidth="150" />
-						<Button text="Itzuli" prefWidth="150" />
+						<Button onAction="#sortuErabiltzailea" text="Erabiltzaile sortu" prefWidth="150" />
+						<Button onAction="#itzuli" text="Itzuli" prefWidth="150" />
 					</children>
 				</HBox>
 			</children>

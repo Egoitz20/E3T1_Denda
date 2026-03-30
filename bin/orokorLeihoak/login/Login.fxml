@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="orokorLeihoak.login.LoginKontrolagailua" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="267.0" layoutY="22.0" text="Erabiltzailea:" />
-      <TextField layoutX="226.0" layoutY="39.0" />
+      <TextField fx:id="erabiltzaileak" layoutX="226.0" layoutY="39.0" />
       <Label layoutX="275.0" layoutY="74.0" text="Pasahitza:" />
-      <PasswordField layoutX="226.0" layoutY="91.0" />
-      <Button layoutX="198.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Sartu" />
-      <Button layoutX="337.0" layoutY="130.0" mnemonicParsing="false" text="Erregitsratu" />
+      <PasswordField fx:id="pasahitza" layoutX="226.0" layoutY="91.0" />
+      <Button layoutX="198.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Sartu" onAction="#sartu"/>
+      <Button layoutX="337.0" layoutY="130.0" mnemonicParsing="false" text="Erregitsratu" onAction="#erregistratu"/>
    </children>
 </AnchorPane>
