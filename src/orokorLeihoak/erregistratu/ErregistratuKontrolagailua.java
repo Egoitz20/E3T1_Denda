@@ -10,8 +10,11 @@ import kontrolagailuGlobala.HandlerGlobala;
 
 public class ErregistratuKontrolagailua extends HandlerGlobala {
 
+	@FXML
 	private TextField erabiltzaileBerria;
+	@FXML
 	private PasswordField pasahitzaBerria;
+	@FXML
 	private PasswordField errepikatuPasahitzaBerria;
 
 	public ErregistratuKontrolagailua() {
@@ -19,7 +22,7 @@ public class ErregistratuKontrolagailua extends HandlerGlobala {
 
 	@FXML
 	public void itzuli() {
-		irekiLogina();
+		 itxiOraingoLeihoa();
 	}
 
 	@FXML
@@ -44,15 +47,15 @@ public class ErregistratuKontrolagailua extends HandlerGlobala {
 
 	// Bezero konprobatzeko metodoa
 	private boolean konprobatuBezeroa(String erabiltzailea, String pasahitza) {
-		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
+	    ArrayList<BezeroBean> bezeroak = jasoBezeroak();
 
-		for (BezeroBean bezero : bezeroak) {
-			if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
-				return true;
-			}
-		}
-		return false;
-	};
+	    for (BezeroBean bezero : bezeroak) {
+	        if (bezero.getErabiltzaile() != null && bezero.getErabiltzaile().equals(erabiltzailea)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
 
 	private boolean pasahitzaKonparaketa(String pasahitza1, String pasahitza2) {

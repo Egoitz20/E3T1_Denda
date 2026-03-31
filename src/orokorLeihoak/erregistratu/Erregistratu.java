@@ -15,6 +15,9 @@ public class Erregistratu extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Erregistratu.fxml"));
 		Scene scene = new Scene(loader.load());
 
+		ErregistratuKontrolagailua controller = loader.getController();
+	    controller.setStage(primaryStage);
+		
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Erregistratu");
 		primaryStage.show();

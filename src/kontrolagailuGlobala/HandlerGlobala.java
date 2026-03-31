@@ -41,6 +41,28 @@ public class HandlerGlobala {
 	 * ----
 	 */
 
+	
+	// Oraingo leihoa ixten da
+	protected void itxiOraingoLeihoa() {
+		if (stage != null) {
+			stage.close();
+		}
+	}
+
+	// Oraingo leihoa atera eta ikusiko da
+	protected void ikusiLeihoa() {
+		if (stage != null) {
+			stage.show();
+		}
+	}
+
+	// Oraingo leihoa okultatu egingo da
+	protected void okultatuLeihoa() {
+		if (stage != null) {
+			stage.hide();
+		}
+	}
+
 	// SaltzaileMenuPrintzipala irekitzeko metodoa
 	protected void irekiSaltzaileMenuPrintzipala() {
 		try {
@@ -52,10 +74,7 @@ public class HandlerGlobala {
 			// Pistu leihoa deitzen start metodoari
 			saltzaileMenu.start(newStage);
 
-			// Login leihoa ixten da
-			if (stage != null) {
-				stage.close();
-			}
+			itxiOraingoLeihoa();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,9 +91,7 @@ public class HandlerGlobala {
 
 			bezeroMenu.start(newStage);
 
-			if (stage != null) {
-				stage.close();
-			}
+			itxiOraingoLeihoa();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,9 +107,7 @@ public class HandlerGlobala {
 
 			logina.start(newStage);
 
-			if (stage != null) {
-				stage.close();
-			}
+			itxiOraingoLeihoa();
 
 		} catch (Exception e) {
 			e.printStackTrace();

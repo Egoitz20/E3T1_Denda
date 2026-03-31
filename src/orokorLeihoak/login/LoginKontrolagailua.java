@@ -56,7 +56,10 @@ public class LoginKontrolagailua extends HandlerGlobala {
 	// 'Erregistratu' botoia sakatzen denean metodoa
 	@FXML
 	public void erregistratu() {
-		irekiErregistratu();
+		
+		okultatuLeihoa();
+	 
+	    irekiErregistratu();
 	};
 
 	// Saltzailea konprobatzeko metodoa
@@ -73,22 +76,29 @@ public class LoginKontrolagailua extends HandlerGlobala {
 
 	// Bezero konprobatzeko metodoa
 	private boolean konprobatuBezeroa(String erabiltzailea, String pasahitza) {
-		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
+	    ArrayList<BezeroBean> bezeroak = jasoBezeroak();
 
-		for (BezeroBean bezero : bezeroak) {
-			if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
-				return true;
-			}
-		}
-		return false;
-	};
+	    for (BezeroBean bezero : bezeroak) {
+	        if (bezero.getErabiltzaile() != null && bezero.getPasahitza() != null) {
+	            if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
 
 	private void irekiErregistratu() {
 		try {
-			Erregistratu erregitratuLeihoa = new Erregistratu();
-			Stage newStage = new Stage();
+			 	Erregistratu erregitratuLeihoa = new Erregistratu();
+		        Stage newStage = new Stage();
 
-			erregitratuLeihoa.start(newStage);
+		        erregitratuLeihoa.start(newStage);
+		        
+		        // Erregistro leihoa ixten denean, login leihoa ikusiko da 
+		        newStage.setOnHidden(event -> {
+		           ikusiLeihoa();
+		        });
 
 		} catch (Exception e) {
 			e.printStackTrace();
