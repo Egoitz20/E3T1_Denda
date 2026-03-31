@@ -7,6 +7,8 @@ public class BezeroBean {
 	private String abizena;
 	private String helbidea;
 	private String emaila;
+	private String erabiltzaile;
+	private String pasahitza;
 	
 	public int getId() {
 		return id;
@@ -38,6 +40,20 @@ public class BezeroBean {
 	public void setEmaila(String emaila) {
 		this.emaila = emaila;
 	}
+	public String getErabiltzaile() {
+		return erabiltzaile;
+	}
+	public void setErabiltzaile(String erabiltzaile) {
+		this.erabiltzaile = erabiltzaile;
+	}
+	public String getPasahitza() {
+		return pasahitza;
+	}
+	public void setPasahitza(String pasahitza) {
+		this.pasahitza = pasahitza;
+	}
+	
+	
 	
 	
 	

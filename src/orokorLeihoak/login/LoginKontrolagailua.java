@@ -1,25 +1,17 @@
 package orokorLeihoak.login;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import datuBaseKonexioa.BezeroBean;
-import datuBaseKonexioa.Konexioa;
 import datuBaseKonexioa.SaltzaileBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import kontrolagailuGlobala.HandlerGlobala;
 import orokorLeihoak.erregistratu.Erregistratu;
-import partekatutakoMetodoak.ErrepikatutakoMetodoak;
 
-public class LoginKontrolagailua extends ErrepikatutakoMetodoak {
-
-	private static final String SALTZAILE_TAULA = "SELECT * FROM SALTZAILE";
-	private static final String BEZERO_TAULA = "SELECT * FROM BEZERO";
+public class LoginKontrolagailua extends HandlerGlobala {
 
 	@FXML
 	private TextField erabiltzaileak;
@@ -46,17 +38,19 @@ public class LoginKontrolagailua extends ErrepikatutakoMetodoak {
 		}
 
 		// Lehenengo, saltzaile bada konprobatuko da.
-		if (konprobatuSaltzailea(jasotakoErabiltzailea, jasotakoPasahitza))
+		if (konprobatuSaltzailea(jasotakoErabiltzailea, jasotakoPasahitza)) {
 			irekiSaltzaileMenuPrintzipala();
+		}
 
 		// Ez bada, bezeroa bada konprobatuko da.
-		else if (konprobatuBezeroa(jasotakoErabiltzailea, jasotakoPasahitza))
+		else if (konprobatuBezeroa(jasotakoErabiltzailea, jasotakoPasahitza)) {
 			irekiBezeroMenuPrintzipala();
-		
+		}
 		// Biak ez badira, salbuespen bat jasoko da.
-		else
+		else {
 			irekiAlerta("Errorea", "Erabiltzailea edo pasahitza okerra",
 					"Sartutako erabiltzailea edo pasahitza ez da zuzena.");
+		}
 	};
 
 	// 'Erregistratu' botoia sakatzen denean metodoa
@@ -78,11 +72,11 @@ public class LoginKontrolagailua extends ErrepikatutakoMetodoak {
 	}
 
 	// Bezero konprobatzeko metodoa
-	private boolean konprobatuBezeroa(String emaila, String izena) {
+	private boolean konprobatuBezeroa(String erabiltzailea, String pasahitza) {
 		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
 
 		for (BezeroBean bezero : bezeroak) {
-			if (bezero.getEmaila().equals(emaila) && bezero.getIzena().equals(izena)) {
+			if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
 				return true;
 			}
 		}
@@ -101,76 +95,6 @@ public class LoginKontrolagailua extends ErrepikatutakoMetodoak {
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
 					"Errorea bezeroaren menua irekitzean: " + e.getMessage());
 		}
-	}
-
-	// Saltzaileak datu-basetik jasotzeko metodoa
-	private ArrayList<SaltzaileBean> jasoSaltzaileak() {
-
-		Konexioa db = new Konexioa();
-		Connection konexioa = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		SaltzaileBean erregistro;
-		ArrayList<SaltzaileBean> saltzaileTaula = new ArrayList<SaltzaileBean>();
-
-		try {
-			konexioa = db.konektorea();
-			stmt = konexioa.createStatement();
-			rs = stmt.executeQuery(SALTZAILE_TAULA);
-			while (rs.next()) {
-				erregistro = new SaltzaileBean();
-				erregistro.setId(rs.getInt("ID"));
-				erregistro.setErabiltzailea(rs.getString("ERABILTZAILEA"));
-				erregistro.setPasahitza(rs.getString("PASAHITZA"));
-				saltzaileTaula.add(erregistro);
-			}
-
-			rs.close();
-			stmt.close();
-			konexioa.close();
-
-		} catch (SQLException e) {
-			System.out.println("Errorea: " + e);
-			System.out.println("Errorea: " + e.getCause());
-		}
-
-		return saltzaileTaula;
-
-	}
-
-	// Bezeroak datu-basetik jasotzeko metodoa
-	private ArrayList<BezeroBean> jasoBezeroak() {
-
-		Konexioa db = new Konexioa();
-		Connection konexioa = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		BezeroBean erregistro;
-		ArrayList<BezeroBean> bezeroTaula = new ArrayList<BezeroBean>();
-
-		try {
-			konexioa = db.konektorea();
-			stmt = konexioa.createStatement();
-			rs = stmt.executeQuery(BEZERO_TAULA);
-
-			while (rs.next()) {
-				erregistro = new BezeroBean();
-				erregistro.setId(rs.getInt("ID"));
-				erregistro.setIzena(rs.getString("IZENA"));
-				erregistro.setAbizena(rs.getString("ABIZENA"));
-				erregistro.setHelbidea(rs.getString("HELBIDEA"));
-				erregistro.setEmaila(rs.getString("EMAILA"));
-				bezeroTaula.add(erregistro);
-			}
-
-			rs.close();
-			stmt.close();
-			konexioa.close();
-		} catch (SQLException e) {
-			System.out.println("Errorea: " + e);
-			System.out.println("Errorea: " + e.getCause());
-		}
-		return bezeroTaula;
 	}
 
 }
