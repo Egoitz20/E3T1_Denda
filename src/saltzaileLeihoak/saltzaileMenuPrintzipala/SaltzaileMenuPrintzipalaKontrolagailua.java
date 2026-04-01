@@ -1,9 +1,37 @@
 package saltzaileLeihoak.saltzaileMenuPrintzipala;
 
-public class SaltzaileMenuPrintzipalaKontrolagailua {
+import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import kontrolagailuGlobala.HandlerGlobala;
+import saltzaileLeihoak.saltzaileTaula.SaltzaileTaula;
+
+public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala{
 
 	public SaltzaileMenuPrintzipalaKontrolagailua() {
-		// TODO Auto-generated constructor stub
+	}
+	
+	// Saltzaile taula irekitzeko metodoa
+	@FXML
+	public void irekiSaltzaileTaula() {
+		try {
+			SaltzaileTaula saltzaileTaula = new SaltzaileTaula();
+            Stage newStage = new Stage();
+            saltzaileTaula.start(newStage);
+            
+            itxiOraingoLeihoa();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			  irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+	                    "Errorea saltzaileen taula irekitzean: " + e.getMessage());
+		}
+	}
+	
+	// Saioa ixteko metodoa
+	@FXML 
+	public void saioaIxten() {
+		itxiOraingoLeihoa();
+		irekiLogina();
 	}
 
 }

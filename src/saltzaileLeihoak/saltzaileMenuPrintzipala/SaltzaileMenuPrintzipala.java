@@ -14,6 +14,9 @@ public class SaltzaileMenuPrintzipala extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("SaltzaileMenuPrintzipala.fxml"));
 		Scene scene = new Scene(loader.load());
+		
+		SaltzaileMenuPrintzipalaKontrolagailua controller = loader.getController();
+		controller.setStage(primaryStage);
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Saltzaile Menu Printzipala");

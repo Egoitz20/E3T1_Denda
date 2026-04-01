@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipala;
 import datuBaseKonexioa.BezeroBean;
 import datuBaseKonexioa.Konexioa;
+import datuBaseKonexioa.LangileSaltzaileBean;
 import datuBaseKonexioa.SaltzaileBean;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -41,7 +42,6 @@ public class HandlerGlobala {
 	 * ----
 	 */
 
-	
 	// Oraingo leihoa ixten da
 	protected void itxiOraingoLeihoa() {
 		if (stage != null) {
@@ -130,6 +130,7 @@ public class HandlerGlobala {
 
 	private static final String BEZERO_TAULA = "SELECT * FROM BEZERO";
 	private static final String SALTZAILE_TAULA = "SELECT * FROM SALTZAILE";
+	private static final String LANGILESALTZAILE_TAULA = "SELECT * FROM BISTA_LANGILESALTZAILE";
 
 	// Bezeroak datu-basetik jasotzeko metodoa
 	protected ArrayList<BezeroBean> jasoBezeroak() {
@@ -197,6 +198,50 @@ public class HandlerGlobala {
 		} catch (SQLException e) {
 			System.out.println("Errorea: " + e);
 			System.out.println("Errorea: " + e.getCause());
+		}
+
+		return saltzaileTaula;
+
+	}
+
+	// Saltzaileak informazio gehiago datu-basetik jasotzeko metodoa (INNER JOIN
+	// Langile taulatik))
+	protected ArrayList<LangileSaltzaileBean> jasoLangileSaltzaileak() {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		LangileSaltzaileBean erregistro;
+		ArrayList<LangileSaltzaileBean> saltzaileTaula = new ArrayList<LangileSaltzaileBean>();
+
+		try {
+			konexioa = db.konektorea();
+			stmt = konexioa.createStatement();
+			rs = stmt.executeQuery(LANGILESALTZAILE_TAULA);
+			while (rs.next()) {
+				erregistro = new LangileSaltzaileBean();
+				erregistro.setId(rs.getInt("ID"));
+				erregistro.setIzenaAbizena(rs.getString("IZENA_ABIZENAK"));
+				erregistro.setEmaila(rs.getString("EMAILA"));
+				erregistro.setTelefonoa(rs.getString("TELEFONOA"));
+				erregistro.setKontratazio_data(rs.getDate("KONTRATAZIO_DATA"));
+				erregistro.setId_nagusi(rs.getInt("ID_NAGUSI"));
+				erregistro.setSoldata(rs.getInt("SOLDATA"));
+				erregistro.setErabiltzailea(rs.getString("ERABILTZAILEA"));
+				erregistro.setPasahitza(rs.getString("PASAHITZA"));
+				saltzaileTaula.add(erregistro);
+
+			}
+			
+			rs.close();
+			stmt.close();
+			konexioa.close();
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+			e.printStackTrace(); 
 		}
 
 		return saltzaileTaula;

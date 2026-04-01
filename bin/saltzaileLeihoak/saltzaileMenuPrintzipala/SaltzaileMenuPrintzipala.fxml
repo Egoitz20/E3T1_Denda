@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:controller="saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipalaKontrolagailua" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="111.0" />
@@ -23,7 +23,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Erabiltzaile kudeaketa">
             <items>
-              <MenuItem mnemonicParsing="false" text="Saltzaile informazioa" />
+              <MenuItem onAction="#irekiSaltzaileTaula" mnemonicParsing="false" text="Saltzaile informazioa" />
                   <MenuItem mnemonicParsing="false" text="Saltzaile gehitu/ezabatu/aldatu" />
             </items>
           </Menu>
@@ -45,7 +45,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Saltzaile_ID_IZENA">
             <items>
-              <MenuItem mnemonicParsing="false" text="Saioa itxi" />
+              <MenuItem onAction="#saioaIxten" mnemonicParsing="false" text="Saioa itxi" />
             </items>
           </Menu>
         </menus>
