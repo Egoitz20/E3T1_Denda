@@ -13,7 +13,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import kontrolagailuGlobala.HandlerGlobala;
+import saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketa;
 
 public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 
@@ -73,6 +75,39 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 		kargatuDatuak(); // 2. Datu-baseko datuak kargatzen ditu
 		konfiguratuPaginazioa(); // 3. Konfiguratu orri-botoiak
 		konfiguratuBilaketa(); // 4. Bilaketa-eremua konfiguratzen du
+
+		tableView.setOnMouseClicked(event -> {
+			if (event.getClickCount() == 1) { // Un solo clic
+				LangileSaltzaileBean selectedItem = tableView.getSelectionModel().getSelectedItem();
+				if (selectedItem != null) {
+					irekiSaltzaileKudeaketa(selectedItem);
+				}
+			}
+		});
+	}
+
+	// ✅ NUEVO MÉTODO: Abrir ventana de gestión con los datos seleccionados
+	private void irekiSaltzaileKudeaketa(LangileSaltzaileBean saltzailea) {
+		try {
+			SaltzaileKudeaketa kudeaketa = new SaltzaileKudeaketa();
+			Stage newStage = new Stage();
+
+			// Pasar los datos a la nueva ventana
+			kudeaketa.setSaltzaileData(saltzailea);
+			kudeaketa.start(newStage);
+
+			itxiOraingoLeihoa();
+
+			// Cuando se cierre la ventana de gestión, recargar los datos
+			newStage.setOnHidden(event -> {
+				irekiSaltzaileMenuPrintzipala();
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+					"Errorea saltzailearen kudeaketa irekitzean: " + e.getMessage());
+		}
 	}
 
 	// Konekta ezazu zutabe bakoitza LangileSaltzaileBean objektuaren atributu
@@ -82,15 +117,15 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 		// ()" metodoa.
 		// Horrela, ID zutabeko gelaxka bakoitzak "getId ()" balioa erakutsiko du.
 		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-		izenaAbizenakColumn.setCellValueFactory(new PropertyValueFactory<>("izenaAbizena"));
+		izenaAbizenakColumn.setCellValueFactory(new PropertyValueFactory<>("langileIzenaAbizena"));
 		erabiltzaileaColumn.setCellValueFactory(new PropertyValueFactory<>("erabiltzailea"));
 		pasahitzaColumn.setCellValueFactory(new PropertyValueFactory<>("pasahitza"));
 		emailaColumn.setCellValueFactory(new PropertyValueFactory<>("emaila"));
 		telefonoaColumn.setCellValueFactory(new PropertyValueFactory<>("telefonoa"));
 	}
 
+	// Datu-Basetik datuak lortzen ditu
 	private void kargatuDatuak() {
-		// Datu-Basetik datuak lortzen ditu
 		ArrayList<LangileSaltzaileBean> saltzaileak = jasoLangileSaltzaileak();
 
 		// "setAll()" "ObservableList"-eko metodo bat da,
@@ -154,7 +189,7 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 		// 0tik 9ra arte erregistroak bistaratzen ditu (10 erregistro)
 		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE; // Oraingo orriladeko lehen erregistroa
 		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
-		
+
 		if (lehengoErregistroa < filtrazioList.size()) {
 			// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
 			// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
@@ -185,42 +220,54 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 				// "->" -> "halako" edo "non"
 				// Barruan: "..." -> Beteko behar den baldintza
 
-				List<LangileSaltzaileBean> filtrados = saltzaileList.stream().filter(
-						s -> s.getIzenaAbizena() != null // Izena ez da null?
-						&& s.getIzenaAbizena().toLowerCase().contains(aurkituIdatzitakoTestua) // ETA izena dauka bilatutakoa?
-						// Adibide: 
-						//s.getIzenaAbizena() = "Poppy Jordan"
-						//searchLower = "pop"
-						//"poppy jordan".contains("pop") = TRUE
-						
-						|| s.getErabiltzailea() != null //EDO erabiltzailea ez da null? 
-						&& s.getErabiltzailea().toLowerCase().contains(aurkituIdatzitakoTestua) // ETA erabiltzailea dauka bilatutakoa?
-						// Adibide: 
-						//s.getErabiltzailea() = "pjordan"
-						//searchLower = "jor"
-						//"pjordan".contains("jor") = TRUE
-						
-						|| String.valueOf(s.getId()).contains(aurkituIdatzitakoTestua)) // ID (int) testu(String) bihurtzen du, eta bilatzen den testua daukan bilatzen du.
-						// Adibide: 
-						//s.getId() = 51
-						//String.valueOf(51) = "51"
-						//searchLower = "5"
-						//"51".contains("5") = TRUE
-						
-						.collect(Collectors.toList()); // Filtrazioa pasatu zuten elementu guztiak jaso eta zerrenda berri batean sartzen ditu.
-				filtrazioList.setAll(filtrados); //Ordezkatu "filtrazioList" eduki GUZTIA bilaketaren emaitzekin.
+				List<LangileSaltzaileBean> filtrados = saltzaileList.stream()
+						.filter(s -> s.getLangileIzenaAbizena() != null // Izena ez da null?
+								&& s.getLangileIzenaAbizena().toLowerCase().contains(aurkituIdatzitakoTestua) // ETA
+																												// izena
+																												// dauka
+																												// bilatutakoa?
+								// Adibide:
+								// s.getIzenaAbizena() = "Poppy Jordan"
+								// searchLower = "pop"
+								// "poppy jordan".contains("pop") = TRUE
+
+								|| s.getErabiltzailea() != null // EDO erabiltzailea ez da null?
+										&& s.getErabiltzailea().toLowerCase().contains(aurkituIdatzitakoTestua) // ETA
+																												// erabiltzailea
+																												// dauka
+																												// bilatutakoa?
+				// Adibide:
+				// s.getErabiltzailea() = "pjordan"
+				// searchLower = "jor"
+				// "pjordan".contains("jor") = TRUE
+
+								|| String.valueOf(s.getId()).contains(aurkituIdatzitakoTestua)) // ID (int)
+																								// testu(String)
+																								// bihurtzen du, eta
+																								// bilatzen den testua
+																								// daukan bilatzen du.
+						// Adibide:
+						// s.getId() = 51
+						// String.valueOf(51) = "51"
+						// searchLower = "5"
+						// "51".contains("5") = TRUE
+
+						.collect(Collectors.toList()); // Filtrazioa pasatu zuten elementu guztiak jaso eta zerrenda
+														// berri batean sartzen ditu.
+				filtrazioList.setAll(filtrados); // Ordezkatu "filtrazioList" eduki GUZTIA bilaketaren emaitzekin.
 
 			}
-			
 
-			// Berriro kalkulatu zenbat orrialde behar diren datu berriak iragazita, eta konfiguratu orrikatzeko botoiak.
+			// Berriro kalkulatu zenbat orrialde behar diren datu berriak iragazita, eta
+			// konfiguratu orrikatzeko botoiak.
 			pagination.setPageCount((int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE));
 			pagination.setCurrentPageIndex(0);
-			
-			//Taulan erakusten ditu lehen orriko datuak.
-			//Datu berriekin "filtrazioList" eguneratu eta orrikatzea konfiguratu dugun arren, 
-			//taulak datu zaharrak erakusten jarraitzen du. 
-			//Lerro hori da taula benetan eguneratzen duena.
+
+			// Taulan erakusten ditu lehen orriko datuak.
+			// Datu berriekin "filtrazioList" eguneratu eta orrikatzea konfiguratu dugun
+			// arren,
+			// taulak datu zaharrak erakusten jarraitzen du.
+			// Lerro hori da taula benetan eguneratzen duena.
 			eguneratuOrriaDatuak(0); // Datu berriak biztaratzen dugu
 		});
 	}

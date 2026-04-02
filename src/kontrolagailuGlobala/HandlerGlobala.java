@@ -1,5 +1,6 @@
 package kontrolagailuGlobala;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -222,18 +223,19 @@ public class HandlerGlobala {
 			while (rs.next()) {
 				erregistro = new LangileSaltzaileBean();
 				erregistro.setId(rs.getInt("ID"));
-				erregistro.setIzenaAbizena(rs.getString("IZENA_ABIZENAK"));
+				erregistro.setLangileIzenaAbizena(rs.getString("LANGILE_IZENA_ABIZENAK"));
 				erregistro.setEmaila(rs.getString("EMAILA"));
 				erregistro.setTelefonoa(rs.getString("TELEFONOA"));
 				erregistro.setKontratazio_data(rs.getDate("KONTRATAZIO_DATA"));
 				erregistro.setId_nagusi(rs.getInt("ID_NAGUSI"));
+				erregistro.setNagusiIzenaAbizena(rs.getString("NAGUSI_IZENA_ABIZENAK"));
 				erregistro.setSoldata(rs.getInt("SOLDATA"));
 				erregistro.setErabiltzailea(rs.getString("ERABILTZAILEA"));
 				erregistro.setPasahitza(rs.getString("PASAHITZA"));
 				saltzaileTaula.add(erregistro);
 
 			}
-			
+
 			rs.close();
 			stmt.close();
 			konexioa.close();
@@ -241,7 +243,7 @@ public class HandlerGlobala {
 		} catch (SQLException e) {
 			System.out.println("Errorea: " + e);
 			System.out.println("Errorea: " + e.getCause());
-			e.printStackTrace(); 
+			e.printStackTrace();
 		}
 
 		return saltzaileTaula;
@@ -259,6 +261,7 @@ public class HandlerGlobala {
 	 * ------------------------------------------------------
 	 */
 
+	// Bezero Errergistroa
 	private static final String ERABILTZAILE_GEHIKETA = "INSERT INTO BEZERO (IZENA, ABIZENA, EMAILA, ERABILTZAILEA, PASAHITZA) VALUES (?, ?, ?, ?, ?)";
 
 	protected void bezeroBerriaSortu(String erabiltzailea, String pasahitza) {
@@ -286,10 +289,135 @@ public class HandlerGlobala {
 
 	};
 
+	// Saltzaile sortzeko metodoa
+	protected void txertatuSaltzailea(String izena, String abizena, String erabiltzailea, String pasahitza,
+			String emaila, String telefonoa, int soldata) {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		CallableStatement cs = null;
+
+		String sql = "{CALL SALTZAILE_GEHIKETA(?, ?, ?, ?, ?, ?, ?)}";
+
+		try {
+
+			konexioa = db.konektorea();
+			cs = konexioa.prepareCall(sql);
+
+			cs.setString(1, izena);
+			cs.setString(2, abizena);
+			cs.setString(3, erabiltzailea);
+			cs.setString(4, pasahitza);
+			cs.setString(5, emaila);
+			cs.setString(6, telefonoa);
+			cs.setInt(7, soldata);
+
+			cs.execute();
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+		}
+	}
+
 	/*
 	 * -----------------------------------------------TXERTAKETAK
 	 * AMAIERA----------------------------------------------------------------------
 	 * ---
+	 */
+
+	/*
+	 * -----------------------------------------------ALDAKETAK-------------------
+	 * ------------------------------------------------------
+	 */
+	protected void eguneratuSaltzailea(int id, String izena, String abizena, String erabiltzailea, String pasahitza,
+			String emaila, String telefonoa, int soldata) {
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		CallableStatement cs = null;
+
+		String sql = "{CALL SALTZAILE_ALDAKETA(?, ?, ?, ?, ?, ?, ?, ?)}";
+
+		try {
+			konexioa = db.konektorea();
+			cs = konexioa.prepareCall(sql);
+
+			cs.setInt(1, id);
+			cs.setString(2, izena);
+			cs.setString(3, abizena);
+			cs.setString(4, erabiltzailea);
+			cs.setString(5, pasahitza);
+			cs.setString(6, emaila);
+			cs.setString(7, telefonoa);
+			cs.setInt(8, soldata);
+
+			cs.execute();
+
+			System.out.println("Saltzailea eguneratuta. ID: " + id);
+
+		} catch (SQLException e) {
+			System.out.println("Errorea saltzailea eguneratzean: " + e);
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da saltzailea eguneratu", "Datu-baseko errorea: " + e.getMessage());
+		} finally {
+			try {
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/*
+	 * -----------------------------------------------ALDAKETAK
+	 * AMAIERA-------------------
+	 * ------------------------------------------------------
+	 */
+
+	/*
+	 * -----------------------------------------------EZABAKETAK-------------------
+	 * ------------------------------------------------------
+	 */
+
+	// Método para eliminar usando procedimiento
+	protected void ezabatuSaltzailea(int id) {
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		CallableStatement cs = null;
+
+		String sql = "{CALL SALTZAILE_EZABATU(?)}";
+
+		try {
+			konexioa = db.konektorea();
+			cs = konexioa.prepareCall(sql);
+			cs.setInt(1, id);
+			cs.execute();
+
+			System.out.println("Saltzailea ezabatuta. ID: " + id);
+
+		} catch (SQLException e) {
+			System.out.println("Errorea saltzailea ezabatzean: " + e);
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da saltzailea ezabatu", "Datu-baseko errorea: " + e.getMessage());
+		} finally {
+			try {
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/*
+	 * -----------------------------------------------EZABAKETAK
+	 * AMAIERA-------------------
+	 * ------------------------------------------------------
 	 */
 
 }

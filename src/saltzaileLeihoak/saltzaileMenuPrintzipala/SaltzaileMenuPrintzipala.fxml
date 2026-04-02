@@ -24,7 +24,7 @@
           <Menu mnemonicParsing="false" text="Erabiltzaile kudeaketa">
             <items>
               <MenuItem onAction="#irekiSaltzaileTaula" mnemonicParsing="false" text="Saltzaile informazioa" />
-                  <MenuItem mnemonicParsing="false" text="Saltzaile gehitu/ezabatu/aldatu" />
+                  <MenuItem onAction="#irekiSaltzaileKudeaketa" mnemonicParsing="false" text="Saltzaile gehitu/ezabatu/aldatu" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Bezero kudeaketa">

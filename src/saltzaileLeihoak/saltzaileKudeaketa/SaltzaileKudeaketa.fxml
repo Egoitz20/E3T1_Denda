@@ -7,91 +7,97 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua" 
+      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+      prefHeight="400.0" prefWidth="600.0" 
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      
    <children>
-      <Label layoutX="25.0" layoutY="57.0" text="ID:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="96.0" text="Izena-Abizenak:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="24.0" layoutY="139.0" text="Erabiltzailea:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="177.0" text="Pasahitza:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="24.0" layoutY="215.0" text="Emaila:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="25.0" layoutY="256.0" text="Telefonoa:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="359.0" layoutY="57.0" text="Nagusi:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="357.0" layoutY="139.0" text="Kontratazio-Data:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="357.0" layoutY="215.0" text="Soldata:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Button layoutX="17.0" layoutY="339.0" mnemonicParsing="false" text="Itzuli">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="306.0" layoutY="339.0" mnemonicParsing="false" opacity="0.62" text="Sortu">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="392.0" layoutY="339.0" mnemonicParsing="false" text="Aldatu">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="488.0" layoutY="339.0" mnemonicParsing="false" text="Ezabatu">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <TextField layoutX="181.0" layoutY="60.0" prefHeight="25.0" prefWidth="163.0" promptText="ID (Automatikoa)" />
-      <TextField layoutX="181.0" layoutY="99.0" prefHeight="25.0" prefWidth="163.0" promptText="Izen-Abizenak (Automatikoa)" />
-      <TextField layoutX="181.0" layoutY="142.0" prefHeight="25.0" prefWidth="163.0" promptText="Erabiltzailea (Automatikoa)" />
-      <TextField layoutX="181.0" layoutY="180.0" prefHeight="25.0" prefWidth="163.0" promptText="Pasahitza (Automatikoa)" />
-      <TextField layoutX="181.0" layoutY="218.0" prefHeight="25.0" prefWidth="163.0" promptText="Emaila (Automatikoa)" />
-      <TextField layoutX="181.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" promptText="Telefonoa (Automatikoa)" />
-      <TextField layoutX="359.0" layoutY="99.0" prefHeight="25.0" prefWidth="163.0" promptText="Nagusi_Izena (Automatikoa)" />
-      <TextField layoutX="359.0" layoutY="180.0" prefHeight="25.0" prefWidth="163.0" promptText="Kontratazio_Data (Automatikoa)" />
-      <TextField layoutX="359.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" promptText="Soldata (Automatikoa)" />
-      <ImageView fitHeight="64.0" fitWidth="62.0" layoutX="522.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/usuario.png" />
-         </image>
-      </ImageView>
+      <!-- Título -->
       <Label layoutX="117.0" layoutY="14.0" text="Saltzaile Gehitu/Ezabatu/Aldatu" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Cambria" size="25.0" />
          </font>
       </Label>
+      
+      <!-- ✅ CORREGIDO: ImageView con la sintaxis correcta -->
+      <ImageView fitHeight="64.0" fitWidth="62.0" layoutX="522.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../irudiak/usuario.png" />
+         </image>
+      </ImageView>
+      
+      <!-- Columna izquierda -->
+      <Label layoutX="25.0" layoutY="57.0" text="ID:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniId" layoutX="181.0" layoutY="60.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="ID (Automatikoa)" editable="false"/>
+      
+      <Label layoutX="25.0" layoutY="96.0" text="Izena-Abizenak:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniIzenAbizenak" layoutX="181.0" layoutY="99.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Izena eta Abizenak" />
+      
+      <Label layoutX="24.0" layoutY="139.0" text="Erabiltzailea:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniErabiltzailea" layoutX="181.0" layoutY="142.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Erabiltzailea" />
+      
+      <Label layoutX="25.0" layoutY="177.0" text="Pasahitza:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniPasahitza" layoutX="181.0" layoutY="180.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Pasahitza" />
+      
+      <Label layoutX="24.0" layoutY="215.0" text="Emaila:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniEmaila" layoutX="181.0" layoutY="218.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Emaila" />
+      
+      <Label layoutX="25.0" layoutY="256.0" text="Telefonoa:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniTelefonoa" layoutX="181.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Telefonoa" />
+      
+      <!-- Columna derecha -->
+      <Label layoutX="359.0" layoutY="57.0" text="Nagusi:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniNagusiIzena" layoutX="359.0" layoutY="99.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Nagusi Izena" editable="false"/>
+      
+      <Label layoutX="357.0" layoutY="139.0" text="Kontratazio-Data:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniKontratazioData" layoutX="359.0" layoutY="180.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Kontratazio Data" />
+      
+      <Label layoutX="357.0" layoutY="215.0" text="Soldata:">
+         <font><Font size="20.0" /></font>
+      </Label>
+      <TextField fx:id="ipiniSoldata" layoutX="359.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" 
+                 promptText="Soldata (€)" />
+      
+      <!-- Botones -->
+      <Button fx:id="itzuliButton" onAction="#itzuli" layoutX="17.0" layoutY="339.0" text="Itzuli">
+         <font><Font size="20.0" /></font>
+      </Button>
+      
+      <Button fx:id="sortuButton" onAction="#sortu" layoutX="306.0" layoutY="339.0" text="Sortu">
+         <font><Font size="20.0" /></font>
+      </Button>
+      
+      <Button fx:id="aldatuButton" onAction="#aldatu" layoutX="392.0" layoutY="339.0" text="Aldatu">
+         <font><Font size="20.0" /></font>
+      </Button>
+      
+      <Button fx:id="ezabatuButton" onAction="#ezabatu" layoutX="488.0" layoutY="339.0" text="Ezabatu">
+         <font><Font size="20.0" /></font>
+      </Button>
    </children>
 </Pane>
