@@ -36,7 +36,7 @@ public class ErregistratuKontrolagailua extends HandlerGlobala {
 				irekiAlerta("Errorea", "Erabiltzaile dago sortuta",
 						"Erabiltzaile sortuta dago, mesedez saiatu erabiltzaile edo pasahitza berri batekin");
 			} else {
-				bezeroBerriaSortu(jasotakoErabiltzaileBerria, jasotakoPasahitzaBerria);
+				erregistroBezeroBerriaSortu(jasotakoErabiltzaileBerria, jasotakoPasahitzaBerria);
 				irekiAlerta("Sortuta", "Erabiltzaile Sortuta", "Erabiltzale ondo sorto da.");
 			}
 

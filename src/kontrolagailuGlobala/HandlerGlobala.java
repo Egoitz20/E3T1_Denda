@@ -129,7 +129,7 @@ public class HandlerGlobala {
 	 * -----------------------------------------------------
 	 */
 
-	private static final String BEZERO_TAULA = "SELECT * FROM BEZERO";
+	private static final String BEZERO_TAULA = "SELECT * FROM BISTA_BEZERO_BEZEROTELEFONO";
 	private static final String SALTZAILE_TAULA = "SELECT * FROM SALTZAILE";
 	private static final String LANGILESALTZAILE_TAULA = "SELECT * FROM BISTA_LANGILESALTZAILE";
 
@@ -153,8 +153,10 @@ public class HandlerGlobala {
 				erregistro.setId(rs.getInt("ID"));
 				erregistro.setIzena(rs.getString("IZENA"));
 				erregistro.setAbizena(rs.getString("ABIZENA"));
-				erregistro.setHelbidea(rs.getString("HELBIDEA"));
+				erregistro.setNan(rs.getString("NAN"));
 				erregistro.setEmaila(rs.getString("EMAILA"));
+				erregistro.setHelbidea(rs.getString("HELBIDEA"));
+				erregistro.setZenbakia(rs.getString("ZENBAKIA"));
 				erregistro.setErabiltzaile(rs.getString("ERABILTZAILEA"));
 				erregistro.setPasahitza(rs.getString("PASAHITZA"));
 				bezeroTaula.add(erregistro);
@@ -264,7 +266,7 @@ public class HandlerGlobala {
 	// Bezero Errergistroa
 	private static final String ERABILTZAILE_GEHIKETA = "INSERT INTO BEZERO (IZENA, ABIZENA, EMAILA, ERABILTZAILEA, PASAHITZA) VALUES (?, ?, ?, ?, ?)";
 
-	protected void bezeroBerriaSortu(String erabiltzailea, String pasahitza) {
+	protected void erregistroBezeroBerriaSortu(String erabiltzailea, String pasahitza) {
 		Konexioa db = new Konexioa();
 		Connection konexioa = null;
 		PreparedStatement stmt = null;
@@ -285,9 +287,59 @@ public class HandlerGlobala {
 		} catch (SQLException e) {
 			System.out.println("ERROREA: " + e);
 			System.out.println("ERROREA: " + e.getCause());
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	};
+
+	protected void txertatuBezeroa(String izena, String abizena, String nan, String emaila, String helbidea,
+			String erabiltzailea, String pasahitza, String zenbakia) {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		CallableStatement cs = null;
+
+		String sql = "{CALL BEZERO_GEHIKETA(?, ?, ?, ?, ?, ?, ?, ?)}";
+
+		try {
+
+			konexioa = db.konektorea();
+			cs = konexioa.prepareCall(sql);
+
+			cs.setString(1, izena);
+			cs.setString(2, abizena);
+			cs.setString(3, nan);
+			cs.setString(4, emaila);
+			cs.setString(5, helbidea);
+			cs.setString(6, erabiltzailea);
+			cs.setString(7, pasahitza);
+			cs.setString(8, zenbakia);
+
+			cs.execute();
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+		} finally {
+			try {
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	// Saltzaile sortzeko metodoa
 	protected void txertatuSaltzailea(String izena, String abizena, String erabiltzailea, String pasahitza,
@@ -317,6 +369,15 @@ public class HandlerGlobala {
 		} catch (SQLException e) {
 			System.out.println("Errorea: " + e);
 			System.out.println("Errorea: " + e.getCause());
+		} finally {
+			try {
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -350,6 +411,49 @@ public class HandlerGlobala {
 			cs.setString(6, emaila);
 			cs.setString(7, telefonoa);
 			cs.setInt(8, soldata);
+
+			cs.execute();
+
+			System.out.println("Saltzailea eguneratuta. ID: " + id);
+
+		} catch (SQLException e) {
+			System.out.println("Errorea saltzailea eguneratzean: " + e);
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da saltzailea eguneratu", "Datu-baseko errorea: " + e.getMessage());
+		} finally {
+			try {
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	protected void eguneratuBezeroa(int id, String izena, String abizena, String nan, String emaila, String helbidea,
+			String erabiltzailea, String pasahitza, String zenbakia) {
+		
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		CallableStatement cs = null;
+
+		String sql = "{CALL BEZERO_ALDAKETA(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+		try {
+			konexioa = db.konektorea();
+			cs = konexioa.prepareCall(sql);
+
+			cs.setInt(1, id);
+			cs.setString(2, izena);
+			cs.setString(3, abizena);
+			cs.setString(4, nan);
+			cs.setString(5, emaila);
+			cs.setString(6, helbidea);
+			cs.setString(7, erabiltzailea);
+			cs.setString(8, pasahitza);
+			cs.setString(9, zenbakia);
 
 			cs.execute();
 
@@ -413,6 +517,39 @@ public class HandlerGlobala {
 			}
 		}
 	}
+	
+	// Método para eliminar usando procedimiento
+		protected void ezabatuBezeroa(int id) {
+			Konexioa db = new Konexioa();
+			Connection konexioa = null;
+			CallableStatement cs = null;
+
+			String sql = "{CALL BEZERO_EZABATU(?)}";
+
+			try {
+				konexioa = db.konektorea();
+				cs = konexioa.prepareCall(sql);
+				cs.setInt(1, id);
+				cs.execute();
+
+				System.out.println("Saltzailea ezabatuta. ID: " + id);
+
+			} catch (SQLException e) {
+				System.out.println("Errorea saltzailea ezabatzean: " + e);
+				e.printStackTrace();
+				irekiAlerta("Errorea", "Ezin izan da saltzailea ezabatu", "Datu-baseko errorea: " + e.getMessage());
+			} finally {
+				try {
+					if (cs != null)
+						cs.close();
+					if (konexioa != null)
+						konexioa.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 
 	/*
 	 * -----------------------------------------------EZABAKETAK

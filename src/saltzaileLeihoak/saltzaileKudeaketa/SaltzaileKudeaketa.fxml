@@ -13,21 +13,18 @@
       xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       
    <children>
-      <!-- Título -->
       <Label layoutX="117.0" layoutY="14.0" text="Saltzaile Gehitu/Ezabatu/Aldatu" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Cambria" size="25.0" />
          </font>
       </Label>
       
-      <!-- ✅ CORREGIDO: ImageView con la sintaxis correcta -->
       <ImageView fitHeight="64.0" fitWidth="62.0" layoutX="522.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../irudiak/usuario.png" />
          </image>
       </ImageView>
       
-      <!-- Columna izquierda -->
       <Label layoutX="25.0" layoutY="57.0" text="ID:">
          <font><Font size="20.0" /></font>
       </Label>
@@ -64,7 +61,6 @@
       <TextField fx:id="ipiniTelefonoa" layoutX="181.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" 
                  promptText="Telefonoa" />
       
-      <!-- Columna derecha -->
       <Label layoutX="359.0" layoutY="57.0" text="Nagusi:">
          <font><Font size="20.0" /></font>
       </Label>
@@ -83,7 +79,6 @@
       <TextField fx:id="ipiniSoldata" layoutX="359.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" 
                  promptText="Soldata (€)" />
       
-      <!-- Botones -->
       <Button fx:id="itzuliButton" onAction="#itzuli" layoutX="17.0" layoutY="339.0" text="Itzuli">
          <font><Font size="20.0" /></font>
       </Button>

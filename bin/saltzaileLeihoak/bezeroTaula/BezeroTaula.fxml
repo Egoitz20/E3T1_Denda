@@ -1,31 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="saltzaileLeihoak.bezeroTaula.BezeroTaulaKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="700.0"
+      spacing="10"
+      alignment="TOP_CENTER">
+      
    <children>
-      <Label layoutX="251.0" layoutY="26.0" text="Ikusi Bezeroak">
+      <Label text="Bezeroen informazioa">
          <font>
-            <Font name="Arial Black" size="12.0" />
+            <Font name="Calibri" size="25.0" />
          </font>
       </Label>
-      <TableView layoutX="67.0" layoutY="52.0" prefHeight="275.0" prefWidth="467.0">
+      
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
         <columns>
-          <TableColumn prefWidth="158.0" text="Izena" />
-          <TableColumn prefWidth="158.0" text="Emaila" />
-            <TableColumn prefWidth="150.0" text="Helbidea" />
+          <TableColumn fx:id="izenaColumn" prefWidth="200.0" text="Izena" />
+          <TableColumn fx:id="emailaColumn" prefWidth="250.0" text="Emaila" />
+          <TableColumn fx:id="helbideaColumn" prefWidth="200.0" text="Helbidea" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="390.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" text="Itzuli" underline="true" />
-      <TextField layoutX="92.0" layoutY="343.0" opacity="0.57" text="Ipini izena edo emaila" />
-      <ImageView fitHeight="25.0" fitWidth="39.0" layoutX="60.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/lupa.png" />
-         </image></ImageView>
-      <Pagination layoutX="499.0" layoutY="333.0" prefHeight="39.0" prefWidth="71.0" />
+      
+      <HBox spacing="10" alignment="CENTER">
+         <children>
+            <Pagination fx:id="pagination" />
+         </children>
+      </HBox>
+      
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../irudiak/lupa.png" />
+            </ImageView>
+            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu izena edo emaila..." />
+            <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>

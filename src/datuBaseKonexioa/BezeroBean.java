@@ -7,6 +7,8 @@ public class BezeroBean {
 	private String abizena;
 	private String helbidea;
 	private String emaila;
+	private String nan;
+	private String zenbakia;
 	private String erabiltzaile;
 	private String pasahitza;
 	
@@ -52,6 +54,20 @@ public class BezeroBean {
 	public void setPasahitza(String pasahitza) {
 		this.pasahitza = pasahitza;
 	}
+	public String getNan() {
+		return nan;
+	}
+	public void setNan(String nan) {
+		this.nan = nan;
+	}
+	public String getZenbakia() {
+		return zenbakia;
+	}
+	public void setZenbakia(String zenbakia) {
+		this.zenbakia = zenbakia;
+	}
+	
+	
 	
 	
 	
