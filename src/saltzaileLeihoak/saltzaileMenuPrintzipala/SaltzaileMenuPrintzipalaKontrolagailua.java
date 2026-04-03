@@ -13,7 +13,6 @@ import saltzaileLeihoak.saltzaileTaula.SaltzaileTaula;
 
 public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 
-    // Añadido: Referencia al menú del FXML
     @FXML
     private Menu saltzaileMenu;
     

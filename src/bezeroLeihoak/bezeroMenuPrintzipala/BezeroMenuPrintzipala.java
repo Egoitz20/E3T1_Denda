@@ -16,6 +16,9 @@ public class BezeroMenuPrintzipala extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroMenuPrintzipala.fxml"));
 		Scene scene = new Scene(loader.load());
 
+		BezeroMenuPrintzipalaKontrolagailua controller = loader.getController();
+		controller.setStage(primaryStage);
+
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Bezero Menu Printzipala");
 		primaryStage.show();

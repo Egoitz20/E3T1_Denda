@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:controller="bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua"  alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="151.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="0.0" prefWidth="249.0" />
@@ -27,7 +27,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Bezeroarentzako arreta">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Formularioa" />
+                  <MenuItem onAction="#irekiArreta" mnemonicParsing="false" text="Formularioa" />
                </items>
           </Menu>
         </menus>
@@ -36,11 +36,11 @@
         <menus>
           <Menu mnemonicParsing="false" text="Denda">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Storage" />
-                  <MenuItem mnemonicParsing="false" text="Mother board" />
-                  <MenuItem mnemonicParsing="false" text="Video Card" />
-                  <MenuItem mnemonicParsing="false" text="RAM" />
-              <MenuItem mnemonicParsing="false" text="CPU" />
+                  <MenuItem onAction="#irekiStorageTaula" mnemonicParsing="false" text="Storage" />
+                  <MenuItem onAction="#irekiMotherBoardTaula" mnemonicParsing="false" text="Mother board" />
+                  <MenuItem onAction="#irekiVideoCardTaula" mnemonicParsing="false" text="Video Card" />
+                  <MenuItem onAction="#irekiRamTaula" mnemonicParsing="false" text="RAM" />
+              <MenuItem onAction="#irekiCpuTaula" mnemonicParsing="false" text="CPU" />
                </items>
           </Menu>
         </menus>
@@ -52,9 +52,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="Kaixo, &quot;bezeroIzena&quot;">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Saioaren informazioa" />
-              <MenuItem mnemonicParsing="false" text="Otzara" />
-                  <MenuItem mnemonicParsing="false" text="Saioa itxi" />
+                  <MenuItem onAction="#irekiSaioarenInformazioa" mnemonicParsing="false" text="Saioaren informazioa" />
+              <MenuItem onAction="#irekiOtzara" mnemonicParsing="false" text="Otzara" />
+                  <MenuItem onAction="#saioaItxi" mnemonicParsing="false" text="Saioa itxi" />
             </items>
           </Menu>
         </menus>

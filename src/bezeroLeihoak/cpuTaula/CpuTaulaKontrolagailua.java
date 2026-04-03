@@ -1,6 +1,8 @@
 package bezeroLeihoak.cpuTaula;
 
-public class CpuTaulaKontrolagailua {
+import kontrolagailuGlobala.HandlerGlobala;
+
+public class CpuTaulaKontrolagailua extends HandlerGlobala {
 
 	public CpuTaulaKontrolagailua() {
 		// TODO Auto-generated constructor stub

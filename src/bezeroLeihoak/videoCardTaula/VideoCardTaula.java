@@ -1,14 +1,30 @@
 package bezeroLeihoak.videoCardTaula;
 
-public class VideoCardTaula {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class VideoCardTaula extends Application {
 
 	public VideoCardTaula() {
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("VideoCardTaula.fxml"));
+		Scene scene = new Scene(loader.load());
+
+		VideoCardTaulaKontrolagailua controller = loader.getController();
+		controller.setStage(primaryStage);
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Video Card Lista");
+		primaryStage.show();
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		launch();
 	}
 
 }

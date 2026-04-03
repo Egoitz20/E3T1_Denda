@@ -1,6 +1,8 @@
 package bezeroLeihoak.erosiMetodoa;
 
-public class ErosiMetodoaKontrolagailua {
+import kontrolagailuGlobala.HandlerGlobala;
+
+public class ErosiMetodoaKontrolagailua extends HandlerGlobala {
 
 	public ErosiMetodoaKontrolagailua() {
 		// TODO Auto-generated constructor stub

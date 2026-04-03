@@ -1,6 +1,8 @@
 package bezeroLeihoak.motherBoardTaula;
 
-public class MotherBoardTaulaKontrolagailua {
+import kontrolagailuGlobala.HandlerGlobala;
+
+public class MotherBoardTaulaKontrolagailua extends HandlerGlobala {
 
 	public MotherBoardTaulaKontrolagailua() {
 		// TODO Auto-generated constructor stub

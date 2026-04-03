@@ -1,14 +1,31 @@
 package bezeroLeihoak.bezeroArreta;
 
-public class BezeroArreta {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class BezeroArreta extends Application {
 
 	public BezeroArreta() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroArreta.fxml"));
+		Scene scene = new Scene(loader.load());
 
+		BezeroArretaKontrolagailua controller = loader.getController();
+		controller.setStage(primaryStage);
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Bezero Arreta");
+		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch();
 	}
 
 }
