@@ -13,7 +13,7 @@ import datuBaseKonexioa.BezeroBean;
 import datuBaseKonexioa.EskaerakBean;
 import datuBaseKonexioa.Konexioa;
 import datuBaseKonexioa.LangileSaltzaileBean;
-import datuBaseKonexioa.SaltzaileBean;
+import datuBaseKonexioa.ProduktuBean;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -131,7 +131,6 @@ public class HandlerGlobala {
 	 */
 
 	private static final String BEZERO_TAULA = "SELECT * FROM BISTA_BEZERO_BEZEROTELEFONO";
-	private static final String SALTZAILE_TAULA = "SELECT * FROM SALTZAILE";
 	private static final String LANGILESALTZAILE_TAULA = "SELECT * FROM BISTA_LANGILESALTZAILE";
 
 	// Bezeroak datu-basetik jasotzeko metodoa
@@ -171,41 +170,6 @@ public class HandlerGlobala {
 			System.out.println("Errorea: " + e.getCause());
 		}
 		return bezeroTaula;
-	}
-
-	// Saltzaileak datu-basetik jasotzeko metodoa
-	protected ArrayList<SaltzaileBean> jasoSaltzaileak() {
-
-		Konexioa db = new Konexioa();
-		Connection konexioa = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		SaltzaileBean erregistro;
-		ArrayList<SaltzaileBean> saltzaileTaula = new ArrayList<SaltzaileBean>();
-
-		try {
-			konexioa = db.konektorea();
-			stmt = konexioa.createStatement();
-			rs = stmt.executeQuery(SALTZAILE_TAULA);
-			while (rs.next()) {
-				erregistro = new SaltzaileBean();
-				erregistro.setId(rs.getInt("ID"));
-				erregistro.setErabiltzailea(rs.getString("ERABILTZAILEA"));
-				erregistro.setPasahitza(rs.getString("PASAHITZA"));
-				saltzaileTaula.add(erregistro);
-			}
-
-			rs.close();
-			stmt.close();
-			konexioa.close();
-
-		} catch (SQLException e) {
-			System.out.println("Errorea: " + e);
-			System.out.println("Errorea: " + e.getCause());
-		}
-
-		return saltzaileTaula;
-
 	}
 
 	// Saltzaileak informazio gehiago datu-basetik jasotzeko metodoa (INNER JOIN
@@ -305,6 +269,48 @@ public class HandlerGlobala {
 		}
 
 		return produktuEskaeraTaula;
+	}
+
+	private static final String DENDAKO_PRODUKTUAK = "SELECT PRODUKTU.ID, PRODUKTU.IZENA, PRODUKTU.DESKRIBAPENA, PRODUKTU.SALNEURRIA FROM PRODUKTU \r\n"
+			+ "INNER JOIN KATEGORIA ON PRODUKTU.ID_KATEGORIA = KATEGORIA.ID\r\n" + "WHERE KATEGORIA.IZENA = ?";
+
+	protected ArrayList<ProduktuBean> jasoProduktuak(String kategoria) {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProduktuBean erregistro;
+		ArrayList<ProduktuBean> produktuTaula = new ArrayList<ProduktuBean>();
+
+		try {
+			konexioa = db.konektorea();
+			pstmt = konexioa.prepareStatement(DENDAKO_PRODUKTUAK);
+
+			pstmt.setString(1, kategoria);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				erregistro = new ProduktuBean();
+				erregistro.setId(rs.getInt("PRODUKTU.ID"));
+				erregistro.setIzena(rs.getString("PRODUKTU.IZENA"));
+				erregistro.setDeskribapena(rs.getString("PRODUKTU.DESKRIBAPENA"));
+				erregistro.setSalneurria(rs.getDouble("PRODUKTU.SALNEURRIA"));
+				produktuTaula.add(erregistro);
+			}
+
+			rs.close();
+			pstmt.close();
+			konexioa.close();
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+			e.printStackTrace();
+		}
+
+		return produktuTaula;
 	}
 
 	/*
