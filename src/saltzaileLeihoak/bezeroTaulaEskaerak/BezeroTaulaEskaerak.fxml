@@ -6,35 +6,46 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="saltzaileLeihoak.bezeroTaulaEskaerak.BezeroTaulaEskaerakKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="700.0"
+      spacing="10"
+      alignment="TOP_CENTER">
+      
    <children>
-      <TableView layoutX="200.0" layoutY="58.0" prefHeight="244.0" prefWidth="200.0">
-        <columns>
-          <TableColumn prefWidth="199.0" text="Bezero Izena" />
-        </columns>
-      </TableView>
-      <Label layoutX="191.0" layoutY="14.0" text="Ikusi Bezero Eskaerak">
+      <Label text="Ikusi Bezero Eskaerak">
          <font>
             <Font name="Calibri" size="25.0" />
          </font>
       </Label>
-      <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="23.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/lupa.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="23.0" layoutY="348.0" mnemonicParsing="false" text="Itzuli">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <TextField layoutX="59.0" layoutY="314.0" promptText="Ipini izena" />
-      <Pagination layoutX="492.0" layoutY="316.0" prefHeight="47.0" prefWidth="79.0" />
-      <Button layoutX="409.0" layoutY="86.0" mnemonicParsing="false" text="-&gt;" />
-      <Button layoutX="409.0" layoutY="118.0" mnemonicParsing="false" text="-&gt;" />
-      <Button layoutX="409.0" layoutY="155.0" mnemonicParsing="false" text="-&gt;" />
-      <Button layoutX="409.0" layoutY="188.0" mnemonicParsing="false" text="-&gt;" />
-      <Button layoutX="409.0" layoutY="221.0" mnemonicParsing="false" text="-&gt;" />
+      
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+        <columns>
+          <TableColumn fx:id="izenaAbizenaColumn" prefWidth="250.0" text="Bezero Izena" />
+          <TableColumn fx:id="actionColumn" prefWidth="100.0" text="Ekintzak" />
+        </columns>
+      </TableView>
+      
+      <HBox spacing="10" alignment="CENTER">
+         <children>
+            <Pagination fx:id="pagination" />
+         </children>
+      </HBox>
+      
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../irudiak/lupa.png" />
+            </ImageView>
+            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu bezero izena..." />
+            <Button onAction="#itzuli" text="Itzuli">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>

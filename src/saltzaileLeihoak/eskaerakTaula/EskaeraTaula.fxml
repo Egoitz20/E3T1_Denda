@@ -1,32 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="saltzaileLeihoak.eskaerakTaula.EskaerakTaulaKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="900.0"
+      spacing="10"
+      alignment="TOP_CENTER">
+      
    <children>
-      <Label layoutX="215.0" layoutY="5.0" text="Ikusi Produktuak">
+      <Label fx:id="bezeroIzenburua" text="Bezeroaren Eskaerak">
          <font>
             <Font name="Calibri" size="25.0" />
          </font>
       </Label>
-      <TableView layoutY="32.0" prefHeight="300.0" prefWidth="600.0">
+      
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
         <columns>
-          <TableColumn prefWidth="237.0" text="Produktu Izena" />
-          <TableColumn prefWidth="107.0" text="Kopurua" />
-            <TableColumn prefWidth="99.0" text="Eskari Egoera" />
-            <TableColumn prefWidth="93.0" text="Eskaera Data" />
-            <TableColumn prefWidth="63.0" text="Saltzailea" />
+          <TableColumn fx:id="produktuIzenaColumn" prefWidth="200.0" text="Produktu Izena" />
+          <TableColumn fx:id="produktuKategoriaColumn" prefWidth="150.0" text="Kategoria" />
+          <TableColumn fx:id="produktuKopuruaColumn" prefWidth="80.0" text="Kopurua" />
+          <TableColumn fx:id="produktuEgoeraColumn" prefWidth="150.0" text="Eskari Egoera" />
+          <TableColumn fx:id="produktuEskaeraDataColumn" prefWidth="150.0" text="Eskaera Data" />
+          <TableColumn fx:id="saltzaileIzenaColumn" prefWidth="150.0" text="Saltzailea" />
         </columns>
       </TableView>
-      <Pagination layoutX="522.0" layoutY="339.0" prefHeight="57.0" prefWidth="61.0" />
-      <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" text="OK">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
+      
+      <HBox spacing="10" alignment="CENTER">
+         <children>
+            <Pagination fx:id="pagination" />
+         </children>
+      </HBox>
+      
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../irudiak/lupa.png" />
+            </ImageView>
+            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu produktua, kategoria edo saltzailea..." />
+            <Button onAction="#itzuli" text="Itzuli">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>

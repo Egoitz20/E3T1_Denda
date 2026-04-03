@@ -1,91 +1,131 @@
 package saltzaileLeihoak.saltzaileMenuPrintzipala;
 
+import datuBaseKonexioa.LangileSaltzaileBean;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.stage.Stage;
 import kontrolagailuGlobala.HandlerGlobala;
 import saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketa;
 import saltzaileLeihoak.bezeroTaula.BezeroTaula;
+import saltzaileLeihoak.bezeroTaulaEskaerak.BezeroTaulaEskaerak;
 import saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketa;
 import saltzaileLeihoak.saltzaileTaula.SaltzaileTaula;
 
 public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 
-	public SaltzaileMenuPrintzipalaKontrolagailua() {
-	}
+    // Añadido: Referencia al menú del FXML
+    @FXML
+    private Menu saltzaileMenu;
+    
+    private LangileSaltzaileBean saltzaileData;  // Logeatutako saltzailearen datuak
 
-	// Saltzaile taula irekitzeko metodoa
-	@FXML
-	public void irekiSaltzaileTaula() {
-		try {
-			SaltzaileTaula saltzaileTaula = new SaltzaileTaula();
-			Stage newStage = new Stage();
-			saltzaileTaula.start(newStage);
+    public SaltzaileMenuPrintzipalaKontrolagailua() {
+    }
+    
+    // Leihotik saltzailearen datuak jasotzeko metodoa 
+    public void setSaltzaileData(LangileSaltzaileBean data) {
+        this.saltzaileData = data;
+        eguneratuMenuTestua();  // Menuaren testua eguneratzen du
+    }
+    
+    // Saltzailearen ID eta Izena menu testua eguneraketa metodoa
+    private void eguneratuMenuTestua() {
+        if (saltzaileMenu != null && saltzaileData != null) {
+        		// ID eta izena osoa separatuta bistaratu
+            String menuText = saltzaileData.getId() + " - " + saltzaileData.getLangileIzenaAbizena();
+            saltzaileMenu.setText(menuText);
+        }
+    }
 
-			itxiOraingoLeihoa();
+    // Saltzaile taula irekitzeko metodoa
+    @FXML
+    public void irekiSaltzaileTaula() {
+        try {
+            SaltzaileTaula saltzaileTaula = new SaltzaileTaula();
+            Stage newStage = new Stage();
+            saltzaileTaula.start(newStage);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-					"Errorea saltzaileen taula irekitzean: " + e.getMessage());
-		}
-	}
+            itxiOraingoLeihoa();
 
-	// Bezero taula irekitzeko metodoa
-	@FXML
-	public void irekiBezeroTaula() {
-		try {
-			BezeroTaula bezeroTaula = new BezeroTaula();
-			Stage newStage = new Stage();
-			bezeroTaula.start(newStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+                    "Errorea saltzaileen taula irekitzean: " + e.getMessage());
+        }
+    }
 
-			itxiOraingoLeihoa();
+    // Bezero taula irekitzeko metodoa
+    @FXML
+    public void irekiBezeroTaula() {
+        try {
+            BezeroTaula bezeroTaula = new BezeroTaula();
+            Stage newStage = new Stage();
+            bezeroTaula.start(newStage);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-					"Errorea bezeroen taula irekitzean: " + e.getMessage());
-		}
-	}
-	
-	// Bezero taula irekitzeko metodoa
-		@FXML
-		public void irekiBezeroKudeaketa() {
-			try {
-				BezeroKudeaketa bezeroTaula = new BezeroKudeaketa();
-				Stage newStage = new Stage();
-				bezeroTaula.start(newStage);
+            itxiOraingoLeihoa();
 
-				itxiOraingoLeihoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            irekiAlerta("Errorea", "Ezin izan da leihoa ireki", 
+                       "Errorea bezeroen taula irekitzean: " + e.getMessage());
+        }
+    }
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-						"Errorea bezeroen taula irekitzean: " + e.getMessage());
-			}
-		}
+    // Bezero kudeaketa irekitzeko metodoa
+    @FXML
+    public void irekiBezeroKudeaketa() {
+        try {
+            BezeroKudeaketa bezeroKudeaketa = new BezeroKudeaketa();
+            Stage newStage = new Stage();
+            bezeroKudeaketa.start(newStage);
 
-	// Saltzaile taula irekitzeko metodoa
-	@FXML
-	public void irekiSaltzaileKudeaketa() {
-		try {
-			SaltzaileKudeaketa saltzaileTaula = new SaltzaileKudeaketa();
-			Stage newStage = new Stage();
-			saltzaileTaula.start(newStage);
+            itxiOraingoLeihoa();
 
-			itxiOraingoLeihoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            irekiAlerta("Errorea", "Ezin izan da leihoa ireki", 
+                       "Errorea bezeroen taula irekitzean: " + e.getMessage());
+        }
+    }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-					"Errorea saltzaileen kudeaketa irekitzean: " + e.getMessage());
-		}
-	}
+    // Saltzaile kudeaketa irekitzeko metodoa
+    @FXML
+    public void irekiSaltzaileKudeaketa() {
+        try {
+            SaltzaileKudeaketa saltzaileKudeaketa = new SaltzaileKudeaketa();
+            Stage newStage = new Stage();
+            saltzaileKudeaketa.start(newStage);
 
-	// Saioa ixteko metodoa
-	@FXML
-	public void saioaIxten() {
-		itxiOraingoLeihoa();
-		irekiLogina();
-	}
+            itxiOraingoLeihoa();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+                    "Errorea saltzaileen kudeaketa irekitzean: " + e.getMessage());
+        }
+    }
+
+    // Bezero taula eskaerak irekitzeko metodoa
+    @FXML
+    public void irekiBezeroTaulaEskaerak() {
+        try {
+            BezeroTaulaEskaerak bezeroTaulaEskaerak = new BezeroTaulaEskaerak();
+            Stage newStage = new Stage();
+            bezeroTaulaEskaerak.start(newStage);
+
+            itxiOraingoLeihoa();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+                    "Errorea bezeroen taula eskaerak irekitzean: " + e.getMessage());
+        }
+    }
+
+    // Saioa ixteko metodoa
+    @FXML
+    public void saioaIxten() {
+        itxiOraingoLeihoa();
+        irekiLogina();
+    }
 }

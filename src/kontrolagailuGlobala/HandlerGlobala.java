@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipala;
 import datuBaseKonexioa.BezeroBean;
+import datuBaseKonexioa.EskaerakBean;
 import datuBaseKonexioa.Konexioa;
 import datuBaseKonexioa.LangileSaltzaileBean;
 import datuBaseKonexioa.SaltzaileBean;
@@ -252,6 +253,60 @@ public class HandlerGlobala {
 
 	}
 
+	private static final String ESKAERA_PRODUKTU_TAULA = "SELECT PRODUKTU.IZENA AS PRODUKTU, KATEGORIA.IZENA AS KATEGORIA, "
+			+ "ESKARI_LERRO.KOPURUA, ESKARI.ESKAERA_DATA AS DATA, ESKARI_EGOERA.DESKRIBAPENA AS DESKRIBAPEN, "
+			+ "CONCAT(LANGILE.IZENA, ' ', LANGILE.ABIZENA) AS SALTZAILEA " + "FROM PRODUKTU "
+			+ "INNER JOIN KATEGORIA ON PRODUKTU.ID_KATEGORIA = KATEGORIA.ID "
+			+ "INNER JOIN ESKARI_LERRO ON PRODUKTU.ID = ESKARI_LERRO.ID_PRODUKTU "
+			+ "INNER JOIN ESKARI ON ESKARI_LERRO.ID_ESKARI = ESKARI.ID "
+			+ "INNER JOIN ESKARI_EGOERA ON ESKARI.ID_EGOERA = ESKARI_EGOERA.ID "
+			+ "INNER JOIN SALTZAILE ON ESKARI.ID_SALTZAILE = SALTZAILE.ID "
+			+ "INNER JOIN LANGILE ON SALTZAILE.ID = LANGILE.ID " + "INNER JOIN BEZERO ON ESKARI.ID_BEZERO = BEZERO.ID "
+			+ "WHERE BEZERO.IZENA = ? AND BEZERO.ABIZENA = ?";
+
+	// Bezeroen eskatutako produktuak jasotzeko metodoa
+	protected ArrayList<EskaerakBean> jasoBezeroenProduktuEskaerak(String izena, String abizena) {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		EskaerakBean erregistro;
+		ArrayList<EskaerakBean> produktuEskaeraTaula = new ArrayList<EskaerakBean>();
+
+		try {
+			konexioa = db.konektorea();
+			pstmt = konexioa.prepareStatement(ESKAERA_PRODUKTU_TAULA);
+
+			pstmt.setString(1, izena);
+			pstmt.setString(2, abizena);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				erregistro = new EskaerakBean();
+				erregistro.setProduktu(rs.getString("PRODUKTU"));
+				erregistro.setKategoria(rs.getString("KATEGORIA"));
+				erregistro.setKopurua(rs.getInt("KOPURUA"));
+				erregistro.setEskaera_data(rs.getDate("DATA"));
+				erregistro.setDeskribapena(rs.getString("DESKRIBAPEN"));
+				erregistro.setSaltzailea(rs.getString("SALTZAILEA"));
+				produktuEskaeraTaula.add(erregistro);
+			}
+
+			rs.close();
+			pstmt.close();
+			konexioa.close();
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+			e.printStackTrace();
+		}
+
+		return produktuEskaeraTaula;
+	}
+
 	/*
 	 * -----------------------------------------------KONTSULTAK
 	 * AMAIERA----------------------------------------------------------------------
@@ -434,7 +489,7 @@ public class HandlerGlobala {
 
 	protected void eguneratuBezeroa(int id, String izena, String abizena, String nan, String emaila, String helbidea,
 			String erabiltzailea, String pasahitza, String zenbakia) {
-		
+
 		Konexioa db = new Konexioa();
 		Connection konexioa = null;
 		CallableStatement cs = null;
@@ -517,39 +572,38 @@ public class HandlerGlobala {
 			}
 		}
 	}
-	
+
 	// Método para eliminar usando procedimiento
-		protected void ezabatuBezeroa(int id) {
-			Konexioa db = new Konexioa();
-			Connection konexioa = null;
-			CallableStatement cs = null;
+	protected void ezabatuBezeroa(int id) {
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		CallableStatement cs = null;
 
-			String sql = "{CALL BEZERO_EZABATU(?)}";
+		String sql = "{CALL BEZERO_EZABATU(?)}";
 
+		try {
+			konexioa = db.konektorea();
+			cs = konexioa.prepareCall(sql);
+			cs.setInt(1, id);
+			cs.execute();
+
+			System.out.println("Saltzailea ezabatuta. ID: " + id);
+
+		} catch (SQLException e) {
+			System.out.println("Errorea saltzailea ezabatzean: " + e);
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da saltzailea ezabatu", "Datu-baseko errorea: " + e.getMessage());
+		} finally {
 			try {
-				konexioa = db.konektorea();
-				cs = konexioa.prepareCall(sql);
-				cs.setInt(1, id);
-				cs.execute();
-
-				System.out.println("Saltzailea ezabatuta. ID: " + id);
-
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
 			} catch (SQLException e) {
-				System.out.println("Errorea saltzailea ezabatzean: " + e);
 				e.printStackTrace();
-				irekiAlerta("Errorea", "Ezin izan da saltzailea ezabatu", "Datu-baseko errorea: " + e.getMessage());
-			} finally {
-				try {
-					if (cs != null)
-						cs.close();
-					if (konexioa != null)
-						konexioa.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 			}
 		}
-
+	}
 
 	/*
 	 * -----------------------------------------------EZABAKETAK
