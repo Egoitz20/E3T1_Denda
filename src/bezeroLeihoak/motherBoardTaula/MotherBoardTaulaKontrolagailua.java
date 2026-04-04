@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import kontrolagailuGlobala.HandlerGlobala;
+import kontrolagailuGlobala.OtzaraGlobala;
 
 public class MotherBoardTaulaKontrolagailua extends HandlerGlobala {
 
@@ -71,30 +72,21 @@ public class MotherBoardTaulaKontrolagailua extends HandlerGlobala {
 
 	@FXML
 	public void gehituOtzara() {
-		// Recoger todos los productos con cantidad > 0
-		Map<ProduktuBean, Integer> otzarakoProduktuak = new HashMap<>();
+		OtzaraGlobala otzara = OtzaraGlobala.getInstantzia();
 
 		for (ProduktuBean produktu : motherBoardList) {
 			int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
 			if (kantitatea > 0) {
-				otzarakoProduktuak.put(produktu, kantitatea);
+				otzara.gehituProduktua(produktu, kantitatea);
+				// Resetear cantidad después de añadir
+				kantitateak.put(produktu.getId(), 0);
 			}
 		}
 
-		if (otzarakoProduktuak.isEmpty()) {
-			irekiAlerta("Informazioa", "Otzara hutsik", "Ez duzu produkturik aukeratu.");
-			return;
-		}
+		// Refrescar la tabla para que los contadores vuelvan a 0
+		eguneratuBezeroKteagoriaOrriaDatuak(pagination.getCurrentPageIndex(), motherBoardList, tableView);
 
-		// TODO: Aquí llamarías al método para añadir los productos a la cesta
-		// Por ahora mostramos un mensaje
-		StringBuilder mezua = new StringBuilder("Otzaran gehitu diren produktuak:\n");
-		for (Map.Entry<ProduktuBean, Integer> entry : otzarakoProduktuak.entrySet()) {
-			mezua.append("- ").append(entry.getKey().getIzena()).append(": ").append(entry.getValue())
-					.append(" unitate\n");
-		}
-
-		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", mezua.toString());
+		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", "Produktuak ondo gehitu dira zure otzaran.");
 	}
 
 	private void konfiguratuKantitateaZutabea() {

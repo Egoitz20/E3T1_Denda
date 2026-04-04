@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import kontrolagailuGlobala.HandlerGlobala;
+import kontrolagailuGlobala.OtzaraGlobala;
 
 public class RamTaulaKontrolagailua extends HandlerGlobala {
 
@@ -75,35 +76,22 @@ public class RamTaulaKontrolagailua extends HandlerGlobala {
 
 	@FXML
 	public void gehituOtzara() {
-		// Sortutako mapa bat gordetzeko produktu > 0 kantitatearekin
-		Map<ProduktuBean, Integer> otzarakoProduktuak = new HashMap<>();
-
-		// Rekorritu RAM produktu denak
-		for (ProduktuBean produktu : ramList) {
-			// Erabakitutako kantitatea lortu (Ez bada existitzen, 0 itzuliko da)
-			int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
-			if (kantitatea > 0) {
-				// Unitateren bat badarama bakarrik gorde
-
-				otzarakoProduktuak.put(produktu, kantitatea);
-			}
-		}
-
-		// Ezer ez badago, itzuli mesua
-		if (otzarakoProduktuak.isEmpty()) {
-			irekiAlerta("Informazioa", "Otzara hutsik", "Ez duzu produkturik aukeratu.");
-			return;
-		}
-
-		// TODO: Aquí llamarías al método para añadir los productos a la cesta
-		// Oraindik bistarako da mesu bat ,non, agertuko den laburpen bat geitutarekin
-		StringBuilder mezua = new StringBuilder("Otzaran gehitu diren produktuak:\n");
-		for (Map.Entry<ProduktuBean, Integer> entry : otzarakoProduktuak.entrySet()) {
-			mezua.append("- ").append(entry.getKey().getIzena()).append(": ").append(entry.getValue())
-					.append(" unitate\n");
-		}
-
-		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", mezua.toString());
+		OtzaraGlobala otzara = OtzaraGlobala.getInstantzia();
+	    
+	    for (ProduktuBean produktu : ramList) {
+	        int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
+	        if (kantitatea > 0) {
+	            otzara.gehituProduktua(produktu, kantitatea);
+	            // Resetear cantidad después de añadir
+	            kantitateak.put(produktu.getId(), 0);
+	        }
+	    }
+	    
+	    // Refrescar la tabla para que los contadores vuelvan a 0
+	    eguneratuBezeroKteagoriaOrriaDatuak(pagination.getCurrentPageIndex(), ramList, tableView);
+	    
+	    irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", 
+	                "Produktuak ondo gehitu dira zure otzaran.");
 	}
 
 	private void konfiguratuKantitateaZutabea() {

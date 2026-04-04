@@ -694,7 +694,7 @@ public class HandlerGlobala {
 		eguneratuBezeroKteagoriaOrriaDatuak(0, filtrazioList, tableView);
 	}
 
-	private void eguneratuBezeroKteagoriaOrriaDatuak(int indexOrria, ObservableList<ProduktuBean> filtrazioList,
+	protected void eguneratuBezeroKteagoriaOrriaDatuak(int indexOrria, ObservableList<ProduktuBean> filtrazioList,
 			TableView<ProduktuBean> tableView) {
 		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE;
 		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());

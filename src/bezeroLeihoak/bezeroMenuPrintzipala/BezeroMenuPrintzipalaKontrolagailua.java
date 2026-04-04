@@ -1,5 +1,11 @@
 package bezeroLeihoak.bezeroMenuPrintzipala;
 
+import datuBaseKonexioa.BezeroBean;
+import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
+import javafx.stage.Stage;
+import kontrolagailuGlobala.HandlerGlobala;
+import kontrolagailuGlobala.OtzaraGlobala;
 import bezeroLeihoak.bezeroArreta.BezeroArreta;
 import bezeroLeihoak.cpuTaula.CpuTaula;
 import bezeroLeihoak.motherBoardTaula.MotherBoardTaula;
@@ -8,13 +14,27 @@ import bezeroLeihoak.ramTaula.RamTaula;
 import bezeroLeihoak.saioInformazioa.SaioInformazioa;
 import bezeroLeihoak.storageTaula.StorageTaula;
 import bezeroLeihoak.videoCardTaula.VideoCardTaula;
-import javafx.fxml.FXML;
-import javafx.stage.Stage;
-import kontrolagailuGlobala.HandlerGlobala;
 
 public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 
+	@FXML
+	private Menu bezeroMenu;
+
+	private BezeroBean bezeroData;
+
 	public BezeroMenuPrintzipalaKontrolagailua() {
+	}
+
+	public void setBezeroData(BezeroBean data) {
+		this.bezeroData = data;
+		eguneratuMenuTestua();
+	}
+
+	private void eguneratuMenuTestua() {
+		if (bezeroMenu != null && bezeroData != null) {
+			String izenaOsoa = bezeroData.getIzena() + " " + bezeroData.getAbizena();
+			bezeroMenu.setText("Kaixo, " + izenaOsoa);
+		}
 	}
 
 	@FXML
@@ -23,9 +43,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			BezeroArreta arreta = new BezeroArreta();
 			Stage newStage = new Stage();
 			arreta.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki", "Errorea arreta leihoa irekitzean: " + e.getMessage());
@@ -38,9 +56,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			StorageTaula storageTaula = new StorageTaula();
 			Stage newStage = new Stage();
 			storageTaula.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki", "Errorea storage taula irekitzean: " + e.getMessage());
@@ -53,9 +69,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			MotherBoardTaula motherBoardTaula = new MotherBoardTaula();
 			Stage newStage = new Stage();
 			motherBoardTaula.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
@@ -69,9 +83,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			VideoCardTaula videoCardTaula = new VideoCardTaula();
 			Stage newStage = new Stage();
 			videoCardTaula.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
@@ -85,9 +97,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			RamTaula ramTaula = new RamTaula();
 			Stage newStage = new Stage();
 			ramTaula.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki", "Errorea ram taula irekitzean: " + e.getMessage());
@@ -100,9 +110,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			CpuTaula cpuTaula = new CpuTaula();
 			Stage newStage = new Stage();
 			cpuTaula.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki", "Errorea cpu taula irekitzean: " + e.getMessage());
@@ -115,9 +123,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			SaioInformazioa saioInformazioa = new SaioInformazioa();
 			Stage newStage = new Stage();
 			saioInformazioa.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
@@ -131,9 +137,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			Otzara otzara = new Otzara();
 			Stage newStage = new Stage();
 			otzara.start(newStage);
-
 			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki", "Errorea otzara irekitzean: " + e.getMessage());
@@ -142,8 +146,9 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 
 	@FXML
 	public void saioaItxi() {
+		// Garbitu otzara saioa itxitakoan
+		OtzaraGlobala.getInstantzia().garbitu();
 		itxiOraingoLeihoa();
 		irekiLogina();
 	}
-
 }

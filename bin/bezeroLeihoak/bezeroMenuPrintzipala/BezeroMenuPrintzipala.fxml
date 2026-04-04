@@ -50,7 +50,7 @@
       </MenuBar>
       <MenuBar prefHeight="116.0" prefWidth="173.0" GridPane.columnIndex="2">
         <menus>
-          <Menu mnemonicParsing="false" text="Kaixo, &quot;bezeroIzena&quot;">
+          <Menu fx:id="bezeroMenu" mnemonicParsing="false" text="Kaixo, &quot;bezeroIzena&quot;">
             <items>
                   <MenuItem onAction="#irekiSaioarenInformazioa" mnemonicParsing="false" text="Saioaren informazioa" />
               <MenuItem onAction="#irekiOtzara" mnemonicParsing="false" text="Otzara" />

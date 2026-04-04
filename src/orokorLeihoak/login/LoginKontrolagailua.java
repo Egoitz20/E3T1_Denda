@@ -2,6 +2,7 @@ package orokorLeihoak.login;
 
 import java.util.ArrayList;
 
+import bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipala;
 import datuBaseKonexioa.BezeroBean;
 import datuBaseKonexioa.LangileSaltzaileBean;
 import javafx.fxml.FXML;
@@ -14,115 +15,143 @@ import saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipala;
 
 public class LoginKontrolagailua extends HandlerGlobala {
 
-    @FXML
-    private TextField erabiltzaileak;
+	@FXML
+	private TextField erabiltzaileak;
 
-    @FXML
-    private PasswordField pasahitza;
+	@FXML
+	private PasswordField pasahitza;
 
-    // Saltzaile gordetzeko aldagaia
-    private LangileSaltzaileBean saltzaileLogueado;
+	// Saltzaile gordetzeko aldagaia
+	private LangileSaltzaileBean saltzaileLogueado;
 
-    public LoginKontrolagailua() {
-    }
+	private BezeroBean bezeroLogueado;
 
-    // 'Sartu' botoia sakatzen denean metodoa.
-    @FXML
-    public void sartu() {
+	public LoginKontrolagailua() {
+	}
 
-        String jasotakoErabiltzailea = erabiltzaileak.getText();
-        String jasotakoPasahitza = pasahitza.getText();
+	// 'Sartu' botoia sakatzen denean metodoa.
+	@FXML
+	public void sartu() {
+		String jasotakoErabiltzailea = erabiltzaileak.getText();
+		String jasotakoPasahitza = pasahitza.getText();
 
-        if (jasotakoErabiltzailea.isEmpty() || jasotakoPasahitza.isEmpty()) {
-            irekiAlerta("Errorea", "Erabiltzailea eta pasahitza bete behar dira",
-                    "Mesedez, bete erabiltzailea eta pasahitza.");
-            return;
-        }
-        
-        // Lehenengo saltzaile baldin bada komprobatuko du eta gero beren datu gustiak jasoko ditu
-        if (konprobatuEtaLortuSaltzailea(jasotakoErabiltzailea, jasotakoPasahitza)) {
-            irekiSaltzaileMenuPrintzipalaDatuekin();
-        }
- 
-        // Ez bada, komprobatu bezero baldin bada
-        else if (konprobatuBezeroa(jasotakoErabiltzailea, jasotakoPasahitza)) {
-            irekiBezeroMenuPrintzipala();
-        }
-        else {
-            irekiAlerta("Errorea", "Erabiltzailea edo pasahitza okerra",
-                    "Sartutako erabiltzailea edo pasahitza ez da zuzena.");
-        }
-    }
+		if (jasotakoErabiltzailea.isEmpty() || jasotakoPasahitza.isEmpty()) {
+			irekiAlerta("Errorea", "Erabiltzailea eta pasahitza bete behar dira",
+					"Mesedez, bete erabiltzailea eta pasahitza.");
+			return;
+		}
 
-    // Saltzailea baldin bada komprobatuko du eta beren datu gusztiak jasoko ditu
-    private boolean konprobatuEtaLortuSaltzailea(String erabiltzailea, String pasahitza) {
-        ArrayList<LangileSaltzaileBean> saltzaileak = jasoLangileSaltzaileak();
+		// Primero comprobar si es vendedor
+		if (konprobatuEtaLortuSaltzailea(jasotakoErabiltzailea, jasotakoPasahitza)) {
+			irekiSaltzaileMenuPrintzipalaDatuekin();
+		}
+		// Si no, comprobar si es cliente y obtener sus datos
+		else if (konprobatuEtaLortuBezeroa(jasotakoErabiltzailea, jasotakoPasahitza)) {
+			irekiBezeroMenuPrintzipalaDatuekin();
+		} else {
+			irekiAlerta("Errorea", "Erabiltzailea edo pasahitza okerra",
+					"Sartutako erabiltzailea edo pasahitza ez da zuzena.");
+		}
+	}
 
-        for (LangileSaltzaileBean saltzaile : saltzaileak) {
-            if (saltzaile.getErabiltzailea() != null && 
-                saltzaile.getErabiltzailea().equals(erabiltzailea) && 
-                saltzaile.getPasahitza().equals(pasahitza)) {
-                saltzaileLogueado = saltzaile; // Logeatutako saltzailea gordeko du
-                return true;
-            }
-        }
-        return false;
-    }
+	// Saltzailea baldin bada komprobatuko du eta beren datu gusztiak jasoko ditu
+	private boolean konprobatuEtaLortuSaltzailea(String erabiltzailea, String pasahitza) {
+		ArrayList<LangileSaltzaileBean> saltzaileak = jasoLangileSaltzaileak();
 
-    // Saltzaile menu printzipala irekitzen da eta bidaltzen ditu saltzaileen datuak 
-    private void irekiSaltzaileMenuPrintzipalaDatuekin() {
-        try {
-            SaltzaileMenuPrintzipala saltzaileMenu = new SaltzaileMenuPrintzipala();
-            Stage newStage = new Stage();
+		for (LangileSaltzaileBean saltzaile : saltzaileak) {
+			if (saltzaile.getErabiltzailea() != null && saltzaile.getErabiltzailea().equals(erabiltzailea)
+					&& saltzaile.getPasahitza().equals(pasahitza)) {
+				saltzaileLogueado = saltzaile; // Logeatutako saltzailea gordeko du
+				return true;
+			}
+		}
+		return false;
+	}
 
-            // Pasar los datos del vendedor logueado
-            saltzaileMenu.setSaltzaileData(saltzaileLogueado);
-            saltzaileMenu.start(newStage);
+	private boolean konprobatuEtaLortuBezeroa(String erabiltzailea, String pasahitza) {
+		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
 
-            itxiOraingoLeihoa();
+		for (BezeroBean bezero : bezeroak) {
+			if (bezero.getErabiltzaile() != null && bezero.getPasahitza() != null) {
+				if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
+					bezeroLogueado = bezero;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-                    "Errorea saltzailearen menua irekitzean: " + e.getMessage());
-        }
-    }
+	// Saltzaile menu printzipala irekitzen da eta bidaltzen ditu saltzaileen datuak
+	private void irekiSaltzaileMenuPrintzipalaDatuekin() {
+		try {
+			SaltzaileMenuPrintzipala saltzaileMenu = new SaltzaileMenuPrintzipala();
+			Stage newStage = new Stage();
 
-    // Bezeroak komprobatzeko metodoa
-    private boolean konprobatuBezeroa(String erabiltzailea, String pasahitza) {
-        ArrayList<BezeroBean> bezeroak = jasoBezeroak();
+			// Pasar los datos del vendedor logueado
+			saltzaileMenu.setSaltzaileData(saltzaileLogueado);
+			saltzaileMenu.start(newStage);
 
-        for (BezeroBean bezero : bezeroak) {
-            if (bezero.getErabiltzaile() != null && bezero.getPasahitza() != null) {
-                if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+			itxiOraingoLeihoa();
 
-    @FXML
-    public void erregistratu() {
-        okultatuLeihoa();
-        irekiErregistratu();
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+					"Errorea saltzailearen menua irekitzean: " + e.getMessage());
+		}
+	}
 
-    private void irekiErregistratu() {
-        try {
-            Erregistratu erregitratuLeihoa = new Erregistratu();
-            Stage newStage = new Stage();
+	private void irekiBezeroMenuPrintzipalaDatuekin() {
+		try {
+			BezeroMenuPrintzipala bezeroMenu = new BezeroMenuPrintzipala();
+			Stage newStage = new Stage();
 
-            erregitratuLeihoa.start(newStage);
+			bezeroMenu.setBezeroData(bezeroLogueado);
+			bezeroMenu.start(newStage);
 
-            newStage.setOnHidden(event -> {
-                ikusiLeihoa();
-            });
+			itxiOraingoLeihoa();
+		} catch (Exception e) {
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+					"Errorea bezeroaren menua irekitzean: " + e.getMessage());
+		}
+	}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-                    "Errorea bezeroaren menua irekitzean: " + e.getMessage());
-        }
-    }
+	// Bezeroak komprobatzeko metodoa
+	private boolean konprobatuBezeroa(String erabiltzailea, String pasahitza) {
+		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
+
+		for (BezeroBean bezero : bezeroak) {
+			if (bezero.getErabiltzaile() != null && bezero.getPasahitza() != null) {
+				if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	@FXML
+	public void erregistratu() {
+		okultatuLeihoa();
+		irekiErregistratu();
+	}
+
+	private void irekiErregistratu() {
+		try {
+			Erregistratu erregitratuLeihoa = new Erregistratu();
+			Stage newStage = new Stage();
+
+			erregitratuLeihoa.start(newStage);
+
+			newStage.setOnHidden(event -> {
+				ikusiLeihoa();
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+					"Errorea bezeroaren menua irekitzean: " + e.getMessage());
+		}
+	}
 }
