@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="bezeroLeihoak.storageTaula.storageTaulaKontrolagailua" 
+<VBox fx:controller="bezeroLeihoak.storageTaula.StorageTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"
       prefHeight="550.0" 

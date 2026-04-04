@@ -89,7 +89,7 @@ public class EskaerakTaulaKontrolagailua extends HandlerGlobala {
     @FXML
     public void initialize() {
         konfiguratuZutabeak();
-        konfiguratuPaginazioa();
+        konfiguratuEskaerakPaginazioa(pagination, filtrazioList, tableView);
         konfiguratuBilaketa();
     }
 
@@ -123,31 +123,7 @@ public class EskaerakTaulaKontrolagailua extends HandlerGlobala {
             filtrazioList.setAll(eskaerakList);
             
             // Actualizar paginación después de cargar datos
-            konfiguratuPaginazioa();
-        }
-    }
-
-    private void konfiguratuPaginazioa() {
-        int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
-        pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa);
-        pagination.setCurrentPageIndex(0);
-
-        pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
-            eguneratuOrriaDatuak(indexBerria.intValue());
-        });
-
-        eguneratuOrriaDatuak(0);
-    }
-
-    private void eguneratuOrriaDatuak(int indexOrria) {
-        int lehengoErregistroa = indexOrria * ROWS_PER_PAGE;
-        int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
-
-        if (lehengoErregistroa < filtrazioList.size()) {
-            List<EskaerakBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
-            tableView.setItems(FXCollections.observableArrayList(pageData));
-        } else {
-            tableView.setItems(FXCollections.observableArrayList());
+            konfiguratuEskaerakPaginazioa(pagination, filtrazioList, tableView);
         }
     }
 
@@ -169,7 +145,7 @@ public class EskaerakTaulaKontrolagailua extends HandlerGlobala {
 
             pagination.setPageCount((int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE));
             pagination.setCurrentPageIndex(0);
-            eguneratuOrriaDatuak(0);
+            eguneratuEskaerakOrriaDatuak(0, filtrazioList, tableView);
         });
     }
 }

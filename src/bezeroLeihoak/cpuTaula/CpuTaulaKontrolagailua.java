@@ -46,13 +46,11 @@ public class CpuTaulaKontrolagailua extends HandlerGlobala {
 	private Pagination pagination;
 
 	// Datu listak
-	private ObservableList<ProduktuBean> ramList = FXCollections.observableArrayList();
+	private ObservableList<ProduktuBean> cpuList = FXCollections.observableArrayList();
 	private ObservableList<ProduktuBean> filtrazioList = FXCollections.observableArrayList();
 
 	// Mapa para almacenar las cantidades seleccionadas
 	private Map<Integer, Integer> kantitateak = new HashMap<>();
-
-	private static final int ROWS_PER_PAGE = 10;
 
 	public CpuTaulaKontrolagailua() {
 	}
@@ -65,46 +63,10 @@ public class CpuTaulaKontrolagailua extends HandlerGlobala {
 	
 	@FXML
 	public void initialize() {
-		konfiguratuZutabeak();
-		kargatuDatuak();
-		konfiguratuPaginazioa();
+		konfiguratuKategoriaZutabeak(izenaColumn, deskribapenaColumn, salneurriaColumn);
+		kargatuKategoriaDatuak(cpuList, filtrazioList, kantitateak, "CPU");
+		konfiguratuBezeroKategoriaPaginazioa(pagination, filtrazioList, tableView);
 		konfiguratuKantitateaZutabea();
-	}
-	
-	private void kargatuDatuak() {
-		// Cargar productos de la categoría CPU
-		ArrayList<ProduktuBean> cpuProduktuak = jasoProduktuak("CPU");
-		ramList.setAll(cpuProduktuak);
-		filtrazioList.setAll(ramList);
-
-		// Inicializar el mapa de cantidades
-		for (ProduktuBean produktu : ramList) {
-			kantitateak.putIfAbsent(produktu.getId(), 0);
-		}
-	}
-	
-	private void konfiguratuPaginazioa() {
-		int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
-		pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa);
-		pagination.setCurrentPageIndex(0);
-
-		pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
-			eguneratuOrriaDatuak(indexBerria.intValue());
-		});
-
-		eguneratuOrriaDatuak(0);
-	}
-
-	private void eguneratuOrriaDatuak(int indexOrria) {
-		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE;
-		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
-
-		if (lehengoErregistroa < filtrazioList.size()) {
-			List<ProduktuBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
-			tableView.setItems(FXCollections.observableArrayList(pageData));
-		} else {
-			tableView.setItems(FXCollections.observableArrayList());
-		}
 	}
 
 	@FXML
@@ -112,7 +74,7 @@ public class CpuTaulaKontrolagailua extends HandlerGlobala {
 		// Recoger todos los productos con cantidad > 0
 		Map<ProduktuBean, Integer> otzarakoProduktuak = new HashMap<>();
 
-		for (ProduktuBean produktu : ramList) {
+		for (ProduktuBean produktu : cpuList) {
 			int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
 			if (kantitatea > 0) {
 				otzarakoProduktuak.put(produktu, kantitatea);
@@ -133,30 +95,6 @@ public class CpuTaulaKontrolagailua extends HandlerGlobala {
 		}
 
 		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", mezua.toString());
-	}
-
-
-	private void konfiguratuZutabeak() {
-		izenaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIzena()));
-
-		deskribapenaColumn
-				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDeskribapena()));
-
-		salneurriaColumn.setCellValueFactory(
-				cellData -> new SimpleDoubleProperty(cellData.getValue().getSalneurria()).asObject());
-
-		// Formatear el precio con 2 decimales
-		salneurriaColumn.setCellFactory(column -> new TableCell<ProduktuBean, Double>() {
-			@Override
-			protected void updateItem(Double item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.format("%.2f €", item));
-				}
-			}
-		});
 	}
 
 	private void konfiguratuKantitateaZutabea() {

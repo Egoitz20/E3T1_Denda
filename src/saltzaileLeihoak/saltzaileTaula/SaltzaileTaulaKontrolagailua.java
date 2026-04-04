@@ -73,7 +73,7 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 	public void initialize() {
 		konfiguratuZutabeak(); // 1. Konfiguratu zutabe bakoitzean zer datu doan
 		kargatuDatuak(); // 2. Datu-baseko datuak kargatzen ditu
-		konfiguratuPaginazioa(); // 3. Konfiguratu orri-botoiak
+		konfiguratuSaltzailePaginazioa(pagination, filtrazioList, tableView); // 3. Konfiguratu orri-botoiak
 		konfiguratuBilaketa(); // 4. Bilaketa-eremua konfiguratzen du
 
 		tableView.setOnMouseClicked(event -> {
@@ -86,7 +86,6 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 		});
 	}
 
-	// ✅ NUEVO MÉTODO: Abrir ventana de gestión con los datos seleccionados
 	private void irekiSaltzaileKudeaketa(LangileSaltzaileBean saltzailea) {
 		try {
 			SaltzaileKudeaketa kudeaketa = new SaltzaileKudeaketa();
@@ -147,57 +146,6 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 
 		saltzaileList.setAll(saltzaileak); // Datu DENAK saltzaileList gordetzen dira
 		filtrazioList.setAll(saltzaileList); // Hasieran, filtrazioa = denak
-	}
-
-	private void konfiguratuPaginazioa() {
-		// Kalkulatu zenbat orrialde behar diren (Adib. 29 erregistro / 10 = 2.9 → 3
-		// orri)
-		int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
-
-		// if-else bat idazteko modu trinkoa da.
-
-		// if (totalPages == 0) {
-		// pagination.setPageCount(1);// Datuak ez badago, gutxienez orri 1
-		// } else {
-		// pagination.setPageCount(totalPages);// Datuak badagoela, totalPages zenbakia
-		// erabiliko du
-		// }
-
-		// Formula: baldintza ? baloreEgia : baloreFaltsua
-
-		// totalPages == 0 -> Orri kopurua 0 da?
-		// ? 1 -> Egia bada, 1 balorea erabili
-		// : totalPages -> Faltsua bada, totalPages balorea erabili
-
-		pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa); // Gutxienez, orri 1
-		pagination.setCurrentPageIndex(0); // Orri 0 hasiko da(Lehengoan)
-
-		// ENTZUN: erabiltzailea orria aldatzen denean
-		pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
-			eguneratuOrriaDatuak(indexBerria.intValue());
-		});
-
-		eguneratuOrriaDatuak(0); // Lehengo orria bistarako du
-	}
-
-	// Kalkulatu zer erregistro dagozkion eskatutako orriari eta taulan erakusten
-	// ditu.
-	private void eguneratuOrriaDatuak(int indexOrria) {
-		// Orri 0 adibidea(lehenengoa):
-		// lehengoErregistroa = 0 * 10 = 0
-		// azkenErregistroa = min(0+10, 29) = 10
-		// 0tik 9ra arte erregistroak bistaratzen ditu (10 erregistro)
-		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE; // Oraingo orriladeko lehen erregistroa
-		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
-
-		if (lehengoErregistroa < filtrazioList.size()) {
-			// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
-			// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
-			List<LangileSaltzaileBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
-			tableView.setItems(FXCollections.observableArrayList(pageData)); // Bistaratzen ditu taulan
-		} else {
-			tableView.setItems(FXCollections.observableArrayList()); // Ez dago daturik, taula ezer gabe
-		}
 	}
 
 	// Erabiltzaileak bilaketa-eremuan idazten duena entzuten du.
@@ -268,7 +216,7 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 			// arren,
 			// taulak datu zaharrak erakusten jarraitzen du.
 			// Lerro hori da taula benetan eguneratzen duena.
-			eguneratuOrriaDatuak(0); // Datu berriak biztaratzen dugu
+			eguneratuSaltzaileOrriaDatuak(0, filtrazioList, tableView); // Datu berriak biztaratzen dugu
 		});
 	}
 }

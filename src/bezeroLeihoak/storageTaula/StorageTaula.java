@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 public class StorageTaula extends Application {
 
 	public StorageTaula() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

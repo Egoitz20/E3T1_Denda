@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import datuBaseKonexioa.ProduktuBean;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -19,7 +18,7 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import kontrolagailuGlobala.HandlerGlobala;
@@ -51,10 +50,11 @@ public class RamTaulaKontrolagailua extends HandlerGlobala {
 	private ObservableList<ProduktuBean> ramList = FXCollections.observableArrayList();
 	private ObservableList<ProduktuBean> filtrazioList = FXCollections.observableArrayList();
 
-	// Mapa para almacenar las cantidades seleccionadas
+	// Hiztegi bat, produktu bakoitzerako (IDaren arabera) erabiltzaileak zenbat
+	// unitate hautatu dituen jasotzen duena.
+	// Adib: {1=3, 2=0, 3=5} → ID 1 produktua 3 unitate eramaten ditu, ID 2 eramaten
+	// 0, ID 3 eramaten 5.
 	private Map<Integer, Integer> kantitateak = new HashMap<>();
-
-	private static final int ROWS_PER_PAGE = 10;
 
 	public RamTaulaKontrolagailua() {
 	}
@@ -67,67 +67,36 @@ public class RamTaulaKontrolagailua extends HandlerGlobala {
 
 	@FXML
 	public void initialize() {
-		konfiguratuZutabeak();
-		kargatuDatuak();
-		konfiguratuPaginazioa();
+		konfiguratuKategoriaZutabeak(izenaColumn, deskribapenaColumn, salneurriaColumn);
+		kargatuKategoriaDatuak(ramList, filtrazioList, kantitateak, "RAM");
+		konfiguratuBezeroKategoriaPaginazioa(pagination, filtrazioList, tableView);
 		konfiguratuKantitateaZutabea();
-	}
-
-	private void kargatuDatuak() {
-		// Cargar productos de la categoría RAM
-		ArrayList<ProduktuBean> ramProduktuak = jasoProduktuak("RAM");
-		ramList.setAll(ramProduktuak);
-		filtrazioList.setAll(ramList);
-
-		// Inicializar el mapa de cantidades
-		for (ProduktuBean produktu : ramList) {
-			kantitateak.putIfAbsent(produktu.getId(), 0);
-		}
-	}
-
-	private void konfiguratuPaginazioa() {
-		int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
-		pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa);
-		pagination.setCurrentPageIndex(0);
-
-		pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
-			eguneratuOrriaDatuak(indexBerria.intValue());
-		});
-
-		eguneratuOrriaDatuak(0);
-	}
-
-	private void eguneratuOrriaDatuak(int indexOrria) {
-		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE;
-		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
-
-		if (lehengoErregistroa < filtrazioList.size()) {
-			List<ProduktuBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
-			tableView.setItems(FXCollections.observableArrayList(pageData));
-		} else {
-			tableView.setItems(FXCollections.observableArrayList());
-		}
 	}
 
 	@FXML
 	public void gehituOtzara() {
-		// Recoger todos los productos con cantidad > 0
+		// Sortutako mapa bat gordetzeko produktu > 0 kantitatearekin
 		Map<ProduktuBean, Integer> otzarakoProduktuak = new HashMap<>();
 
+		// Rekorritu RAM produktu denak
 		for (ProduktuBean produktu : ramList) {
+			// Erabakitutako kantitatea lortu (Ez bada existitzen, 0 itzuliko da)
 			int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
 			if (kantitatea > 0) {
+				// Unitateren bat badarama bakarrik gorde
+
 				otzarakoProduktuak.put(produktu, kantitatea);
 			}
 		}
 
+		// Ezer ez badago, itzuli mesua
 		if (otzarakoProduktuak.isEmpty()) {
 			irekiAlerta("Informazioa", "Otzara hutsik", "Ez duzu produkturik aukeratu.");
 			return;
 		}
 
 		// TODO: Aquí llamarías al método para añadir los productos a la cesta
-		// Por ahora mostramos un mensaje
+		// Oraindik bistarako da mesu bat ,non, agertuko den laburpen bat geitutarekin
 		StringBuilder mezua = new StringBuilder("Otzaran gehitu diren produktuak:\n");
 		for (Map.Entry<ProduktuBean, Integer> entry : otzarakoProduktuak.entrySet()) {
 			mezua.append("- ").append(entry.getKey().getIzena()).append(": ").append(entry.getValue())
@@ -137,85 +106,67 @@ public class RamTaulaKontrolagailua extends HandlerGlobala {
 		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", mezua.toString());
 	}
 
-	private void konfiguratuZutabeak() {
-		izenaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIzena()));
-
-		deskribapenaColumn
-				.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDeskribapena()));
-
-		salneurriaColumn.setCellValueFactory(
-				cellData -> new SimpleDoubleProperty(cellData.getValue().getSalneurria()).asObject());
-
-		// Formatear el precio con 2 decimales
-		salneurriaColumn.setCellFactory(column -> new TableCell<ProduktuBean, Double>() {
-			@Override
-			protected void updateItem(Double item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.format("%.2f €", item));
-				}
-			}
-		});
-	}
-
 	private void konfiguratuKantitateaZutabea() {
+		// setCellFactory: zutabe honen gelaxkak sortzen dituen "fabrika" bat sortzen du
 		kantitateaColumn.setCellFactory(new Callback<TableColumn<ProduktuBean, Void>, TableCell<ProduktuBean, Void>>() {
 			@Override
 			public TableCell<ProduktuBean, Void> call(TableColumn<ProduktuBean, Void> param) {
 				return new TableCell<ProduktuBean, Void>() {
 
+					// Gelaxka bakoitzaren barruan joango diren osagaiak sortzen dira
 					private final Button btnKendu = new Button("-");
 					private final Label lblKopurua = new Label("0");
 					private final Button btnGehitu = new Button("+");
 					private final HBox container = new HBox(10, btnKendu, lblKopurua, btnGehitu);
 
 					{
-						// Estilos
-						btnKendu.setPrefWidth(40);
-						btnGehitu.setPrefWidth(40);
-						lblKopurua.setPrefWidth(40);
-						lblKopurua.setAlignment(Pos.CENTER);
+						// Kontenedorea konfiguratzen da (HBOX)
+						btnKendu.setPrefWidth(40); // Botoi - 40 pixelekoa 
+						btnGehitu.setPrefWidth(40); // Botoi + 40 pixelekoa  
+						lblKopurua.setPrefWidth(40); // Label 40 pixelekoa
+						lblKopurua.setAlignment(Pos.CENTER); // Textu erdian
 						lblKopurua.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-						container.setAlignment(Pos.CENTER);
+						container.setAlignment(Pos.CENTER); // Dena erdian
 
+						// Botoi - sakatzen denean
 						btnKendu.setOnAction(event -> {
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int id = produktu.getId();
-								int current = kantitateak.getOrDefault(id, 0);
+								int current = kantitateak.getOrDefault(id, 0); // Oraingo kantitatea
 								if (current > 0) {
-									kantitateak.put(id, current - 1);
-									lblKopurua.setText(String.valueOf(current - 1));
+									kantitateak.put(id, current - 1); // Kendu 1
+									lblKopurua.setText(String.valueOf(current - 1)); // Textua refreskatu
 								}
 							}
 						});
 
+						// Botoi - sakatzen denean
 						btnGehitu.setOnAction(event -> {
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int id = produktu.getId();
-								int current = kantitateak.getOrDefault(id, 0);
-								kantitateak.put(id, current + 1);
-								lblKopurua.setText(String.valueOf(current + 1));
+								int current = kantitateak.getOrDefault(id, 0); // Oraingo kantitatea
+								kantitateak.put(id, current + 1); // Geitu 1
+								lblKopurua.setText(String.valueOf(current + 1)); // Textua refreskatu
 							}
 						});
 					}
 
+					// Metodo hau gelaxka eguneratu behar den bakoitzean deitzen zaio
 					@Override
 					protected void updateItem(Void item, boolean empty) {
 						super.updateItem(item, empty);
 						if (empty) {
-							setGraphic(null);
+							setGraphic(null); // Gelaxka hutsik -> Ez da ezer bistaratzen
 						} else {
-							// Recuperar la cantidad guardada para este producto
+							// Gelxka datuekin -> Gordetutako kantitatea hartzen da eta bistaratzen dira botoiak
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
 								lblKopurua.setText(String.valueOf(kantitatea));
 							}
-							setGraphic(container);
+							setGraphic(container); // Botoiak bistaratu
 						}
 					}
 				};

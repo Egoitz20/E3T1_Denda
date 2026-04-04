@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipala;
 import datuBaseKonexioa.BezeroBean;
@@ -14,8 +16,14 @@ import datuBaseKonexioa.EskaerakBean;
 import datuBaseKonexioa.Konexioa;
 import datuBaseKonexioa.LangileSaltzaileBean;
 import datuBaseKonexioa.ProduktuBean;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import orokorLeihoak.login.Login;
 import saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipala;
@@ -617,4 +625,254 @@ public class HandlerGlobala {
 	 * ------------------------------------------------------
 	 */
 
+	/*
+	 * -----------------------------------------------BEZERO LEIHOAK HANDLER
+	 * -------------------------------------------------------------------------
+	 */
+
+	/*-- KATEGORIAKO METODOAK -- */
+
+	protected void konfiguratuKategoriaZutabeak(TableColumn<ProduktuBean, String> izenaColumn,
+			TableColumn<ProduktuBean, String> deskribapenaColumn, TableColumn<ProduktuBean, Double> salneurriaColumn) {
+
+		// Produktuaren izena bistaratzen du
+		izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
+
+		// Produktuaren deskribapena bistaratzen du
+		deskribapenaColumn.setCellValueFactory(new PropertyValueFactory<>("deskribapena"));
+
+		// Produktuaren salneurria bistaratzen du
+		salneurriaColumn.setCellValueFactory(new PropertyValueFactory<>("salneurria"));
+
+	}
+
+	// Azalpena Praktikoa: Supermerkatura joan eta "RAM diren produktu guztiak"
+	// eskatzea bezala da.
+	// Zerrenda bat ematen dizute, eta zuk erosketa-zerrenda bat sortzen duzu,
+	// non produktu bakoitza 0 kopuruarekin hasten den.
+	protected void kargatuKategoriaDatuak(ObservableList<ProduktuBean> kategoriaList,
+			ObservableList<ProduktuBean> filtrazioList, Map<Integer, Integer> kantitateak, String kategoria) {
+		// jasoProduktuak("RAM") -> Datu baseari deitzen dio eta "RAM" kategoriako
+		// produktuak eskatzen ditu
+		ArrayList<ProduktuBean> kategoriaProduktuak = jasoProduktuak(kategoria);
+		// RamList eduki guztia ordezkatzen du lortutako produktuekin
+		kategoriaList.setAll(kategoriaProduktuak);
+		// Hasieran, filtratutako zerrenda, zerrenda osoaren berdina da
+		filtrazioList.setAll(kategoriaList);
+
+		// Kantitateen mapa hasieratzea: produktu bakoitza 0 unitaterekin hasten da
+		for (ProduktuBean produktu : kategoriaList) {
+			// pufIfAbsent() -> ID honetarako kantitaterik ez badago, bakarrik gehitzen du
+			kantitateak.putIfAbsent(produktu.getId(), 0);
+		}
+	}
+
+	/*
+	 * -----------------------------------------------BEZERO LEIHOAK HANDLER AMAIERA
+	 * -------------------------------------------------------------------------
+	 */
+
+	/*
+	 * -----------------------------------------------PAGINATION OROKORRA
+	 * -------------------------------------------------------------------------
+	 */
+
+	// BEZERO KATEGORIA METODOA
+
+	private static final int ROWS_PER_PAGE = 10;
+
+	protected void konfiguratuBezeroKategoriaPaginazioa(Pagination pagination,
+			ObservableList<ProduktuBean> filtrazioList, TableView<ProduktuBean> tableView) {
+		int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
+		pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa);
+		pagination.setCurrentPageIndex(0);
+
+		pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
+			eguneratuBezeroKteagoriaOrriaDatuak(indexBerria.intValue(), filtrazioList, tableView);
+		});
+
+		eguneratuBezeroKteagoriaOrriaDatuak(0, filtrazioList, tableView);
+	}
+
+	private void eguneratuBezeroKteagoriaOrriaDatuak(int indexOrria, ObservableList<ProduktuBean> filtrazioList,
+			TableView<ProduktuBean> tableView) {
+		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE;
+		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
+
+		if (lehengoErregistroa < filtrazioList.size()) {
+			List<ProduktuBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
+			tableView.setItems(FXCollections.observableArrayList(pageData));
+		} else {
+			tableView.setItems(FXCollections.observableArrayList());
+		}
+	}
+
+	// SALTZAILE METODOA
+
+	protected void konfiguratuSaltzailePaginazioa(Pagination pagination,
+			ObservableList<LangileSaltzaileBean> filtrazioList, TableView<LangileSaltzaileBean> tableView) {
+		// Kalkulatu zenbat orrialde behar diren (Adib. 29 erregistro / 10 = 2.9 → 3
+		// orri)
+		int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
+
+		// if-else bat idazteko modu trinkoa da.
+
+		// if (totalPages == 0) {
+		// pagination.setPageCount(1);// Datuak ez badago, gutxienez orri 1
+		// } else {
+		// pagination.setPageCount(totalPages);// Datuak badagoela, totalPages zenbakia
+		// erabiliko du
+		// }
+
+		// Formula: baldintza ? baloreEgia : baloreFaltsua
+
+		// totalPages == 0 -> Orri kopurua 0 da?
+		// ? 1 -> Egia bada, 1 balorea erabili
+		// : totalPages -> Faltsua bada, totalPages balorea erabili
+		pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa); // Gutxienez, orri 1
+		pagination.setCurrentPageIndex(0); // Orri 0 hasiko da(Lehengoan)
+
+		// ENTZUN: erabiltzailea orria aldatzen denean
+		pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
+			eguneratuSaltzaileOrriaDatuak(indexBerria.intValue(), filtrazioList, tableView);
+		});
+
+		eguneratuSaltzaileOrriaDatuak(0, filtrazioList, tableView); // Lehengo orria bistarako du
+	}
+
+	// Kalkulatu zer erregistro dagozkion eskatutako orriari eta taulan erakusten
+	// ditu.
+	protected void eguneratuSaltzaileOrriaDatuak(int indexOrria, ObservableList<LangileSaltzaileBean> filtrazioList,
+			TableView<LangileSaltzaileBean> tableView) {
+
+		// Orri 0 adibidea(lehenengoa):
+		// lehengoErregistroa = 0 * 10 = 0
+		// azkenErregistroa = min(0+10, 29) = 10
+		// 0tik 9ra arte erregistroak bistaratzen ditu (10 erregistro)
+		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE; // Oraingo orrialdeko lehen erregistroa
+		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
+
+		if (lehengoErregistroa < filtrazioList.size()) {
+			// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
+			// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
+			List<LangileSaltzaileBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
+			tableView.setItems(FXCollections.observableArrayList(pageData)); // Bistaratzen ditu taulan
+		} else {
+			tableView.setItems(FXCollections.observableArrayList()); // Ez dago daturik, taula ezer gabe
+		}
+	}
+
+	// BEZERO METODOA
+
+	protected void konfiguratuBezeroPaginazioa(Pagination pagination, ObservableList<BezeroBean> filtrazioList,
+			TableView<BezeroBean> tableView) {
+		// Kalkulatu zenbat orrialde behar diren (Adib. 29 erregistro / 10 = 2.9 → 3
+		// orri)
+		int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
+
+		// if-else bat idazteko modu trinkoa da.
+
+		// if (totalPages == 0) {
+		// pagination.setPageCount(1);// Datuak ez badago, gutxienez orri 1
+		// } else {
+		// pagination.setPageCount(totalPages);// Datuak badagoela, totalPages zenbakia
+		// erabiliko du
+		// }
+
+		// Formula: baldintza ? baloreEgia : baloreFaltsua
+
+		// totalPages == 0 -> Orri kopurua 0 da?
+		// ? 1 -> Egia bada, 1 balorea erabili
+		// : totalPages -> Faltsua bada, totalPages balorea erabili
+		pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa); // Gutxienez, orri 1
+		pagination.setCurrentPageIndex(0); // Orri 0 hasiko da(Lehengoan)
+
+		// ENTZUN: erabiltzailea orria aldatzen denean
+		pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
+			eguneratuBezeroOrriaDatuak(indexBerria.intValue(), filtrazioList, tableView);
+		});
+
+		eguneratuBezeroOrriaDatuak(0, filtrazioList, tableView); // Lehengo orria bistarako du
+	}
+
+	// Kalkulatu zer erregistro dagozkion eskatutako orriari eta taulan erakusten
+	// ditu.
+	protected void eguneratuBezeroOrriaDatuak(int indexOrria, ObservableList<BezeroBean> filtrazioList,
+			TableView<BezeroBean> tableView) {
+
+		// Orri 0 adibidea(lehenengoa):
+		// lehengoErregistroa = 0 * 10 = 0
+		// azkenErregistroa = min(0+10, 29) = 10
+		// 0tik 9ra arte erregistroak bistaratzen ditu (10 erregistro)
+		int lehengoErregistroa = indexOrria * ROWS_PER_PAGE; // Oraingo orrialdeko lehen erregistroa
+		int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
+
+		if (lehengoErregistroa < filtrazioList.size()) {
+			// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
+			// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
+			List<BezeroBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
+			tableView.setItems(FXCollections.observableArrayList(pageData)); // Bistaratzen ditu taulan
+		} else {
+			tableView.setItems(FXCollections.observableArrayList()); // Ez dago daturik, taula ezer gabe
+		}
+	}
+	
+	// ESKAERAK METODOA
+
+		protected void konfiguratuEskaerakPaginazioa(Pagination pagination, ObservableList<EskaerakBean> filtrazioList,
+				TableView<EskaerakBean> tableView) {
+			// Kalkulatu zenbat orrialde behar diren (Adib. 29 erregistro / 10 = 2.9 → 3
+			// orri)
+			int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
+
+			// if-else bat idazteko modu trinkoa da.
+
+			// if (totalPages == 0) {
+			// pagination.setPageCount(1);// Datuak ez badago, gutxienez orri 1
+			// } else {
+			// pagination.setPageCount(totalPages);// Datuak badagoela, totalPages zenbakia
+			// erabiliko du
+			// }
+
+			// Formula: baldintza ? baloreEgia : baloreFaltsua
+
+			// totalPages == 0 -> Orri kopurua 0 da?
+			// ? 1 -> Egia bada, 1 balorea erabili
+			// : totalPages -> Faltsua bada, totalPages balorea erabili
+			pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa); // Gutxienez, orri 1
+			pagination.setCurrentPageIndex(0); // Orri 0 hasiko da(Lehengoan)
+
+			// ENTZUN: erabiltzailea orria aldatzen denean
+			pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
+				eguneratuEskaerakOrriaDatuak(indexBerria.intValue(), filtrazioList, tableView);
+			});
+
+			eguneratuEskaerakOrriaDatuak(0, filtrazioList, tableView); // Lehengo orria bistarako du
+		}
+
+		// Kalkulatu zer erregistro dagozkion eskatutako orriari eta taulan erakusten
+		// ditu.
+		protected void eguneratuEskaerakOrriaDatuak(int indexOrria, ObservableList<EskaerakBean> filtrazioList,
+				TableView<EskaerakBean> tableView) {
+
+			// Orri 0 adibidea(lehenengoa):
+			// lehengoErregistroa = 0 * 10 = 0
+			// azkenErregistroa = min(0+10, 29) = 10
+			// 0tik 9ra arte erregistroak bistaratzen ditu (10 erregistro)
+			int lehengoErregistroa = indexOrria * ROWS_PER_PAGE; // Oraingo orrialdeko lehen erregistroa
+			int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
+
+			if (lehengoErregistroa < filtrazioList.size()) {
+				// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
+				// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
+				List<EskaerakBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
+				tableView.setItems(FXCollections.observableArrayList(pageData)); // Bistaratzen ditu taulan
+			} else {
+				tableView.setItems(FXCollections.observableArrayList()); // Ez dago daturik, taula ezer gabe
+			}
+		}
+	/*
+	 * -----------------------------------------------PAGINATION OROKORRA AMAIERA
+	 * -------------------------------------------------------------------------
+	 */
 }
