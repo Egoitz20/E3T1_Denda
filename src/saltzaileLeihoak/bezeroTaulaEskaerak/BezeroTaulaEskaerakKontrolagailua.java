@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import kontrolagailuGlobala.HandlerGlobala;
-import saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketa;
 import saltzaileLeihoak.eskaerakTaula.EskaerakTaula;
 import javafx.beans.property.SimpleStringProperty;
 

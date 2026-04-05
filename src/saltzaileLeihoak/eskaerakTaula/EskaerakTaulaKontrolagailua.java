@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import kontrolagailuGlobala.HandlerGlobala;
 import saltzaileLeihoak.bezeroTaulaEskaerak.BezeroTaulaEskaerak;
-import saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipala;
 
 public class EskaerakTaulaKontrolagailua extends HandlerGlobala {
 

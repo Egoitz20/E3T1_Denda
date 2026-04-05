@@ -5,47 +5,132 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="bezeroLeihoak.erosiMetodoa.ErosiMetodoaKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="400.0" 
+      prefWidth="650.0"
+      spacing="20"
+      alignment="TOP_CENTER"
+      style="-fx-background-color: linear-gradient(to bottom, #f0f0f0, #ffffff);">
+      
    <children>
-      <Label layoutX="223.0" layoutY="22.0" prefHeight="25.0" prefWidth="103.0" text="Erosi Metodoa">
-         <font>
-            <Font name="Arial Black" size="12.0" />
-         </font>
+      <!-- Header con icono de usuario -->
+      <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 10 20 0 0;">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../irudiak/usuario.png" />
+            </ImageView>
+            <Label fx:id="userLabel" text="Kaixo, Bezero" style="-fx-font-size: 12px; -fx-text-fill: #666;" />
+         </children>
+      </HBox>
+      
+      <!-- Título principal -->
+      <Label text="Hautatu Ordainketa Metodoa" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+         <VBox.margin>
+            <Insets top="10" />
+         </VBox.margin>
       </Label>
-      <Button layoutX="112.0" layoutY="74.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="PayPal" underline="true" />
-      <Button layoutX="486.0" layoutY="253.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="52.0" text="Itzuli" underline="true" />
-      <Button layoutX="112.0" layoutY="146.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="VISA" underline="true" />
-      <Button layoutX="112.0" layoutY="213.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="BIZUM" underline="true" />
-      <Button layoutX="347.0" layoutY="106.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="ApplePay" underline="true" />
-      <Button layoutX="347.0" layoutY="178.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="66.0" text="GooglePay" underline="true" />
-      <ImageView fitHeight="38.0" fitWidth="52.0" layoutX="28.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/paypal.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="38.0" fitWidth="52.0" layoutX="28.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/visa.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="38.0" fitWidth="66.0" layoutX="28.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/Bizum.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="45.0" fitWidth="59.0" layoutX="277.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/pago-de-apple.png" />
-         </image></ImageView>
-      <ImageView fitHeight="30.0" fitWidth="52.0" layoutX="274.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/Google_Pay_Logo.svg.png" />
-         </image></ImageView>
-      <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="486.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/usuario.png" />
-         </image>
-      </ImageView>
+      
+      <Separator prefWidth="400.0" />
+      
+      <!-- Grid de métodos de pago -->
+      <GridPane hgap="30" vgap="20" alignment="CENTER" style="-fx-padding: 20;">
+         <children>
+            <!-- PayPal -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@../../irudiak/paypal.png" />
+                  </ImageView>
+                  <Button onAction="#paypal" text="PayPal" prefWidth="120.0" style="-fx-font-size: 14px; -fx-background-color: #0070ba; -fx-text-fill: white; -fx-background-radius: 5;" />
+                  <Label text="Ordainketa segurua PayPalekin" style="-fx-font-size: 10px; -fx-text-fill: #666;" />
+               </children>
+            </VBox>
+            
+            <!-- VISA -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@../../irudiak/visa.png" />
+                  </ImageView>
+                  <Button onAction="#visa" text="VISA" prefWidth="120.0" style="-fx-font-size: 14px; -fx-background-color: #1a1f71; -fx-text-fill: white; -fx-background-radius: 5;" />
+                  <Label text="Kreditu/zordunketa txartela" style="-fx-font-size: 10px; -fx-text-fill: #666;" />
+               </children>
+            </VBox>
+            
+            <!-- BIZUM -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@../../irudiak/Bizum.png" />
+                  </ImageView>
+                  <Button onAction="#bizum" text="BIZUM" prefWidth="120.0" style="-fx-font-size: 14px; -fx-background-color: #e67e22; -fx-text-fill: white; -fx-background-radius: 5;" />
+                  <Label text="Mugikorraren berehalako ordainketa" style="-fx-font-size: 10px; -fx-text-fill: #666;" />
+               </children>
+            </VBox>
+            
+            <!-- Apple Pay -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@../../irudiak/pago-de-apple.png" />
+                  </ImageView>
+                  <Button onAction="#applePay" text="Apple Pay" prefWidth="120.0" style="-fx-font-size: 14px; -fx-background-color: #000000; -fx-text-fill: white; -fx-background-radius: 5;" />
+                  <Label text="Zure iPhonearekin ordaintzea" style="-fx-font-size: 10px; -fx-text-fill: #666;" />
+               </children>
+            </VBox>
+            
+            <!-- Google Pay -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@../../irudiak/Google_Pay_Logo.svg.png" />
+                  </ImageView>
+                  <Button onAction="#googlePay" text="Google Pay" prefWidth="120.0" style="-fx-font-size: 14px; -fx-background-color: #4285f4; -fx-text-fill: white; -fx-background-radius: 5;" />
+                  <Label text="Zure Androidrekin ordaintzea" style="-fx-font-size: 10px; -fx-text-fill: #666;" />
+               </children>
+            </VBox>
+            
+            <!-- Transferencia bancaria -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="1">
+   				<children>
+      				<Label text="🏦" style="-fx-font-size: 40px;" />
+      				<Button onAction="#transferencia" text="Transferentzia" prefWidth="120.0" style="-fx-font-size: 14px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" />
+      				<Label text="Banku-transferentzia" style="-fx-font-size: 10px; -fx-text-fill: #666;" />
+  				 </children>
+			</VBox>
+         </children>
+      </GridPane>
+      
+      <!-- Resumen de compra -->
+      <VBox spacing="10" alignment="CENTER" style="-fx-border-color: #ddd; -fx-border-radius: 10; -fx-padding: 15; -fx-background-color: #f9f9f9;">
+         <children>
+            <Label text="Zure Erosketaren Laburpena" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <HBox spacing="20" alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER_RIGHT">
+                     <Label text="Azpitotala:" />
+                     <Label text="+ 21% IVA:" />
+                     <Label text="GUZTIRA:" style="-fx-font-weight: bold;" />
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT">
+                     <Label fx:id="subtotalLabel" style="-fx-text-fill: #666;" />
+                     <Label fx:id="ivaLabel" style="-fx-text-fill: #666;" />
+                     <Label fx:id="guztiraLabel" style="-fx-font-weight: bold; -fx-text-fill: #27ae60;" />
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      
+      <!-- Botón de volver -->
+      <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 10 20 20 0;">
+         <children>
+            <Button onAction="#itzuli" text="Itzuli" prefWidth="100.0" style="-fx-font-size: 14px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
+         </children>
+      </HBox>
    </children>
-</Pane>
+</VBox>
