@@ -1,5 +1,6 @@
 package bezeroLeihoak.bezeroArreta;
 
+import datuBaseKonexioa.BezeroBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,8 +8,13 @@ import javafx.stage.Stage;
 
 public class BezeroArreta extends Application {
 
+	private BezeroBean bezeroData;
+
 	public BezeroArreta() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public void setBezeroData(BezeroBean bezeroa) {
+		this.bezeroData = bezeroa;
 	}
 
 	@Override
@@ -18,6 +24,7 @@ public class BezeroArreta extends Application {
 
 		BezeroArretaKontrolagailua controller = loader.getController();
 		controller.setStage(primaryStage);
+		controller.setBezeroData(bezeroData);
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Bezero Arreta");

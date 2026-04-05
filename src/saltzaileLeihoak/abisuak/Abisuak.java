@@ -1,14 +1,29 @@
 package saltzaileLeihoak.abisuak;
 
-public class Abisuak {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-	public Abisuak() {
-		// TODO Auto-generated constructor stub
-	}
+public class Abisuak extends Application {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+    public Abisuak() {
+    }
 
-	}
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Abisuak.fxml"));
+        Scene scene = new Scene(loader.load());
 
+        AbisuakKontrolagailua controller = loader.getController();
+        controller.setStage(primaryStage);
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Bezeroen Abisuak");
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
 }

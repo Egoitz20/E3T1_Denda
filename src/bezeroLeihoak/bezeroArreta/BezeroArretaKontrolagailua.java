@@ -1,11 +1,63 @@
 package bezeroLeihoak.bezeroArreta;
 
+import datuBaseKonexioa.BezeroBean;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
+import kontrolagailuGlobala.AbisuakGlobala;
 import kontrolagailuGlobala.HandlerGlobala;
 
 public class BezeroArretaKontrolagailua extends HandlerGlobala {
 
-	public BezeroArretaKontrolagailua() {
-		// TODO Auto-generated constructor stub
-	}
+    @FXML
+    private TextArea kontzeptua;
 
+    @FXML
+    private TextArea deskribapena;
+
+    private BezeroBean bezeroData;
+    
+    public BezeroArretaKontrolagailua() {
+    }
+
+    public void setBezeroData(BezeroBean data) {
+        this.bezeroData = data;
+    }
+    
+    @FXML
+    public void itzuli() {
+        itxiOraingoLeihoa();
+        irekiBezeroMenuPrintzipala();
+    }
+
+    @FXML
+    public void bidaliSaltzaileeiArazoa() {
+        
+        // Bezero izena osoa lortu
+        String bezeroIzenaOsoa = bezeroData.getIzena() + " " + bezeroData.getAbizena();
+        
+        // Eremu testua lortu
+        String kontzeptuaText = kontzeptua.getText();
+        String deskribapenaText = deskribapena.getText();
+        
+        // Eremuak ez dagoela hutsik komprobatu
+        if (kontzeptuaText.isEmpty() || deskribapenaText.isEmpty()) {
+            irekiAlerta("Errorea", "Kontzeptua eta deskribapena bete behar dira", 
+                       "Mesedez, bete bi eremuak abisua bidali aurretik.");
+            return;
+        }
+        
+        // Almazena globala gorde abisua
+        AbisuakGlobala.getInstantzia().gehituAbisua(bezeroIzenaOsoa, kontzeptuaText, deskribapenaText);
+        
+        // Baieztapen abisua bistartau
+        irekiAlerta("Arrakasta", "Abisua bidalita", 
+                   "Zure abisua ondo bidali da. Eskerrik asko!");
+        
+        // Eremuak garbitu
+        kontzeptua.clear();
+        deskribapena.clear();
+        
+        // Menu printzipalara joan
+        itzuli();
+    }
 }

@@ -27,10 +27,10 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 
 	public void setBezeroData(BezeroBean data) {
 		this.bezeroData = data;
-		eguneratuMenuTestua();
+		eguneratuBezeroKontua();
 	}
 
-	private void eguneratuMenuTestua() {
+	private void eguneratuBezeroKontua() {
 		if (bezeroMenu != null && bezeroData != null) {
 			String izenaOsoa = bezeroData.getIzena() + " " + bezeroData.getAbizena();
 			bezeroMenu.setText("Kaixo, " + izenaOsoa);
@@ -42,6 +42,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			BezeroArreta arreta = new BezeroArreta();
 			Stage newStage = new Stage();
+			arreta.setBezeroData(bezeroData);
 			arreta.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {

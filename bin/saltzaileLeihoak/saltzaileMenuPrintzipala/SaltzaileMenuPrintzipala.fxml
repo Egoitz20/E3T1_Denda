@@ -46,10 +46,11 @@
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Abisuak">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+    <items>
+        <MenuItem onAction="#irekiAbisuak" mnemonicParsing="false" text="Ikusi bezeroen abisuak" />
+        <MenuItem mnemonicParsing="false" text="About" />
+    </items>
+</Menu>
         </menus>
       </MenuBar>
       

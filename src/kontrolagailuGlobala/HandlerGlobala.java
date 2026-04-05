@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipala;
+import datuBaseKonexioa.AbisuakBean;
 import datuBaseKonexioa.BezeroBean;
 import datuBaseKonexioa.EskaerakBean;
 import datuBaseKonexioa.Konexioa;
@@ -866,6 +867,60 @@ public class HandlerGlobala {
 				// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
 				// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
 				List<EskaerakBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
+				tableView.setItems(FXCollections.observableArrayList(pageData)); // Bistaratzen ditu taulan
+			} else {
+				tableView.setItems(FXCollections.observableArrayList()); // Ez dago daturik, taula ezer gabe
+			}
+		}
+		
+		
+		protected void konfiguratuAbisuakPaginazioa(Pagination pagination, ObservableList<AbisuakBean> filtrazioList,
+				TableView<AbisuakBean> tableView) {
+			// Kalkulatu zenbat orrialde behar diren (Adib. 29 erregistro / 10 = 2.9 → 3
+			// orri)
+			int orriGeiketa = (int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE);
+
+			// if-else bat idazteko modu trinkoa da.
+
+			// if (totalPages == 0) {
+			// pagination.setPageCount(1);// Datuak ez badago, gutxienez orri 1
+			// } else {
+			// pagination.setPageCount(totalPages);// Datuak badagoela, totalPages zenbakia
+			// erabiliko du
+			// }
+
+			// Formula: baldintza ? baloreEgia : baloreFaltsua
+
+			// totalPages == 0 -> Orri kopurua 0 da?
+			// ? 1 -> Egia bada, 1 balorea erabili
+			// : totalPages -> Faltsua bada, totalPages balorea erabili
+			pagination.setPageCount(orriGeiketa == 0 ? 1 : orriGeiketa); // Gutxienez, orri 1
+			pagination.setCurrentPageIndex(0); // Orri 0 hasiko da(Lehengoan)
+
+			// ENTZUN: erabiltzailea orria aldatzen denean
+			pagination.currentPageIndexProperty().addListener((obs, oldIndex, indexBerria) -> {
+				eguneratuAbisuakOrriaDatuak(indexBerria.intValue(), filtrazioList, tableView);
+			});
+
+			eguneratuAbisuakOrriaDatuak(0, filtrazioList, tableView); // Lehengo orria bistarako du
+		}
+
+		// Kalkulatu zer erregistro dagozkion eskatutako orriari eta taulan erakusten
+		// ditu.
+		protected void eguneratuAbisuakOrriaDatuak(int indexOrria, ObservableList<AbisuakBean> filtrazioList,
+				TableView<AbisuakBean> tableView) {
+
+			// Orri 0 adibidea(lehenengoa):
+			// lehengoErregistroa = 0 * 10 = 0
+			// azkenErregistroa = min(0+10, 29) = 10
+			// 0tik 9ra arte erregistroak bistaratzen ditu (10 erregistro)
+			int lehengoErregistroa = indexOrria * ROWS_PER_PAGE; // Oraingo orrialdeko lehen erregistroa
+			int azkenErregistroa = Math.min(lehengoErregistroa + ROWS_PER_PAGE, filtrazioList.size());
+
+			if (lehengoErregistroa < filtrazioList.size()) {
+				// Bakarrik oraingo orrialdeko erregistroak ateratzen ditu
+				// Ateratzen du "Azpi-Lista" bat (zati bat) zerrenda osotik.
+				List<AbisuakBean> pageData = filtrazioList.subList(lehengoErregistroa, azkenErregistroa);
 				tableView.setItems(FXCollections.observableArrayList(pageData)); // Bistaratzen ditu taulan
 			} else {
 				tableView.setItems(FXCollections.observableArrayList()); // Ez dago daturik, taula ezer gabe
