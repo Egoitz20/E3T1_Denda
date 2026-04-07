@@ -18,26 +18,6 @@ USE `e2t1dbaplikazioa`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary view structure for view `bista_bezero_bezerotelefono`
---
-
-DROP TABLE IF EXISTS `bista_bezero_bezerotelefono`;
-/*!50001 DROP VIEW IF EXISTS `bista_bezero_bezerotelefono`*/;
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `bista_bezero_bezerotelefono` AS SELECT 
- 1 AS `ID`,
- 1 AS `IZENA`,
- 1 AS `ABIZENA`,
- 1 AS `NAN`,
- 1 AS `EMAILA`,
- 1 AS `HELBIDEA`,
- 1 AS `ZENBAKIA`,
- 1 AS `ERABILTZAILEA`,
- 1 AS `PASAHITZA`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Temporary view structure for view `bista_langilesaltzaile`
 --
 
@@ -59,22 +39,24 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
--- Final view structure for view `bista_bezero_bezerotelefono`
+-- Temporary view structure for view `bista_bezero_bezerotelefono`
 --
 
+DROP TABLE IF EXISTS `bista_bezero_bezerotelefono`;
 /*!50001 DROP VIEW IF EXISTS `bista_bezero_bezerotelefono`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `bista_bezero_bezerotelefono` AS select `bezero`.`ID` AS `ID`,`bezero`.`IZENA` AS `IZENA`,`bezero`.`ABIZENA` AS `ABIZENA`,`bezero`.`NAN` AS `NAN`,`bezero`.`EMAILA` AS `EMAILA`,`bezero`.`HELBIDEA` AS `HELBIDEA`,`bezero_telefono`.`ZENBAKIA` AS `ZENBAKIA`,`bezero`.`ERABILTZAILEA` AS `ERABILTZAILEA`,`bezero`.`PASAHITZA` AS `PASAHITZA` from (`bezero` join `bezero_telefono` on((`bezero`.`ID` = `bezero_telefono`.`ID_BEZERO`))) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `bista_bezero_bezerotelefono` AS SELECT 
+ 1 AS `ID`,
+ 1 AS `IZENA`,
+ 1 AS `ABIZENA`,
+ 1 AS `NAN`,
+ 1 AS `EMAILA`,
+ 1 AS `HELBIDEA`,
+ 1 AS `ZENBAKIA`,
+ 1 AS `ERABILTZAILEA`,
+ 1 AS `PASAHITZA`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Final view structure for view `bista_langilesaltzaile`
@@ -90,6 +72,24 @@ SET character_set_client = @saved_cs_client;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `bista_langilesaltzaile` AS select `l1`.`ID` AS `ID`,concat(`l1`.`IZENA`,' ',`l1`.`ABIZENA`) AS `LANGILE_IZENA_ABIZENAK`,`l1`.`EMAILA` AS `EMAILA`,`l1`.`TELEFONOA` AS `TELEFONOA`,`l1`.`KONTRATAZIO_DATA` AS `KONTRATAZIO_DATA`,`l1`.`ID_NAGUSI` AS `ID_NAGUSI`,concat(`l2`.`IZENA`,' ',`l2`.`ABIZENA`) AS `NAGUSI_IZENA_ABIZENAK`,`l1`.`SOLDATA` AS `SOLDATA`,`saltzaile`.`ERABILTZAILEA` AS `ERABILTZAILEA`,`saltzaile`.`PASAHITZA` AS `PASAHITZA` from ((`langile` `l1` join `saltzaile` on((`l1`.`ID` = `saltzaile`.`ID`))) left join `langile` `l2` on((`l1`.`ID_NAGUSI` = `l2`.`ID`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `bista_bezero_bezerotelefono`
+--
+
+/*!50001 DROP VIEW IF EXISTS `bista_bezero_bezerotelefono`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `bista_bezero_bezerotelefono` AS select `bezero`.`ID` AS `ID`,`bezero`.`IZENA` AS `IZENA`,`bezero`.`ABIZENA` AS `ABIZENA`,`bezero`.`NAN` AS `NAN`,`bezero`.`EMAILA` AS `EMAILA`,`bezero`.`HELBIDEA` AS `HELBIDEA`,`bezero_telefono`.`ZENBAKIA` AS `ZENBAKIA`,`bezero`.`ERABILTZAILEA` AS `ERABILTZAILEA`,`bezero`.`PASAHITZA` AS `PASAHITZA` from (`bezero` join `bezero_telefono` on((`bezero`.`ID` = `bezero_telefono`.`ID_BEZERO`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -371,4 +371,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-03 11:32:45
+-- Dump completed on 2026-04-07  8:18:54

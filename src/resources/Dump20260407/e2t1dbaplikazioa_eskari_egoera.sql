@@ -18,27 +18,28 @@ USE `e2t1dbaplikazioa`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `kontinente`
+-- Table structure for table `eskari_egoera`
 --
 
-DROP TABLE IF EXISTS `kontinente`;
+DROP TABLE IF EXISTS `eskari_egoera`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `kontinente` (
+CREATE TABLE `eskari_egoera` (
   `ID` int NOT NULL,
-  `IZENA` varchar(25) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `DESKRIBAPENA` varchar(10) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `BALIO_POSIBLEAK` CHECK ((`DESKRIBAPENA` in (_utf8mb4'Pending',_utf8mb4'Canceled',_utf8mb4'Shipped')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `kontinente`
+-- Dumping data for table `eskari_egoera`
 --
 
-LOCK TABLES `kontinente` WRITE;
-/*!40000 ALTER TABLE `kontinente` DISABLE KEYS */;
-INSERT INTO `kontinente` VALUES (1,'Europe'),(2,'America'),(3,'Asia'),(4,'Middle East and Africa');
-/*!40000 ALTER TABLE `kontinente` ENABLE KEYS */;
+LOCK TABLES `eskari_egoera` WRITE;
+/*!40000 ALTER TABLE `eskari_egoera` DISABLE KEYS */;
+INSERT INTO `eskari_egoera` VALUES (1,'Pending'),(2,'Canceled'),(3,'Shipped');
+/*!40000 ALTER TABLE `eskari_egoera` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-03 11:32:45
+-- Dump completed on 2026-04-07  8:18:53

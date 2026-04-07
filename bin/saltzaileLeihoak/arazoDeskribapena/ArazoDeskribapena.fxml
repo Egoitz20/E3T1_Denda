@@ -1,18 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
+<VBox fx:controller="saltzaileLeihoak.arazoDeskribapena.ArazoDeskribapenaKontrolagailua" 
+      spacing="15" 
+      alignment="TOP_CENTER"
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="500.0" 
+      prefWidth="700.0"
+      style="-fx-background-color: #f5f5f5;">
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextField layoutX="25.0" layoutY="89.0" prefHeight="222.0" prefWidth="551.0" />
-      <Label layoutX="25.0" layoutY="45.0" prefHeight="34.0" prefWidth="202.0" text="Arazoaren Bezero Izena: ...." textAlignment="RIGHT" />
-      <Label layoutX="25.0" layoutY="6.0" prefHeight="39.0" prefWidth="237.0" text="Kontzeptu izena: ..." />
-      <Label layoutX="25.0" layoutY="322.0" prefHeight="34.0" prefWidth="202.0" text="Arazoaren data: ...." textAlignment="RIGHT" />
-      <Button layoutX="417.0" layoutY="344.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="72.0" text="Itzuli" />
-      <Button layoutX="504.0" layoutY="344.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="72.0" text="OK" />
-   </children>
-</Pane>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <children>
+        <!-- Título -->
+        <Label text="Arazoaren Deskribapena" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+            <VBox.margin>
+                <Insets bottom="10" />
+            </VBox.margin>
+        </Label>
+
+        <Separator prefWidth="600.0" />
+
+        <!-- Panel de información del cliente -->
+        <GridPane hgap="15" vgap="10" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-radius: 5;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <children>
+                <Label text="Bezeroa:" GridPane.rowIndex="0" GridPane.columnIndex="0" 
+                       style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <Label fx:id="bezeroIzenaLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" 
+                       style="-fx-font-size: 14px;" />
+
+                <Label text="Data:" GridPane.rowIndex="1" GridPane.columnIndex="0" 
+                       style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <Label fx:id="dataLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" 
+                       style="-fx-font-size: 14px;" />
+            </children>
+
+            <columnConstraints>
+                <ColumnConstraints minWidth="80.0" />
+                <ColumnConstraints minWidth="200.0" />
+            </columnConstraints>
+        </GridPane>
+
+        <!-- Kontzeptua -->
+        <Label text="Kontzeptua:" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+        <TextField fx:id="kontzeptuaField" editable="false" 
+                   style="-fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 3;" />
+
+        <!-- Deskribapena -->
+        <Label text="Deskribapena:" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+        <TextArea fx:id="deskribapenaArea" editable="false" wrapText="true"
+                  prefRowCount="8"
+                  style="-fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 3;" />
+
+        <!-- Botones -->
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <children>
+                <Button onAction="#itzuli" text="Itzuli" prefWidth="100.0" 
+                        style="-fx-font-size: 14px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
+                <Button onAction="#amaituta" text="Amaituta" prefWidth="100.0" 
+                        style="-fx-font-size: 14px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" />
+            </children>
+            <VBox.margin>
+                <Insets top="10" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

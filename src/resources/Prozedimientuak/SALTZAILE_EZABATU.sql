@@ -1,0 +1,21 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SALTZAILE_EZABATU`(
+    IN SARRERA_ID INT
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+    
+    START TRANSACTION;
+    
+    -- Eliminar de SALTZAILE primero (por la foreign key)
+    DELETE FROM SALTZAILE WHERE ID = SARRERA_ID;
+    
+    -- Eliminar de LANGILE
+    DELETE FROM LANGILE WHERE ID = SARRERA_ID;
+    
+    COMMIT;
+    
+END

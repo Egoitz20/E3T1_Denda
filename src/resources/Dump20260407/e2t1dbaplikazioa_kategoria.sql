@@ -18,30 +18,27 @@ USE `e2t1dbaplikazioa`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `bulegari`
+-- Table structure for table `kategoria`
 --
 
-DROP TABLE IF EXISTS `bulegari`;
+DROP TABLE IF EXISTS `kategoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bulegari` (
+CREATE TABLE `kategoria` (
   `ID` int NOT NULL,
-  `ID_LANPOSTU` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FKID_LANPOSTU` (`ID_LANPOSTU`),
-  CONSTRAINT `FK_BULEGARI_LANGILE` FOREIGN KEY (`ID`) REFERENCES `langile` (`ID`) ON DELETE CASCADE,
-  CONSTRAINT `FKID_LANPOSTU` FOREIGN KEY (`ID_LANPOSTU`) REFERENCES `lanpostu` (`ID`)
+  `IZENA` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bulegari`
+-- Dumping data for table `kategoria`
 --
 
-LOCK TABLES `bulegari` WRITE;
-/*!40000 ALTER TABLE `bulegari` DISABLE KEYS */;
-INSERT INTO `bulegari` VALUES (107,1),(106,2),(101,3),(1,4),(2,5),(3,5),(10,6),(11,6),(12,6),(13,6),(14,6),(9,7),(104,8),(4,9),(5,9),(6,9),(7,9),(8,9),(102,10),(103,11),(105,12),(16,13),(17,13),(18,13),(19,13),(20,13),(97,13),(15,14),(46,15),(47,15),(48,15),(49,15),(50,15),(81,17),(82,17),(83,17),(84,17),(85,17),(86,17),(87,17),(88,17),(89,17),(90,17),(91,17),(92,17),(93,17),(94,17),(95,17),(96,17),(98,17),(99,17),(100,17),(26,18),(27,18),(28,18),(29,18),(30,18),(31,18),(32,18),(33,18),(34,18),(35,18),(36,18),(37,18),(38,18),(39,18),(40,18),(41,18),(42,18),(43,18),(44,18),(45,18),(21,19),(22,19),(23,19),(24,19),(25,19);
-/*!40000 ALTER TABLE `bulegari` ENABLE KEYS */;
+LOCK TABLES `kategoria` WRITE;
+/*!40000 ALTER TABLE `kategoria` DISABLE KEYS */;
+INSERT INTO `kategoria` VALUES (1,'CPU'),(2,'Video Card'),(3,'RAM'),(4,'Mother Board'),(5,'Storage');
+/*!40000 ALTER TABLE `kategoria` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-03 11:32:43
+-- Dump completed on 2026-04-07  8:18:54

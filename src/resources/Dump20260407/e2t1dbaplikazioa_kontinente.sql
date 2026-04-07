@@ -18,30 +18,27 @@ USE `e2t1dbaplikazioa`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `herrialde`
+-- Table structure for table `kontinente`
 --
 
-DROP TABLE IF EXISTS `herrialde`;
+DROP TABLE IF EXISTS `kontinente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `herrialde` (
-  `ID` char(2) NOT NULL,
-  `IZENA` varchar(40) NOT NULL,
-  `ID_KONTINENTE` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FKID_KONTINENTE` (`ID_KONTINENTE`),
-  CONSTRAINT `FKID_KONTINENTE` FOREIGN KEY (`ID_KONTINENTE`) REFERENCES `kontinente` (`ID`)
+CREATE TABLE `kontinente` (
+  `ID` int NOT NULL,
+  `IZENA` varchar(25) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `herrialde`
+-- Dumping data for table `kontinente`
 --
 
-LOCK TABLES `herrialde` WRITE;
-/*!40000 ALTER TABLE `herrialde` DISABLE KEYS */;
-INSERT INTO `herrialde` VALUES ('AR','Argentina',2),('AU','Australia',3),('BE','Belgium',1),('BR','Brazil',2),('CA','Canada',2),('CH','Switzerland',1),('CN','China',3),('DE','Germany',1),('DK','Denmark',1),('EG','Egypt',4),('FR','France',1),('IL','Israel',4),('IN','India',3),('IT','Italy',1),('JP','Japan',3),('KW','Kuwait',4),('ML','Malaysia',3),('MX','Mexico',2),('NG','Nigeria',4),('NL','Netherlands',1),('SG','Singapore',3),('SP','Spain',1),('UK','United Kingdom',1),('US','United States of America',2),('ZM','Zambia',4),('ZW','Zimbabwe',4);
-/*!40000 ALTER TABLE `herrialde` ENABLE KEYS */;
+LOCK TABLES `kontinente` WRITE;
+/*!40000 ALTER TABLE `kontinente` DISABLE KEYS */;
+INSERT INTO `kontinente` VALUES (1,'Europe'),(2,'America'),(3,'Asia'),(4,'Middle East and Africa');
+/*!40000 ALTER TABLE `kontinente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-03 11:32:45
+-- Dump completed on 2026-04-07  8:18:53
