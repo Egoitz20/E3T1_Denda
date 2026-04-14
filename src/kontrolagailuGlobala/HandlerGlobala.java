@@ -284,7 +284,7 @@ public class HandlerGlobala {
 			+ "INNER JOIN KATEGORIA ON PRODUKTU.ID_KATEGORIA = KATEGORIA.ID\r\n" + "WHERE KATEGORIA.IZENA = ?";
 
 	protected ArrayList<ProduktuBean> jasoProduktuak(String kategoria) {
-
+		
 		Konexioa db = new Konexioa();
 		Connection konexioa = null;
 		PreparedStatement pstmt = null;
@@ -292,6 +292,8 @@ public class HandlerGlobala {
 		ProduktuBean erregistro;
 		ArrayList<ProduktuBean> produktuTaula = new ArrayList<ProduktuBean>();
 
+	
+		
 		try {
 			konexioa = db.konektorea();
 			pstmt = konexioa.prepareStatement(DENDAKO_PRODUKTUAK);

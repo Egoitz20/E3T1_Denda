@@ -113,7 +113,7 @@ public class OtzaraKontrolagailua extends HandlerGlobala {
         Button btnEzabatu = new Button("🗑");
         btnEzabatu.setPrefWidth(40);
         
-        btnKendu.setOnAction(event -> {
+        btnKendu.setOnAction(_ -> {
             if (item.getKantitatea() > 0) {
                 item.kenduKantitatea();
                 if (item.getKantitatea() == 0) {
@@ -127,14 +127,14 @@ public class OtzaraKontrolagailua extends HandlerGlobala {
             }
         });
         
-        btnGehitu.setOnAction(event -> {
+        btnGehitu.setOnAction(_ -> {
             item.gehituKantitatea();
             kantitateLabel.setText(String.valueOf(item.getKantitatea()));
             totalLabel.setText(String.format("%.2f €", item.getGuztira()));
             eguneratuPrezioak();
         });
         
-        btnEzabatu.setOnAction(event -> {
+        btnEzabatu.setOnAction(_ -> {
             otzara.kenduProduktua(item);
             produktuakContainer.getChildren().remove(hbox);
             eguneratuPrezioak();

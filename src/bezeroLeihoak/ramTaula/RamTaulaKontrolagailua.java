@@ -112,7 +112,7 @@ public class RamTaulaKontrolagailua extends HandlerGlobala {
 						container.setAlignment(Pos.CENTER); // Dena erdian
 
 						// Botoi - sakatzen denean
-						btnKendu.setOnAction(event -> {
+						btnKendu.setOnAction(_ -> {
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int id = produktu.getId();
@@ -125,7 +125,7 @@ public class RamTaulaKontrolagailua extends HandlerGlobala {
 						});
 
 						// Botoi - sakatzen denean
-						btnGehitu.setOnAction(event -> {
+						btnGehitu.setOnAction(_ -> {
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int id = produktu.getId();

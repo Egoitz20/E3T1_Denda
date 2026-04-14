@@ -101,6 +101,7 @@ public class LoginKontrolagailua extends HandlerGlobala {
 		}
 	}
 
+	// Bezeroak komprobatzeko metodoa
 	private void irekiBezeroMenuPrintzipalaDatuekin() {
 		try {
 			BezeroMenuPrintzipala bezeroMenu = new BezeroMenuPrintzipala();
@@ -117,20 +118,6 @@ public class LoginKontrolagailua extends HandlerGlobala {
 		}
 	}
 
-	// Bezeroak komprobatzeko metodoa
-	private boolean konprobatuBezeroa(String erabiltzailea, String pasahitza) {
-		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
-
-		for (BezeroBean bezero : bezeroak) {
-			if (bezero.getErabiltzaile() != null && bezero.getPasahitza() != null) {
-				if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	@FXML
 	public void erregistratu() {
 		okultatuLeihoa();
@@ -144,7 +131,7 @@ public class LoginKontrolagailua extends HandlerGlobala {
 
 			erregitratuLeihoa.start(newStage);
 
-			newStage.setOnHidden(event -> {
+			newStage.setOnHidden(_ -> {
 				ikusiLeihoa();
 			});
 

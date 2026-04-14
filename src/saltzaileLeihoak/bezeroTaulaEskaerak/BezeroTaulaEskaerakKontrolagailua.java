@@ -92,7 +92,7 @@ public class BezeroTaulaEskaerakKontrolagailua extends HandlerGlobala {
 					private final Button btnIkusiEskaerak = new Button("Ikusi Eskaerak");
 
 					{
-						btnIkusiEskaerak.setOnAction(event -> { // Klick emanez gero, zer gertatuko den definitzen du.
+						btnIkusiEskaerak.setOnAction(_ -> { // Klick emanez gero, zer gertatuko den definitzen du.
 							BezeroBean bezero = getTableView().getItems().get(getIndex()); // Non dagoen botoia,
 																							// errenkadaren bezeroa
 																							// jasotzen du

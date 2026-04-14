@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="bezeroLeihoak.cpuTaula.CpuTaulaKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="900.0"
+      spacing="10"
+      alignment="TOP_CENTER">
+      
+   <children>
+      <Label text="CPU">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+        <columns>
+          <TableColumn fx:id="izenaColumn" prefWidth="250.0" text="Izena" />
+          <TableColumn fx:id="deskribapenaColumn" prefWidth="300.0" text="Deskribapena" />
+          <TableColumn fx:id="salneurriaColumn" prefWidth="120.0" text="Salneurria (€)" />
+          <TableColumn fx:id="kantitateaColumn" prefWidth="180.0" text="Kantitatea" />
+        </columns>
+      </TableView>
+      
+      <HBox spacing="10" alignment="CENTER">
+         <children>
+            <Pagination fx:id="pagination" />
+         </children>
+      </HBox>
+      
+      <HBox spacing="10" alignment="CENTER_RIGHT">
+         <children>
+            <Button onAction="#gehituOtzara" text="Gehitu Otzara" prefWidth="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button onAction="#itzuli" text="Itzuli">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?> 
+
+<VBox fx:controller="saltzaileLeihoak.abisuak.AbisuakKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="800.0"
+      spacing="10"
+      alignment="TOP_CENTER"
+      style="-fx-background-color: #f5f5f5;">
+      
+   <children>
+      <!-- Título -->
+      <Label text="Bezeroen Abisuak" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+         <VBox.margin>
+            <Insets top="15" />
+         </VBox.margin>
+      </Label>
+      
+      <Separator prefWidth="600.0" />
+      
+      <!-- Lista de abisos -->
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+        <columns>
+          <TableColumn fx:id="bezeroIzenaColumn" prefWidth="150.0" text="Bezeroa" />
+          <TableColumn fx:id="kontzeptuaColumn" prefWidth="200.0" text="Kontzeptua" />
+          <TableColumn fx:id="deskribapenaColumn" prefWidth="300.0" text="Deskribapena" />
+          <TableColumn fx:id="dataColumn" prefWidth="120.0" text="Data" />
+        </columns>
+      </TableView>
+      
+      <!-- Paginación -->
+      <HBox spacing="10" alignment="CENTER">
+         <children>
+            <Pagination fx:id="pagination" />
+         </children>
+      </HBox>
+      
+      <!-- Botón de volver -->
+      <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 20 15 0;">
+         <children>
+            <Button onAction="#itzuli" text="Itzuli" prefWidth="100.0" 
+                    style="-fx-font-size: 14px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

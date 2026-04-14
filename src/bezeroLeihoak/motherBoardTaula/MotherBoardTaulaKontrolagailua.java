@@ -105,7 +105,7 @@ public class MotherBoardTaulaKontrolagailua extends HandlerGlobala {
 						lblKopurua.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 						container.setAlignment(Pos.CENTER);
 
-						btnKendu.setOnAction(event -> {
+						btnKendu.setOnAction(_ -> {
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int id = produktu.getId();
@@ -117,7 +117,7 @@ public class MotherBoardTaulaKontrolagailua extends HandlerGlobala {
 							}
 						});
 
-						btnGehitu.setOnAction(event -> {
+						btnGehitu.setOnAction(_ -> {
 							ProduktuBean produktu = getTableView().getItems().get(getIndex());
 							if (produktu != null) {
 								int id = produktu.getId();

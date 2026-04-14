@@ -26,7 +26,7 @@ public class SaltzaileMenuPrintzipala extends Application {
         SaltzaileMenuPrintzipalaKontrolagailua controller = loader.getController();
         controller.setStage(primaryStage);
         
-        // Pasar los datos del vendedor al controlador
+        // Saltzaileen datuak pasati kontrolagailuari
         if (saltzaileData != null) {
             controller.setSaltzaileData(saltzaileData);
         }

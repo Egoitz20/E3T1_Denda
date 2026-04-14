@@ -98,7 +98,7 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 			itxiOraingoLeihoa();
 
 			// Cuando se cierre la ventana de gestión, recargar los datos
-			newStage.setOnHidden(event -> {
+			newStage.setOnHidden(_ -> {
 				irekiSaltzaileMenuPrintzipala();
 			});
 
