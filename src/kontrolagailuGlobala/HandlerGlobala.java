@@ -2,7 +2,6 @@ package kontrolagailuGlobala;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,15 +35,6 @@ public class HandlerGlobala {
 	// Logineko stage jasotzeko metodoa
 	public void setStage(Stage stage) {
 		this.stage = stage;
-	}
-
-	// Salbuespen alerta metodoa
-	protected void irekiAlerta(String titulua, String goiburua, String mezua) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(titulua);
-		alert.setHeaderText(goiburua);
-		alert.setContentText(mezua);
-		alert.showAndWait();
 	}
 
 	/*
@@ -92,6 +82,15 @@ public class HandlerGlobala {
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
 					"Errorea saltzailearen menua irekitzean: " + e.getMessage());
 		}
+	}
+
+	// Salbuespen alerta metodoa
+	protected void irekiAlerta(String titulua, String goiburua, String mezua) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(titulua);
+		alert.setHeaderText(goiburua);
+		alert.setContentText(mezua);
+		alert.showAndWait();
 	}
 
 	// BezeroMenuPrintzipala irekitzeko metodoa
@@ -171,12 +170,20 @@ public class HandlerGlobala {
 				bezeroTaula.add(erregistro);
 			}
 
-			rs.close();
-			stmt.close();
-			konexioa.close();
 		} catch (SQLException e) {
 			System.out.println("Errorea: " + e);
 			System.out.println("Errorea: " + e.getCause());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return bezeroTaula;
 	}
@@ -212,14 +219,21 @@ public class HandlerGlobala {
 
 			}
 
-			rs.close();
-			stmt.close();
-			konexioa.close();
-
 		} catch (SQLException e) {
 			System.out.println("Errorea: " + e);
 			System.out.println("Errorea: " + e.getCause());
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return saltzaileTaula;
@@ -246,6 +260,7 @@ public class HandlerGlobala {
 			cs.setString(2, abizena);
 
 			rs = cs.executeQuery();
+
 			while (rs.next()) {
 				erregistro = new EskaerakBean();
 				erregistro.setProduktu(rs.getString("PRODUKTU"));
@@ -277,43 +292,49 @@ public class HandlerGlobala {
 		return produktuEskaeraTaula;
 	}
 
-	private static final String DENDAKO_PRODUKTUAK = "SELECT PRODUKTU.ID, PRODUKTU.IZENA, PRODUKTU.DESKRIBAPENA, PRODUKTU.SALNEURRIA FROM PRODUKTU \r\n"
-			+ "INNER JOIN KATEGORIA ON PRODUKTU.ID_KATEGORIA = KATEGORIA.ID\r\n" + "WHERE KATEGORIA.IZENA = ?";
-
 	protected ArrayList<ProduktuBean> jasoProduktuak(String kategoria) {
 
 		Konexioa db = new Konexioa();
 		Connection konexioa = null;
-		PreparedStatement pstmt = null;
+		CallableStatement cs = null;
 		ResultSet rs = null;
 		ProduktuBean erregistro;
 		ArrayList<ProduktuBean> produktuTaula = new ArrayList<ProduktuBean>();
 
+		String sql = "{CALL KATEGORIA_PRODUKTU_INFO (?)}";
+
 		try {
 			konexioa = db.konektorea();
-			pstmt = konexioa.prepareStatement(DENDAKO_PRODUKTUAK);
+			cs = konexioa.prepareCall(sql);
 
-			pstmt.setString(1, kategoria);
+			cs.setString(1, kategoria);
 
-			rs = pstmt.executeQuery();
+			rs = cs.executeQuery();
 
 			while (rs.next()) {
 				erregistro = new ProduktuBean();
-				erregistro.setId(rs.getInt("PRODUKTU.ID"));
-				erregistro.setIzena(rs.getString("PRODUKTU.IZENA"));
-				erregistro.setDeskribapena(rs.getString("PRODUKTU.DESKRIBAPENA"));
-				erregistro.setSalneurria(rs.getDouble("PRODUKTU.SALNEURRIA"));
+				erregistro.setId(rs.getInt("ID"));
+				erregistro.setIzena(rs.getString("PRODUKTU_IZENA"));
+				erregistro.setDeskribapena(rs.getString("DESKRIBAPENA"));
+				erregistro.setSalneurria(rs.getDouble("SALNEURRIA"));
 				produktuTaula.add(erregistro);
 			}
-
-			rs.close();
-			pstmt.close();
-			konexioa.close();
 
 		} catch (SQLException e) {
 			System.out.println("Errorea: " + e);
 			System.out.println("Errorea: " + e.getCause());
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (cs != null)
+					cs.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return produktuTaula;
@@ -331,33 +352,30 @@ public class HandlerGlobala {
 	 */
 
 	// Bezero Errergistroa
-	private static final String ERABILTZAILE_GEHIKETA = "INSERT INTO BEZERO (IZENA, ABIZENA, EMAILA, ERABILTZAILEA, PASAHITZA) VALUES (?, ?, ?, ?, ?)";
-
 	protected void erregistroBezeroBerriaSortu(String erabiltzailea, String pasahitza) {
 		Konexioa db = new Konexioa();
 		Connection konexioa = null;
-		PreparedStatement stmt = null;
+		CallableStatement cs = null;
+
+		String sql = "{CALL ERREGISTROA(?, ?)}";
+
 		try {
+
 			konexioa = db.konektorea();
-			stmt = konexioa.prepareStatement(ERABILTZAILE_GEHIKETA);
+			cs = konexioa.prepareCall(sql);
 
-			stmt.setString(1, "Izena");
-			stmt.setString(2, "Abizena");
-			stmt.setString(3, "Emaila");
-			stmt.setString(4, erabiltzailea);
-			stmt.setString(5, pasahitza);
+			cs.setString(1, erabiltzailea);
+			cs.setString(2, pasahitza);
 
-			stmt.executeUpdate();
+			cs.execute();
 
-			stmt.close();
-			konexioa.close();
 		} catch (SQLException e) {
-			System.out.println("ERROREA: " + e);
-			System.out.println("ERROREA: " + e.getCause());
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
 		} finally {
 			try {
-				if (stmt != null)
-					stmt.close();
+				if (cs != null)
+					cs.close();
 				if (konexioa != null)
 					konexioa.close();
 			} catch (SQLException e) {
