@@ -22,9 +22,10 @@ public class LoginKontrolagailua extends HandlerGlobala {
 	private PasswordField pasahitza;
 
 	// Saltzaile gordetzeko aldagaia
-	private LangileSaltzaileBean saltzaileLogueado;
+	private LangileSaltzaileBean saltzaileLogeatuta;
 
-	private BezeroBean bezeroLogueado;
+	// Bezero gordetzeko aldagaia
+	private BezeroBean bezeroLogeatuta;
 
 	public LoginKontrolagailua() {
 	}
@@ -41,11 +42,11 @@ public class LoginKontrolagailua extends HandlerGlobala {
 			return;
 		}
 
-		// Primero comprobar si es vendedor
+		// Lehenenengo, saltzailea baldin bada komprobatuko da.
 		if (konprobatuEtaLortuSaltzailea(jasotakoErabiltzailea, jasotakoPasahitza)) {
 			irekiSaltzaileMenuPrintzipalaDatuekin();
 		}
-		// Si no, comprobar si es cliente y obtener sus datos
+		// Saltzaile ez bada, bezero baldin bada kombropatuko da.
 		else if (konprobatuEtaLortuBezeroa(jasotakoErabiltzailea, jasotakoPasahitza)) {
 			irekiBezeroMenuPrintzipalaDatuekin();
 		} else {
@@ -61,7 +62,7 @@ public class LoginKontrolagailua extends HandlerGlobala {
 		for (LangileSaltzaileBean saltzaile : saltzaileak) {
 			if (saltzaile.getErabiltzailea() != null && saltzaile.getErabiltzailea().equals(erabiltzailea)
 					&& saltzaile.getPasahitza().equals(pasahitza)) {
-				saltzaileLogueado = saltzaile; // Logeatutako saltzailea gordeko du
+				saltzaileLogeatuta = saltzaile; // Logeatutako saltzailea gordeko du
 				return true;
 			}
 		}
@@ -73,8 +74,13 @@ public class LoginKontrolagailua extends HandlerGlobala {
 
 		for (BezeroBean bezero : bezeroak) {
 			if (bezero.getErabiltzaile() != null && bezero.getPasahitza() != null) {
+				// erabiltzaile edo pasahitza baldin badauka, horiekin bezero logeatuko da
 				if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
-					bezeroLogueado = bezero;
+					bezeroLogeatuta = bezero;
+					return true;
+				// erabiltzaile edo pasahitza ez badauka, orduan izena eta abizenarekin logeatuko da.
+				} else if (bezero.getIzena().equals(erabiltzailea) && bezero.getAbizena().equals(pasahitza)) {
+					bezeroLogeatuta = bezero;
 					return true;
 				}
 			}
@@ -88,8 +94,8 @@ public class LoginKontrolagailua extends HandlerGlobala {
 			SaltzaileMenuPrintzipala saltzaileMenu = new SaltzaileMenuPrintzipala();
 			Stage newStage = new Stage();
 
-			// Pasar los datos del vendedor logueado
-			saltzaileMenu.setSaltzaileData(saltzaileLogueado);
+			// Logeatutako saltzaileari datuak pasatzen dira
+			saltzaileMenu.setSaltzaileData(saltzaileLogeatuta);
 			saltzaileMenu.start(newStage);
 
 			itxiOraingoLeihoa();
@@ -107,7 +113,8 @@ public class LoginKontrolagailua extends HandlerGlobala {
 			BezeroMenuPrintzipala bezeroMenu = new BezeroMenuPrintzipala();
 			Stage newStage = new Stage();
 
-			bezeroMenu.setBezeroData(bezeroLogueado);
+			// Logeatutako bezeroari datuak pasatzen dira
+			bezeroMenu.setBezeroData(bezeroLogeatuta);
 			bezeroMenu.start(newStage);
 
 			itxiOraingoLeihoa();

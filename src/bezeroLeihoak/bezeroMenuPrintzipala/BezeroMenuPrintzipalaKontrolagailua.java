@@ -123,6 +123,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			SaioInformazioa saioInformazioa = new SaioInformazioa();
 			Stage newStage = new Stage();
+			saioInformazioa.setBezeroData(bezeroData);
 			saioInformazioa.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
