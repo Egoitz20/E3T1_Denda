@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="saltzaileLeihoak.eguneraketakKontrola.EguneraketakKontrolaKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="900.0"
+      spacing="10"
+      alignment="TOP_CENTER">
+      
+   <children>
+      <Label text="Eguneraketak Kontrola">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+        <columns>
+          <TableColumn fx:id="kontrolaColumn" prefWidth="1000.0" text="KONTROLA" />
+        </columns>
+      </TableView>
+      
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <children>
+            <Button onAction="#itzuli" text="Itzuli">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

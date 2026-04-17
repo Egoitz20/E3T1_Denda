@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="900.0" spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="saltzaileLeihoak.txertaketakEzabaketakKontrola.TxertaketakEzabaketakKontrolaKontrolagailua">
+      
+   <children>
+      <Label text="Txertaketak Ezabaketak Kontrola">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Label>
+      
+      <TableView fx:id="tableView" prefHeight="400.0" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="txertaketakColumn" prefWidth="500.0" text="TXERTAKETAK" />
+          <TableColumn fx:id="ezabaketakColumn" prefWidth="500.0" text="EZABAKETAK" />
+        </columns>
+      </TableView>
+      
+      <HBox alignment="CENTER_LEFT" spacing="10">
+         <children>
+            <Button onAction="#itzuli" text="Itzuli">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

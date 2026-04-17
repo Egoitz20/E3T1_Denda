@@ -9,8 +9,10 @@ import saltzaileLeihoak.abisuak.Abisuak;
 import saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketa;
 import saltzaileLeihoak.bezeroTaula.BezeroTaula;
 import saltzaileLeihoak.bezeroTaulaEskaerak.BezeroTaulaEskaerak;
+import saltzaileLeihoak.eguneraketakKontrola.EguneraketakKontrola;
 import saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketa;
 import saltzaileLeihoak.saltzaileTaula.SaltzaileTaula;
+import saltzaileLeihoak.txertaketakEzabaketakKontrola.TxertaketakEzabaketakKontrola;
 
 public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 
@@ -120,7 +122,7 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		}
 	}
 
-	//Abisuak irekitzeko metodoa
+	// Abisuak irekitzeko metodoa
 	@FXML
 	public void irekiAbisuak() {
 		try {
@@ -132,6 +134,35 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki", "Errorea abisuak irekitzean: " + e.getMessage());
 		}
+	}
+
+	@FXML
+	public void irekiEguneraketak() {
+		try {
+			EguneraketakKontrola eguneraketaKontrola = new EguneraketakKontrola();
+			Stage newStage = new Stage();
+			eguneraketaKontrola.start(newStage);
+			itxiOraingoLeihoa();
+		} catch (Exception e) {
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+					"Errorea eguneraketak kontrola irekitzean: " + e.getMessage());
+		}
+	}
+
+	@FXML
+	public void irekiTxerteketakEzabaketak() {
+		try {
+			TxertaketakEzabaketakKontrola txertatuEzabatuKontrola = new TxertaketakEzabaketakKontrola();
+			Stage newStage = new Stage();
+			txertatuEzabatuKontrola.start(newStage);
+			itxiOraingoLeihoa();
+		} catch (Exception e) {
+			e.printStackTrace();
+			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+					"Errorea txertaketak eta ezabaketak kontrola irekitzean: " + e.getMessage());
+		}
+
 	}
 
 	// Saioa ixteko metodoa

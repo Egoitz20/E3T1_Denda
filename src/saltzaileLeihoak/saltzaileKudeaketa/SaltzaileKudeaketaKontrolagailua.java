@@ -100,6 +100,7 @@ public class SaltzaileKudeaketaKontrolagailua extends HandlerGlobala {
 	@FXML
 	public void itzuli() {
 		itxiOraingoLeihoa();
+		irekiSaltzaileMenuPrintzipala();
 	}
 
 	// Eremuak balidatzen ditu eta biltegiratutako prozedurara deitzen dio

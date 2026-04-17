@@ -12,10 +12,12 @@ import java.util.Map;
 import bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipala;
 import datuBaseKonexioa.AbisuakBean;
 import datuBaseKonexioa.BezeroBean;
+import datuBaseKonexioa.EguneraketakBean;
 import datuBaseKonexioa.EskaerakBean;
 import datuBaseKonexioa.Konexioa;
 import datuBaseKonexioa.LangileSaltzaileBean;
 import datuBaseKonexioa.ProduktuBean;
+import datuBaseKonexioa.TxertaketakEzabaketakKontrolaBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -139,7 +141,6 @@ public class HandlerGlobala {
 	 */
 
 	private static final String BEZERO_TAULA = "SELECT * FROM BISTA_BEZERO_BEZEROTELEFONO";
-	private static final String LANGILESALTZAILE_TAULA = "SELECT * FROM BISTA_LANGILESALTZAILE";
 
 	// Bezeroak datu-basetik jasotzeko metodoa
 	protected ArrayList<BezeroBean> jasoBezeroak() {
@@ -187,6 +188,8 @@ public class HandlerGlobala {
 		}
 		return bezeroTaula;
 	}
+
+	private static final String LANGILESALTZAILE_TAULA = "SELECT * FROM BISTA_LANGILESALTZAILE";
 
 	// Saltzaileak informazio gehiago datu-basetik jasotzeko metodoa (INNER JOIN
 	// Langile taulatik))
@@ -238,6 +241,89 @@ public class HandlerGlobala {
 
 		return saltzaileTaula;
 
+	}
+
+	private static final String EGUNERAKETAK_TAULA = "SELECT * FROM BISTA_EGUNERAKETAK";
+
+	// Eguneraketak datu-basetik jasotzeko metodoa
+	protected ArrayList<EguneraketakBean> jasoEguneraketak() {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		EguneraketakBean erregistro;
+		ArrayList<EguneraketakBean> eguneraketakTaula = new ArrayList<EguneraketakBean>();
+
+		try {
+			konexioa = db.konektorea();
+			stmt = konexioa.createStatement();
+			rs = stmt.executeQuery(EGUNERAKETAK_TAULA);
+
+			while (rs.next()) {
+				erregistro = new EguneraketakBean();
+				erregistro.setKontrola(rs.getString("KONTROLA"));
+				eguneraketakTaula.add(erregistro);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return eguneraketakTaula;
+	}
+
+	private static final String TXERTAKETAK_EZABAKETAK_TAULA = "SELECT * FROM BISTA_TXERTAKETAK_EZABAKETAK";
+
+	// Txertaketak eta Ezabaketak datu-basetik jasotzeko metodoa
+	protected ArrayList<TxertaketakEzabaketakKontrolaBean> jasoTxertaketakEzabaketak() {
+
+		Konexioa db = new Konexioa();
+		Connection konexioa = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		TxertaketakEzabaketakKontrolaBean erregistro;
+		ArrayList<TxertaketakEzabaketakKontrolaBean> txertaketakEzabaketakTaula = new ArrayList<TxertaketakEzabaketakKontrolaBean>();
+
+		try {
+			konexioa = db.konektorea();
+			stmt = konexioa.createStatement();
+			rs = stmt.executeQuery(TXERTAKETAK_EZABAKETAK_TAULA);
+
+			while (rs.next()) {
+				erregistro = new TxertaketakEzabaketakKontrolaBean();
+				erregistro.setTxertaketak(rs.getString("TXERTAKETAK"));
+				erregistro.setEzabaketak(rs.getString("EZABAKETAK"));
+				txertaketakEzabaketakTaula.add(erregistro);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Errorea: " + e);
+			System.out.println("Errorea: " + e.getCause());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				if (konexioa != null)
+					konexioa.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return txertaketakEzabaketakTaula;
 	}
 
 	// Bezeroen eskatutako produktuak jasotzeko metodoa
