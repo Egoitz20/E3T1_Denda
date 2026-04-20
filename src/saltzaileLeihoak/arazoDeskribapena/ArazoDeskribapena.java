@@ -1,6 +1,7 @@
 package saltzaileLeihoak.arazoDeskribapena;
 
 import datuBaseKonexioa.AbisuakBean;
+import datuBaseKonexioa.LangileSaltzaileBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,30 +9,36 @@ import javafx.stage.Stage;
 
 public class ArazoDeskribapena extends Application {
 
-    private AbisuakBean abisua;  // Abisua zeinari erreferentzia egiten dion
+	private AbisuakBean abisua; // Abisua zeinari erreferentzia egiten dion
 
-    public ArazoDeskribapena() {
-    }
+	private LangileSaltzaileBean saltzaileData;
 
-    public void setAbisua(AbisuakBean abisua) {
-        this.abisua = abisua;
-    }
+	public void setSaltzaileData(LangileSaltzaileBean saltzailea) {
+		this.saltzaileData = saltzailea;
+	}
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ArazoDeskribapena.fxml"));
-        Scene scene = new Scene(loader.load());
+	public ArazoDeskribapena() {
+	}
 
-        ArazoDeskribapenaKontrolagailua controller = loader.getController();
-        controller.setStage(primaryStage);
-        controller.setAbisua(abisua);
+	public void setAbisua(AbisuakBean abisua) {
+		this.abisua = abisua;
+	}
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Arazo deskribapena");
-        primaryStage.show();
-    }
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ArazoDeskribapena.fxml"));
+		Scene scene = new Scene(loader.load());
 
-    public static void main(String[] args) {
-        launch();
-    }
+		ArazoDeskribapenaKontrolagailua controller = loader.getController();
+		controller.setStage(primaryStage);
+		controller.setAbisua(abisua);
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Arazo deskribapena");
+		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch();
+	}
 }

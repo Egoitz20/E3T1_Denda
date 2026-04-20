@@ -11,7 +11,6 @@ public class SaioInformazioa extends Application {
 	private BezeroBean bezeroData;
 	
 	public SaioInformazioa() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setBezeroData(BezeroBean bezeroa) {

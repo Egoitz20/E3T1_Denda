@@ -45,6 +45,7 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			SaltzaileTaula saltzaileTaula = new SaltzaileTaula();
 			Stage newStage = new Stage();
+			saltzaileTaula.setSaltzaileData(saltzaileData);
 			saltzaileTaula.start(newStage);
 
 			itxiOraingoLeihoa();
@@ -62,6 +63,7 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			BezeroTaula bezeroTaula = new BezeroTaula();
 			Stage newStage = new Stage();
+			bezeroTaula.setSaltzaileData(saltzaileData);
 			bezeroTaula.start(newStage);
 
 			itxiOraingoLeihoa();
@@ -79,7 +81,8 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			BezeroKudeaketa bezeroKudeaketa = new BezeroKudeaketa();
 			Stage newStage = new Stage();
 			bezeroKudeaketa.start(newStage);
-
+			bezeroKudeaketa.setSaltzaileData(saltzaileData);
+			
 			itxiOraingoLeihoa();
 
 		} catch (Exception e) {
@@ -95,6 +98,7 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			SaltzaileKudeaketa saltzaileKudeaketa = new SaltzaileKudeaketa();
 			Stage newStage = new Stage();
 			saltzaileKudeaketa.start(newStage);
+			saltzaileKudeaketa.setSaltzaileData(saltzaileData);
 
 			itxiOraingoLeihoa();
 
@@ -112,7 +116,8 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			BezeroTaulaEskaerak bezeroTaulaEskaerak = new BezeroTaulaEskaerak();
 			Stage newStage = new Stage();
 			bezeroTaulaEskaerak.start(newStage);
-
+			bezeroTaulaEskaerak.setSaltzaileData(saltzaileData);
+			
 			itxiOraingoLeihoa();
 
 		} catch (Exception e) {
@@ -129,6 +134,8 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			Abisuak abisuak = new Abisuak();
 			Stage newStage = new Stage();
 			abisuak.start(newStage);
+			abisuak.setSaltzaileData(saltzaileData);
+			
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,6 +149,8 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			EguneraketakKontrola eguneraketaKontrola = new EguneraketakKontrola();
 			Stage newStage = new Stage();
 			eguneraketaKontrola.start(newStage);
+			eguneraketaKontrola.setSaltzaileData(saltzaileData);
+			
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,6 +165,8 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 			TxertaketakEzabaketakKontrola txertatuEzabatuKontrola = new TxertaketakEzabaketakKontrola();
 			Stage newStage = new Stage();
 			txertatuEzabatuKontrola.start(newStage);
+			txertatuEzabatuKontrola.setSaltzaileData(saltzaileData);
+			
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -168,7 +179,10 @@ public class SaltzaileMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 	// Saioa ixteko metodoa
 	@FXML
 	public void saioaIxten() {
+		// Oraingo leihoa ixten da
 		itxiOraingoLeihoa();
+		// Sailtzaileko datuak garbitu
+		setSaltzaileData(null);
 		irekiLogina();
 	}
 }

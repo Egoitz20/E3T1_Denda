@@ -1,5 +1,6 @@
 package saltzaileLeihoak.saltzaileTaula;
 
+import datuBaseKonexioa.LangileSaltzaileBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +8,12 @@ import javafx.stage.Stage;
 
 public class SaltzaileTaula extends Application {
 
+	private LangileSaltzaileBean saltzaileData;
+	
+	public void setSaltzaileData(LangileSaltzaileBean saltzailea) {
+	        this.saltzaileData = saltzailea;
+	 }
+	
 	public SaltzaileTaula() {
 	}
 

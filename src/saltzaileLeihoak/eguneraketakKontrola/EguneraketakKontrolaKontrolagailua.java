@@ -43,6 +43,7 @@ public class EguneraketakKontrolaKontrolagailua extends HandlerGlobala {
 	private void kargatuDatuak() {
 		ArrayList<EguneraketakBean> eguneraketak = jasoEguneraketak();
 		eguneraketakList.setAll(eguneraketak);
+		tableView.setItems(eguneraketakList);
 	}
 	
 	

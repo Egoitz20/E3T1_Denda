@@ -56,6 +56,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			StorageTaula storageTaula = new StorageTaula();
 			Stage newStage = new Stage();
+			storageTaula.setBezeroData(bezeroData);
 			storageTaula.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
@@ -69,6 +70,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			MotherBoardTaula motherBoardTaula = new MotherBoardTaula();
 			Stage newStage = new Stage();
+			motherBoardTaula.setBezeroData(bezeroData);
 			motherBoardTaula.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
@@ -83,6 +85,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			VideoCardTaula videoCardTaula = new VideoCardTaula();
 			Stage newStage = new Stage();
+			videoCardTaula.setBezeroData(bezeroData);
 			videoCardTaula.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
@@ -97,6 +100,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			RamTaula ramTaula = new RamTaula();
 			Stage newStage = new Stage();
+			ramTaula.setBezeroData(bezeroData);
 			ramTaula.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
@@ -110,6 +114,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			CpuTaula cpuTaula = new CpuTaula();
 			Stage newStage = new Stage();
+			cpuTaula.setBezeroData(bezeroData);
 			cpuTaula.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
@@ -138,6 +143,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		try {
 			Otzara otzara = new Otzara();
 			Stage newStage = new Stage();
+			otzara.setBezeroData(bezeroData);
 			otzara.start(newStage);
 			itxiOraingoLeihoa();
 		} catch (Exception e) {
@@ -151,6 +157,7 @@ public class BezeroMenuPrintzipalaKontrolagailua extends HandlerGlobala {
 		// Garbitu otzara saioa itxitakoan
 		OtzaraGlobala.getInstantzia().garbitu();
 		itxiOraingoLeihoa();
+		setBezeroLogeatuta(null);
 		irekiLogina();
 	}
 }

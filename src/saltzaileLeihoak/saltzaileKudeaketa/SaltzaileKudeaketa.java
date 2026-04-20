@@ -14,7 +14,7 @@ public class SaltzaileKudeaketa extends Application {
 	public SaltzaileKudeaketa() {
 	}
 	
-	// ✅ Método para recibir los datos desde la tabla
+	// Taulatik datuak jasotzeko metodoa
     public void setSaltzaileData(LangileSaltzaileBean saltzailea) {
         this.saltzaileData = saltzailea;
         this.isEditMode = (saltzailea != null);

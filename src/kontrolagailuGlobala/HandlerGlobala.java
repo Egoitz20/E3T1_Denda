@@ -33,10 +33,29 @@ import saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipala;
 public class HandlerGlobala {
 
 	private Stage stage;
+	private static LangileSaltzaileBean saltzaileLogeatuta;
+	private static BezeroBean bezeroLogeatuta;
 
 	// Logineko stage jasotzeko metodoa
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+
+	// Getter eta Setter estatikoak logeatutako saltzaileetarako
+	public static LangileSaltzaileBean getSaltzaileLogeatuta() {
+		return saltzaileLogeatuta;
+	}
+
+	public static void setSaltzaileLogeatuta(LangileSaltzaileBean saltzaile) {
+		saltzaileLogeatuta = saltzaile;
+	}
+
+	public static BezeroBean getBezeroLogeatuta() {
+		return bezeroLogeatuta;
+	}
+	
+	public static void setBezeroLogeatuta(BezeroBean bezero) {
+		bezeroLogeatuta = bezero;
 	}
 
 	/*
@@ -73,6 +92,11 @@ public class HandlerGlobala {
 
 			// Sortu Stage berri bat leiho -rako
 			Stage newStage = new Stage();
+
+			// Gordetutako logeatutako saltzaileko datuak erabili
+			if (saltzaileLogeatuta != null) {
+				saltzaileMenu.setSaltzaileData(saltzaileLogeatuta);
+			}
 
 			// Pistu leihoa deitzen start metodoari
 			saltzaileMenu.start(newStage);
@@ -116,11 +140,7 @@ public class HandlerGlobala {
 		try {
 			Login logina = new Login();
 			Stage newStage = new Stage();
-
 			logina.start(newStage);
-
-			itxiOraingoLeihoa();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",

@@ -1,5 +1,6 @@
 package bezeroLeihoak.storageTaula;
 
+import datuBaseKonexioa.BezeroBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +8,12 @@ import javafx.stage.Stage;
 
 public class StorageTaula extends Application {
 
+	private BezeroBean bezeroData;
+
+	public void setBezeroData(BezeroBean bezeroa) {
+		this.bezeroData = bezeroa;
+	}
+	
 	public StorageTaula() {
 	}
 

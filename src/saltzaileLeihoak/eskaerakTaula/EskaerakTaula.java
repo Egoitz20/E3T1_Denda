@@ -11,7 +11,6 @@ public class EskaerakTaula extends Application {
     private BezeroBean bezeroData;
 
     public EskaerakTaula() {
-
     }
 
     public void setEskaeraBezeroData(BezeroBean bezeroa) {

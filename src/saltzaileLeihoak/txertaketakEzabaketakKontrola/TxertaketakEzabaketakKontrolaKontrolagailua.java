@@ -47,6 +47,7 @@ public class TxertaketakEzabaketakKontrolaKontrolagailua extends HandlerGlobala 
 	private void kargatuDatuak() {
 		ArrayList<TxertaketakEzabaketakKontrolaBean> eguneraketak = jasoTxertaketakEzabaketak();
 		kontrolaList.setAll(eguneraketak);
+		tableView.setItems(kontrolaList);
 	}
 
 }

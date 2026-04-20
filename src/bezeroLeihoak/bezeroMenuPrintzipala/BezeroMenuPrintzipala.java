@@ -10,9 +10,9 @@ public class BezeroMenuPrintzipala extends Application {
 
 	private BezeroBean bezeroData;
 
-	 public void setBezeroData(BezeroBean bezeroa) {
-	        this.bezeroData = bezeroa;
-	    }
+	public void setBezeroData(BezeroBean bezeroa) {
+		this.bezeroData = bezeroa;
+	}
 	
 	public BezeroMenuPrintzipala() {
 

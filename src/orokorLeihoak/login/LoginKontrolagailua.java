@@ -63,6 +63,7 @@ public class LoginKontrolagailua extends HandlerGlobala {
 			if (saltzaile.getErabiltzailea() != null && saltzaile.getErabiltzailea().equals(erabiltzailea)
 					&& saltzaile.getPasahitza().equals(pasahitza)) {
 				saltzaileLogeatuta = saltzaile; // Logeatutako saltzailea gordeko du
+				setSaltzaileLogeatuta(saltzaile); // Handler globalan gorde saltzailea
 				return true;
 			}
 		}
@@ -77,10 +78,12 @@ public class LoginKontrolagailua extends HandlerGlobala {
 				// erabiltzaile edo pasahitza baldin badauka, horiekin bezero logeatuko da
 				if (bezero.getErabiltzaile().equals(erabiltzailea) && bezero.getPasahitza().equals(pasahitza)) {
 					bezeroLogeatuta = bezero;
+					setBezeroLogeatuta(bezero);
 					return true;
 				// erabiltzaile edo pasahitza ez badauka, orduan izena eta abizenarekin logeatuko da.
 				} else if (bezero.getIzena().equals(erabiltzailea) && bezero.getAbizena().equals(pasahitza)) {
 					bezeroLogeatuta = bezero;
+					setBezeroLogeatuta(bezero);
 					return true;
 				}
 			}

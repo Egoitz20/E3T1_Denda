@@ -1,5 +1,6 @@
 package bezeroLeihoak.ramTaula;
 
+import datuBaseKonexioa.BezeroBean;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +8,12 @@ import javafx.stage.Stage;
 
 public class RamTaula extends Application{
 
+	private BezeroBean bezeroData;
+
+	public void setBezeroData(BezeroBean bezeroa) {
+		this.bezeroData = bezeroa;
+	}
+	
 	public RamTaula() {
 	}
 
