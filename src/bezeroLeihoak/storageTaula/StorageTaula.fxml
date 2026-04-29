@@ -6,6 +6,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Storage (Disko gogorrak/SSD) produktuen taularen interfaze grafikoa.
+  
+  Taula honek Storage kategorian dauden produktu guztiak erakusten ditu:
+  - Izena: produktuaren izena (adib: Samsung 980 Pro, WD Blue)
+  - Deskribapena: produktuaren ezaugarriak (adib: 1TB NVMe M.2 SSD)
+  - Salneurria (€): produktuaren prezioa
+  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  
+  @controller bezeroLeihoak.storageTaula.StorageTaulaKontrolagailua
+-->
+
 <VBox fx:controller="bezeroLeihoak.storageTaula.StorageTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

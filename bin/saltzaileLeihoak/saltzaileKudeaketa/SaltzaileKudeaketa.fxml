@@ -7,6 +7,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Saltzaileen kudeaketa formularioaren interfaze grafikoa.
+  
+  Formulario honek saltzaileak gehitu, aldatu edo ezabatzeko aukera ematen du:
+  - IDa (automatikoa)
+  - Izena-Abizenak
+  - Erabiltzailea
+  - Pasahitza
+  - Emaila
+  - Telefonoa
+  - Nagusia (automatikoa)
+  - Kontratazio-data
+  - Soldata
+  
+  @controller saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua
+-->
+
 <Pane fx:controller="saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua" 
       maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
       prefHeight="400.0" prefWidth="600.0" 

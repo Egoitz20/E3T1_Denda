@@ -6,6 +6,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Mother Board produktuen taularen interfaze grafikoa.
+  
+  Taula honek Mother Board kategorian dauden produktu guztiak erakusten ditu:
+  - Izena: produktuaren izena
+  - Deskribapena: produktuaren deskribapena
+  - Salneurria (€): produktuaren prezioa
+  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  
+  @controller bezeroLeihoak.motherBoardTaula.MotherBoardTaulaKontrolagailua
+-->
+
 <VBox fx:controller="bezeroLeihoak.motherBoardTaula.MotherBoardTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

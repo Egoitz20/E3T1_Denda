@@ -13,45 +13,80 @@ import kontrolagailuGlobala.HandlerGlobala;
 import datuBaseKonexioa.AbisuakBean;
 import saltzaileLeihoak.arazoDeskribapena.ArazoDeskribapena;
 
+/**
+ * Abisuen leihoaren kontrolagailua.
+ * <p>
+ * Klase honek bezeroen abisu guztiak erakusten ditu taula batean,
+ * orrikatzearekin. Abisu baten gainean klik bikoitza eginez gero,
+ * arazoaren deskribapena ikusteko leihoa irekitzen da.
+ * </p>
+ * 
+ * @author Zure Izena
+ * @version 1.0
+ */
 public class AbisuakKontrolagailua extends HandlerGlobala {
 
+    /** Abisuen taula */
     @FXML
     private TableView<AbisuakBean> tableView;
 
+    /** Bezeroaren izenaren zutabea */
     @FXML
     private TableColumn<AbisuakBean, String> bezeroIzenaColumn;
 
+    /** Kontzeptuaren zutabea */
     @FXML
     private TableColumn<AbisuakBean, String> kontzeptuaColumn;
 
+    /** Deskribapenaren zutabea */
     @FXML
     private TableColumn<AbisuakBean, String> deskribapenaColumn;
 
+    /** Dataren zutabea */
     @FXML
     private TableColumn<AbisuakBean, String> dataColumn;
 
+    /** Orrikatze kontrola */
     @FXML
     private Pagination pagination;
 
+    /** Abisu guztiak gordetzeko zerrenda */
     private ObservableList<AbisuakBean> abisuakList = FXCollections.observableArrayList();
+    
+    /** Bilaketaren emaitzak gordetzeko zerrenda (bilaketarik gabe, abisu guztiak) */
     private ObservableList<AbisuakBean> filtrazioList = FXCollections.observableArrayList();
 
+    /**
+     * Eraikitzaile lehenetsia.
+     */
     public AbisuakKontrolagailua() {
     }
 
+    /**
+     * Itzuli botoiaren metodoa.
+     * <p>
+     * Leihoa ixten du eta saltzaile menu nagusira itzultzen da.
+     * </p>
+     */
     @FXML
     public void itzuli() {
         itxiOraingoLeihoa();
         irekiSaltzaileMenuPrintzipala();
     }
 
+    /**
+     * FXMLa kargatzean automatikoki exekutatzen den metodoa.
+     * <p>
+     * Zutabeak konfiguratzen ditu, datuak kargatzen ditu, orrikatzea konfiguratzen du
+     * eta taulan klik bikoitzeko gertaera gehitzen du arazoaren deskribapena ikusteko.
+     * </p>
+     */
     @FXML
     public void initialize() {
         konfiguratuZutabeak();
         kargatuDatuak();
         konfiguratuAbisuakPaginazioa(pagination, abisuakList, tableView);
         
-        // Gehitu click bikoitzeko entzulea taulan
         tableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 AbisuakBean selectedAbisua = tableView.getSelectionModel().getSelectedItem();
@@ -62,6 +97,9 @@ public class AbisuakKontrolagailua extends HandlerGlobala {
         });
     }
 
+    /**
+     * Taularen zutabeak AbisuakBean objektuaren atributuekin lotzen ditu.
+     */
     private void konfiguratuZutabeak() {
         bezeroIzenaColumn.setCellValueFactory(new PropertyValueFactory<>("bezeroIzena"));
         kontzeptuaColumn.setCellValueFactory(new PropertyValueFactory<>("kontzeptua"));
@@ -69,11 +107,19 @@ public class AbisuakKontrolagailua extends HandlerGlobala {
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
     }
 
+    /**
+     * Datu-baseko abisu guztiak kargatzen ditu (AbisuakGlobala singletonetik).
+     */
     private void kargatuDatuak() {
         abisuakList.setAll(AbisuakGlobala.getInstantzia().getAbisuak());
         filtrazioList.setAll(abisuakList);
     }
 
+    /**
+     * Arazoaren deskribapena leihoa irekitzen du hautatutako abisuarekin.
+     *
+     * @param abisua ikusi nahi den abisua
+     */
     private void irekiArazoDeskribapena(AbisuakBean abisua) {
         try {
             ArazoDeskribapena arazoDeskribapena = new ArazoDeskribapena();

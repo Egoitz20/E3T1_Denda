@@ -6,6 +6,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Video Card (Txartel grafikoa) produktuen taularen interfaze grafikoa.
+  
+  Taula honek Video Card kategorian dauden produktu guztiak erakusten ditu:
+  - Izena: produktuaren izena (adib: NVIDIA RTX 4060, AMD RX 7800 XT)
+  - Deskribapena: produktuaren ezaugarriak (adib: 8GB GDDR6, 256-bit)
+  - Salneurria (€): produktuaren prezioa
+  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  
+  @controller bezeroLeihoak.videoCardTaula.VideoCardTaulaKontrolagailua
+-->
+
 <VBox fx:controller="bezeroLeihoak.videoCardTaula.VideoCardTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

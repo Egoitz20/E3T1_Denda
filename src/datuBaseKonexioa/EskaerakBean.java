@@ -2,61 +2,141 @@ package datuBaseKonexioa;
 
 import java.sql.Date;
 
+/**
+ * Eskaeren datuak gordetzeko Bean klasea.
+ * <p>
+ * Klase honek bezero baten eskaera baten informazio guztia biltzen du:
+ * produktua, kategoria, kopurua, egoera, data eta eskaera kudeatu duen saltzailea.
+ * </p>
+ * 
+ * @author AIA
+ * @version 1.0
+ */
 public class EskaerakBean {
 
-	private String produktu;
-	private String kategoria;
-	private int kopurua;
-	private Date eskaera_data;
-	private String deskribapena;
-	private String saltzailea;
+    /** Eskaeraren produktuaren izena */
+    private String produktu;
+    
+    /** Produktuaren kategoria */
+    private String kategoria;
+    
+    /** Eskaeraren kopurua */
+    private int kopurua;
+    
+    /** Eskaeraren data */
+    private Date eskaera_data;
+    
+    /** Eskaeraren egoeraren deskribapena */
+    private String deskribapena;
+    
+    /** Eskaera kudeatu duen saltzailearen izena */
+    private String saltzailea;
 
-	public String getProduktu() {
-		return produktu;
-	}
+    /**
+     * Eskaeraren produktuaren izena lortzen du.
+     *
+     * @return produktuaren izena
+     */
+    public String getProduktu() {
+        return produktu;
+    }
 
-	public void setProduktu(String produktu) {
-		this.produktu = produktu;
-	}
+    /**
+     * Eskaeraren produktuaren izena ezartzen du.
+     *
+     * @param produktu produktuaren izen berria
+     */
+    public void setProduktu(String produktu) {
+        this.produktu = produktu;
+    }
 
-	public String getKategoria() {
-		return kategoria;
-	}
+    /**
+     * Eskaeraren produktuaren kategoria lortzen du.
+     *
+     * @return produktuaren kategoria
+     */
+    public String getKategoria() {
+        return kategoria;
+    }
 
-	public void setKategoria(String kategoria) {
-		this.kategoria = kategoria;
-	}
+    /**
+     * Eskaeraren produktuaren kategoria ezartzen du.
+     *
+     * @param kategoria produktuaren kategoria berria
+     */
+    public void setKategoria(String kategoria) {
+        this.kategoria = kategoria;
+    }
 
-	public int getKopurua() {
-		return kopurua;
-	}
+    /**
+     * Eskaeraren kopurua lortzen du.
+     *
+     * @return eskaeraren kopurua
+     */
+    public int getKopurua() {
+        return kopurua;
+    }
 
-	public void setKopurua(int kopurua) {
-		this.kopurua = kopurua;
-	}
+    /**
+     * Eskaeraren kopurua ezartzen du.
+     *
+     * @param kopurua eskaeraren kopuru berria
+     */
+    public void setKopurua(int kopurua) {
+        this.kopurua = kopurua;
+    }
 
-	public Date getEskaera_data() {
-		return eskaera_data;
-	}
+    /**
+     * Eskaeraren data lortzen du.
+     *
+     * @return eskaeraren data
+     */
+    public Date getEskaera_data() {
+        return eskaera_data;
+    }
 
-	public void setEskaera_data(Date eskaera_data) {
-		this.eskaera_data = eskaera_data;
-	}
+    /**
+     * Eskaeraren data ezartzen du.
+     *
+     * @param eskaera_data eskaeraren data berria
+     */
+    public void setEskaera_data(Date eskaera_data) {
+        this.eskaera_data = eskaera_data;
+    }
 
-	public String getDeskribapena() {
-		return deskribapena;
-	}
+    /**
+     * Eskaeraren egoeraren deskribapena lortzen du.
+     *
+     * @return eskaeraren egoeraren deskribapena
+     */
+    public String getDeskribapena() {
+        return deskribapena;
+    }
 
-	public void setDeskribapena(String deskribapena) {
-		this.deskribapena = deskribapena;
-	}
+    /**
+     * Eskaeraren egoeraren deskribapena ezartzen du.
+     *
+     * @param deskribapena deskribapen berria
+     */
+    public void setDeskribapena(String deskribapena) {
+        this.deskribapena = deskribapena;
+    }
 
-	public String getSaltzailea() {
-		return saltzailea;
-	}
+    /**
+     * Eskaera kudeatu duen saltzailearen izena lortzen du.
+     *
+     * @return saltzailearen izena
+     */
+    public String getSaltzailea() {
+        return saltzailea;
+    }
 
-	public void setSaltzailea(String saltzailea) {
-		this.saltzailea = saltzailea;
-	}
-
+    /**
+     * Eskaera kudeatu duen saltzailearen izena ezartzen du.
+     *
+     * @param saltzailea saltzailearen izen berria
+     */
+    public void setSaltzailea(String saltzailea) {
+        this.saltzailea = saltzailea;
+    }
 }

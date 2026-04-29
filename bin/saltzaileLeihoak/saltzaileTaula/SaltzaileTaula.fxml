@@ -6,6 +6,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Saltzaileen taularen interfaze grafikoa.
+  
+  Taula honek saltzaile guztien informazioa erakusten du:
+  - IDa, izena-abizenak, erabiltzailea, pasahitza, emaila, telefonoa
+  
+  Bilaketa funtzionalitatea du (izena, erabiltzailea edo IDaren arabera)
+  eta orrikatzea (10 erregistro orriko).
+  
+  @controller saltzaileLeihoak.saltzaileTaula.SaltzaileTaulaKontrolagailua
+-->
+
 <VBox fx:controller="saltzaileLeihoak.saltzaileTaula.SaltzaileTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

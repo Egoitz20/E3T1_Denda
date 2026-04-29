@@ -9,6 +9,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Bezero menu nagusiaren interfaze grafikoa.
+  
+  Menu honetatik bezeroak atal desberdinak atzi ditzake:
+  - Denda: produktu kategoria desberdinak ikusteko (CPU, RAM, Mother Board, Storage, Video Card)
+  - Bezeroarentzako arreta: arazoak edo zalantzak bidaltzeko formularioa
+  - Bezero menu (eskuinean): saioaren informazioa, otzara eta saioa ixteko aukerak
+  
+  Eskuineko menuan saioa hasi duen bezeroaren izena agertzen da.
+  
+  @controller bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua
+-->
+
 <GridPane fx:controller="bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua"  alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="151.0" />

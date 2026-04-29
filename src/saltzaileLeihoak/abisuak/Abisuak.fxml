@@ -7,6 +7,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?> 
 
+<!--
+  Bezeroen abisuen interfaze grafikoa.
+  
+  Taula honek bezeroen abisu guztiak erakusten ditu:
+  - Bezeroa: abisua bidali duen bezeroaren izena
+  - Kontzeptua: abisuaren kontzeptua
+  - Deskribapena: abisuaren deskribapen laburra
+  - Data: abisua bidali zen data eta ordua
+  
+  Abisu baten gainean klik bikoitza eginez gero, arazoaren
+  deskribapen osoa ikusteko leihoa irekitzen da.
+  
+  @controller saltzaileLeihoak.abisuak.AbisuakKontrolagailua
+-->
+
 <VBox fx:controller="saltzaileLeihoak.abisuak.AbisuakKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

@@ -6,33 +6,64 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Bezeroarentzako arreta aplikazioa.
+ * <p>
+ * Bezeroak arazoak edo zalantzak bidaltzeko leihoa abiarazten du.
+ * </p>
+ * 
+ * @author AIA
+ * @version 1.0
+ * @see BezeroArretaKontrolagailua
+ */
 public class BezeroArreta extends Application {
 
-	private BezeroBean bezeroData;
+    /**
+     * Bezeroaren datuak.
+     */
+    private BezeroBean bezeroData;
 
-	public BezeroArreta() {
-	}
+    /**
+     * Eraikitzaile hutsa.
+     */
+    public BezeroArreta() {
+    }
 
-	public void setBezeroData(BezeroBean bezeroa) {
-		this.bezeroData = bezeroa;
-	}
+    /**
+     * Bezeroaren datuak ezartzen ditu.
+     *
+     * @param bezeroa Bezeroaren datuak
+     */
+    public void setBezeroData(BezeroBean bezeroa) {
+        this.bezeroData = bezeroa;
+    }
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroArreta.fxml"));
-		Scene scene = new Scene(loader.load());
+    /**
+     * Aplikazioaren hasierako metodoa.
+     *
+     * @param primaryStage Leiho nagusia
+     * @throws Exception FXMLa kargatzean errore bat gertatuz gero
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroArreta.fxml"));
+        Scene scene = new Scene(loader.load());
 
-		BezeroArretaKontrolagailua controller = loader.getController();
-		controller.setStage(primaryStage);
-		controller.setBezeroData(bezeroData);
+        BezeroArretaKontrolagailua controller = loader.getController();
+        controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData);
 
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Bezero Arreta");
-		primaryStage.show();
-	}
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Bezero Arreta");
+        primaryStage.show();
+    }
 
-	public static void main(String[] args) {
-		launch();
-	}
-
+    /**
+     * Aplikazioaren sarrera nagusia.
+     *
+     * @param args Komando lerroko argumentuak
+     */
+    public static void main(String[] args) {
+        launch();
+    }
 }

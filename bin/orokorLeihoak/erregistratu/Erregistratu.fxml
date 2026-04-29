@@ -5,47 +5,68 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="orokorLeihoak.erregistratu.ErregistratuKontrolagailua" xmlns:fx="http://javafx.com/fxml" prefWidth="400"
-	prefHeight="350">
-	<children>
-		<VBox alignment="TOP_CENTER" spacing="15" layoutX="20"
-			layoutY="20" prefWidth="360" prefHeight="310">
-			<children>
+<!--
+  Erregistratu leihoaren interfaze grafikoa.
+  
+  Leiho honek erabiltzaile berria sortzeko eremuak ditu:
+  - Erabiltzaile berria: erabiltzaile izena sartzeko
+  - Pasahitza: pasahitza sartzeko
+  - Pasahitza errepikatu: pasahitza berresteko
+  
+  Bi botoi ditu:
+  - Erabiltzaile sortu: erabiltzaile berria datu-basean gordetzeko
+  - Itzuli: login leihoara itzultzeko
+  
+  @controller orokorLeihoak.erregistratu.ErregistratuKontrolagailua
+-->
 
-				<Label text="Erregistratu">
-					<font>
-						<Font name="System Bold" size="24" />
-					</font>
-				</Label>
+<AnchorPane fx:controller="orokorLeihoak.erregistratu.ErregistratuKontrolagailua" xmlns:fx="http://javafx.com/fxml" prefWidth="400" prefHeight="350">
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="15" layoutX="20" layoutY="20" prefWidth="360" prefHeight="310">
+         <children>
+            
+            <!-- Titulua: Erregistratu -->
+            <Label text="Erregistratu">
+               <font>
+                  <Font name="System Bold" size="24" />
+               </font>
+            </Label>
 
-				<VBox spacing="5" prefWidth="360">
-					<children>
-						<Label text="Erabiltzaile berria:" />
-						<TextField fx:id="erabiltzaileBerria" promptText="Erabiltzailea..." />
-					</children>
-				</VBox>
+            <!-- Erabiltzaile berriaren eremua -->
+            <VBox spacing="5" prefWidth="360">
+               <children>
+                  <Label text="Erabiltzaile berria:" />
+                  <TextField fx:id="erabiltzaileBerria" promptText="Erabiltzailea..." />
+               </children>
+            </VBox>
 
-				<VBox spacing="5" prefWidth="360">
-					<children>
-						<Label text="Pasahitza:" />
-						<PasswordField fx:id="pasahitzaBerria" promptText="Pasahitza..." />
-					</children>
-				</VBox>
+            <!-- Pasahitza eremua -->
+            <VBox spacing="5" prefWidth="360">
+               <children>
+                  <Label text="Pasahitza:" />
+                  <PasswordField fx:id="pasahitzaBerria" promptText="Pasahitza..." />
+               </children>
+            </VBox>
 
-				<VBox spacing="5" prefWidth="360">
-					<children>
-						<Label text="Pasahitza errepikatu:" />
-						<PasswordField fx:id="errepikatuPasahitzaBerria" promptText="Errepikatu pasahitza..." />
-					</children>
-				</VBox>
+            <!-- Pasahitza errepikatzeko eremua -->
+            <VBox spacing="5" prefWidth="360">
+               <children>
+                  <Label text="Pasahitza errepikatu:" />
+                  <PasswordField fx:id="errepikatuPasahitzaBerria" promptText="Errepikatu pasahitza..." />
+               </children>
+            </VBox>
 
-				<HBox spacing="20" alignment="CENTER">
-					<children>
-						<Button onAction="#sortuErabiltzailea" text="Erabiltzaile sortu" prefWidth="150" />
-						<Button onAction="#itzuli" text="Itzuli" prefWidth="150" />
-					</children>
-				</HBox>
-			</children>
-		</VBox>
-	</children>
+            <!-- Botoiak -->
+            <HBox spacing="20" alignment="CENTER">
+               <children>
+                  <!-- Erabiltzaile sortu botoia: erabiltzaile berria sortzen du -->
+                  <Button onAction="#sortuErabiltzailea" text="Erabiltzaile sortu" prefWidth="150" />
+                  
+                  <!-- Itzuli botoia: login leihoara itzultzen da -->
+                  <Button onAction="#itzuli" text="Itzuli" prefWidth="150" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

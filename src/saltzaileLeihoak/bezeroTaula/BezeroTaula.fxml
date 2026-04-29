@@ -6,6 +6,20 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Bezeroen taularen interfaze grafikoa (informazio orokorra).
+  
+  Taula honek bezero guztien informazio orokorra erakusten du:
+  - Izena
+  - Emaila
+  - Helbidea
+  
+  Bilaketa funtzionalitatea du (izena, emaila edo helbidearen arabera)
+  eta orrikatzea (10 erregistro orriko).
+  
+  @controller saltzaileLeihoak.bezeroTaula.BezeroTaulaKontrolagailua
+-->
+
 <VBox fx:controller="saltzaileLeihoak.bezeroTaula.BezeroTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

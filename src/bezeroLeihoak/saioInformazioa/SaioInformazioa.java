@@ -6,32 +6,64 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Saioaren informazioa aplikazioa.
+ * <p>
+ * Bezeroaren datu pertsonalak ikusteko eta editatzeko leihoa abiarazten du.
+ * </p>
+ * 
+ * @author AIA
+ * @version 1.0
+ * @see SaioInformazioaKontrolagailua
+ */
 public class SaioInformazioa extends Application {
 
-	private BezeroBean bezeroData;
-	
-	public SaioInformazioa() {
-	}
-	
-	public void setBezeroData(BezeroBean bezeroa) {
-		this.bezeroData = bezeroa;
-	}
+    /**
+     * Bezeroaren datuak.
+     */
+    private BezeroBean bezeroData;
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("SaioInformazioa.fxml"));
-		Scene scene = new Scene(loader.load());
+    /**
+     * Eraikitzaile hutsa.
+     */
+    public SaioInformazioa() {
+    }
 
-		SaioInformazioaKontrolagailua controller = loader.getController();
-		controller.setStage(primaryStage);
-		controller.setBezeroData(bezeroData);
-		
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Bezero Menu Printzipala");
-		primaryStage.show();
-	}
+    /**
+     * Bezeroaren datuak ezartzen ditu.
+     *
+     * @param bezeroa Bezeroaren datuak
+     */
+    public void setBezeroData(BezeroBean bezeroa) {
+        this.bezeroData = bezeroa;
+    }
 
-	public static void main(String[] args) {
-		launch();
-	}
+    /**
+     * Aplikazioaren hasierako metodoa.
+     *
+     * @param primaryStage Leiho nagusia
+     * @throws Exception FXMLa kargatzean errore bat gertatuz gero
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SaioInformazioa.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        SaioInformazioaKontrolagailua controller = loader.getController();
+        controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData);
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Bezero Menu Printzipala");
+        primaryStage.show();
+    }
+
+    /**
+     * Aplikazioaren sarrera nagusia.
+     *
+     * @param args Komando lerroko argumentuak
+     */
+    public static void main(String[] args) {
+        launch();
+    }
 }

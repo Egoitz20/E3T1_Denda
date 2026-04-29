@@ -6,6 +6,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  RAM produktuen taularen interfaze grafikoa.
+  
+  Taula honek RAM kategorian dauden produktu guztiak erakusten ditu:
+  - Izena: produktuaren izena (adib: Kingston Fury, Corsair Vengeance)
+  - Deskribapena: produktuaren ezaugarriak (adib: 16GB DDR4 3200MHz)
+  - Salneurria (€): produktuaren prezioa
+  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  
+  @controller bezeroLeihoak.ramTaula.RamTaulaKontrolagailua
+-->
+
 <VBox fx:controller="bezeroLeihoak.ramTaula.RamTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

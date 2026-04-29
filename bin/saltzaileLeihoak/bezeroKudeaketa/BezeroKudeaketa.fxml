@@ -6,6 +6,22 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Bezeroen kudeaketa formularioaren interfaze grafikoa.
+  
+  Formulario honek bezeroak gehitu, aldatu edo ezabatzeko aukera ematen du:
+  - IDa (automatikoa)
+  - Izena-Abizenak
+  - NAN
+  - Emaila
+  - Telefonoa
+  - Helbidea
+  - Erabiltzailea
+  - Pasahitza
+  
+  @controller saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketaKontrolagailua
+-->
+
 <VBox fx:controller="saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

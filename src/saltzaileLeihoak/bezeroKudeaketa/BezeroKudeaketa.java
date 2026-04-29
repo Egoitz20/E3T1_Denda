@@ -7,41 +7,79 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Bezeroen kudeaketa leihoaren klase nagusia.
+ * <p>
+ * Klase honek bezeroak gehitu, aldatu edo ezabatzeko leihoa abiarazten du.
+ * Bi modu ditu: sorkuntza modua (bezero berria sortzeko) eta edizio modua
+ * (existitzen den bezero bat aldatu edo ezabatzeko).
+ * </p>
+ * 
+ * @author AIA
+ * @version 1.0
+ */
 public class BezeroKudeaketa extends Application {
 
-	private BezeroBean bezeroData;
-	private boolean isEditMode = false;
+    /** Editatu beharreko bezeroaren datuak */
+    private BezeroBean bezeroData;
+    
+    /** Editatzeko moduan dagoen adierazten du */
+    private boolean isEditMode = false;
 
-	private LangileSaltzaileBean saltzaileData;
+    /** Saioa hasi duen saltzailearen datuak */
+    private LangileSaltzaileBean saltzaileData;
 
-	public void setSaltzaileData(LangileSaltzaileBean saltzailea) {
-		this.saltzaileData = saltzailea;
-	}
+    /**
+     * Saltzailearen datuak ezartzen ditu.
+     *
+     * @param saltzailea saioa hasi duen saltzailearen datuak
+     */
+    public void setSaltzaileData(LangileSaltzaileBean saltzailea) {
+        this.saltzaileData = saltzailea;
+    }
 
-	public BezeroKudeaketa() {
-	}
+    /**
+     * Eraikitzaile lehenetsia.
+     */
+    public BezeroKudeaketa() {
+    }
 
-	// Método para recibir los datos desde la tabla
-	public void setBezeroData(BezeroBean bezeroa) {
-		this.bezeroData = bezeroa;
-		this.isEditMode = (bezeroa != null);
-	}
+    /**
+     * Bezeroaren datuak ezartzen ditu eta edizio modua ezartzen du.
+     *
+     * @param bezeroa editatzeko bezeroaren datuak (null bada, sorkuntza modua)
+     */
+    public void setBezeroData(BezeroBean bezeroa) {
+        this.bezeroData = bezeroa;
+        this.isEditMode = (bezeroa != null);
+    }
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroKudeaketa.fxml"));
-		Scene scene = new Scene(loader.load());
+    /**
+     * JavaFX aplikazioaren hasierako metodoa.
+     *
+     * @param primaryStage aplikazioaren eszenatoki nagusia
+     * @throws Exception FXML fitxategia kargatzean errorea gertatuz gero
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BezeroKudeaketa.fxml"));
+        Scene scene = new Scene(loader.load());
 
-		BezeroKudeaketaKontrolagailua controller = loader.getController();
-		controller.setStage(primaryStage);
-		controller.setBezeroData(bezeroData, isEditMode);
+        BezeroKudeaketaKontrolagailua controller = loader.getController();
+        controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData, isEditMode);
 
-		primaryStage.setScene(scene);
-		primaryStage.setTitle(isEditMode ? "Bezeroa Editatu" : "Bezero Berria");
-		primaryStage.show();
-	}
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(isEditMode ? "Bezeroa Editatu" : "Bezero Berria");
+        primaryStage.show();
+    }
 
-	public static void main(String[] args) {
-		launch();
-	}
+    /**
+     * Aplikazioa abiarazten duen metodo nagusia.
+     *
+     * @param args komando lerroko argumentuak (ez dira erabiltzen)
+     */
+    public static void main(String[] args) {
+        launch();
+    }
 }

@@ -6,6 +6,22 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  CPU produktuen taularen interfaze grafikoa.
+  
+  Taula honek CPU kategorian dauden produktu guztiak erakusten ditu:
+  - Izena: produktuaren izena
+  - Deskribapena: produktuaren deskribapena
+  - Salneurria (€): produktuaren prezioa
+  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  
+  Bi botoi ditu:
+  - Gehitu Otzara: hautatutako produktuak otzaran gehitzeko
+  - Itzuli: bezero menu nagusira itzultzeko
+  
+  @controller bezeroLeihoak.cpuTaula.CpuTaulaKontrolagailua
+-->
+
 <VBox fx:controller="bezeroLeihoak.cpuTaula.CpuTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import datuBaseKonexioa.BezeroBean;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,146 +19,180 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import kontrolagailuGlobala.HandlerGlobala;
 import saltzaileLeihoak.eskaerakTaula.EskaerakTaula;
-import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Bezeroen eskaeren taula leihoaren kontrolagailua.
+ * <p>
+ * Klase honek bezero guztien zerrenda erakusten du taula batean,
+ * bakoitzarekin "Ikusi eskaerak" botoi bat duena. Botoia sakatuz gero,
+ * bezeroaren eskaera guztiak erakusten dituen taula irekitzen da.
+ * </p>
+ * 
+ * @author AIA
+ * @version 1.0
+ */
 public class BezeroTaulaEskaerakKontrolagailua extends HandlerGlobala {
 
-	// Taula
-	@FXML
-	private TableView<BezeroBean> tableView;
+    // Taula
+    @FXML
+    private TableView<BezeroBean> tableView;
 
-	// Zutabeak
-	@FXML
-	private TableColumn<BezeroBean, String> izenaAbizenaColumn;
+    // Zutabeak
+    @FXML
+    private TableColumn<BezeroBean, String> izenaAbizenaColumn;
 
-	// Botoiak izango dituen ekintza-zutabea. Void esan nahi du ez dituela bean
-	// datuak erakusten, osagai grafikoak bakarrik.
-	@FXML
-	private TableColumn<BezeroBean, Void> actionColumn;
+    /** Botoiak izango dituen ekintza-zutabea */
+    @FXML
+    private TableColumn<BezeroBean, Void> actionColumn;
 
-	// Bilaketa
-	@FXML
-	private TextField bilaketaField;
+    // Bilaketa
+    @FXML
+    private TextField bilaketaField;
 
-	// Paginazioa
-	@FXML
-	private Pagination pagination;
+    // Paginazioa
+    @FXML
+    private Pagination pagination;
 
-	// Datu listak
-	private ObservableList<BezeroBean> bezeroList = FXCollections.observableArrayList();
-	private ObservableList<BezeroBean> filtrazioList = FXCollections.observableArrayList();
+    /** Datu-baseko bezero guztiak gordetzeko zerrenda */
+    private ObservableList<BezeroBean> bezeroList = FXCollections.observableArrayList();
+    
+    /** Bilaketaren emaitzak gordetzeko zerrenda */
+    private ObservableList<BezeroBean> filtrazioList = FXCollections.observableArrayList();
 
-	private static final int ROWS_PER_PAGE = 10;
+    /** Orriko erregistro kopurua */
+    private static final int ROWS_PER_PAGE = 10;
 
-	public BezeroTaulaEskaerakKontrolagailua() {
-	}
+    /**
+     * Eraikitzaile lehenetsia.
+     */
+    public BezeroTaulaEskaerakKontrolagailua() {
+    }
 
-	@FXML
-	public void itzuli() {
-		itxiOraingoLeihoa();
-		irekiSaltzaileMenuPrintzipala();
-	}
+    /**
+     * Itzuli botoiaren metodoa.
+     * <p>
+     * Leihoa ixten du eta saltzaile menu nagusira itzultzen da.
+     * </p>
+     */
+    @FXML
+    public void itzuli() {
+        itxiOraingoLeihoa();
+        irekiSaltzaileMenuPrintzipala();
+    }
 
-	@FXML
-	public void initialize() {
-		konfiguratuZutabeak(); // Nola bisratzen dira zutabeak konfiguratzen du
-		kargatuDatuak(); // Bezeroak datu basetik kargatzen du
-		konfiguratuBezeroPaginazioa(pagination, filtrazioList, tableView); // Pagination botoiak konfiguratzen du
-		konfiguratuBilaketa(); // Bilaketa konfiguratzen du
-		konfiguratuEkintzaZutabea(); // Errenkadari botoiak gehitzen du
-	}
+    /**
+     * FXMLa kargatzean automatikoki exekutatzen den metodoa.
+     * <p>
+     * Taula konfiguratzen du, datuak kargatzen ditu, orrikatzea eta
+     * bilaketa konfiguratzen ditu, eta ekintza zutabea (botoia) gehitzen du.
+     * </p>
+     */
+    @FXML
+    public void initialize() {
+        konfiguratuZutabeak();
+        kargatuDatuak();
+        konfiguratuBezeroPaginazioa(pagination, filtrazioList, tableView);
+        konfiguratuBilaketa();
+        konfiguratuEkintzaZutabea();
+    }
 
-	// Izenen zutabea, elkarrekin izena + abizena erakuts konfiguratzen du
-	private void konfiguratuZutabeak() {
+    /**
+     * Izenen zutabea konfiguratzen du, izena eta abizena konbinatuz.
+     */
+    private void konfiguratuZutabeak() {
+        izenaAbizenaColumn.setCellValueFactory(cellData -> {
+            BezeroBean bezero = cellData.getValue();
+            String izenaOsoa = bezero.getIzena() + " " + bezero.getAbizena();
+            return new SimpleStringProperty(izenaOsoa);
+        });
+    }
 
-		izenaAbizenaColumn.setCellValueFactory(cellData -> {
-			BezeroBean bezero = cellData.getValue(); // Oriango errenkadaren bezeroa jasotzen du
-			String izenaOsoa = bezero.getIzena() + " " + bezero.getAbizena(); // Izena + Abizena konkatenatzen du
-			return new SimpleStringProperty(izenaOsoa); // Testua "behagarria" izan bildutzen du
+    /**
+     * Ekintza zutabea konfiguratzen du, "Ikusi Eskaerak" botoia gehituz.
+     */
+    private void konfiguratuEkintzaZutabea() {
+        actionColumn.setCellFactory(new Callback<TableColumn<BezeroBean, Void>, TableCell<BezeroBean, Void>>() {
+            @Override
+            public TableCell<BezeroBean, Void> call(TableColumn<BezeroBean, Void> param) {
+                return new TableCell<BezeroBean, Void>() {
+                    private final Button btnIkusiEskaerak = new Button("Ikusi Eskaerak");
 
-		});
-	}
+                    {
+                        btnIkusiEskaerak.setOnAction(_ -> {
+                            BezeroBean bezero = getTableView().getItems().get(getIndex());
+                            irekiEskaerakTaula(bezero);
+                        });
+                    }
 
-	private void konfiguratuEkintzaZutabea() {
-		// Gelaxka pertsonalizatuen fabrika bat ekintza-zutaberako sortzen du.
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btnIkusiEskaerak);
+                        }
+                    }
+                };
+            }
+        });
+    }
 
-		actionColumn.setCellFactory(new Callback<TableColumn<BezeroBean, Void>, TableCell<BezeroBean, Void>>() {
-			@Override
-			public TableCell<BezeroBean, Void> call(TableColumn<BezeroBean, Void> param) {
-				return new TableCell<BezeroBean, Void>() {
+    /**
+     * Bezeroaren eskaeren taula irekitzen du hautatutako bezeroarekin.
+     *
+     * @param bezero eskaerak ikusi nahi zaizkion bezeroa
+     */
+    private void irekiEskaerakTaula(BezeroBean bezero) {
+        try {
+            EskaerakTaula eskaerak = new EskaerakTaula();
+            Stage newStage = new Stage();
+            eskaerak.setEskaeraBezeroData(bezero);
+            eskaerak.start(newStage);
+            itxiOraingoLeihoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+            irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
+                    "Errorea bezeroaren eskaerak irekitzean: " + e.getMessage());
+        }
+    }
 
-					// Botoi bat "Ikusi eskaerak" testuarekin sortzen du. "final" baita ez du
-					// aldatuko.
+    /**
+     * Datu-baseko bezero guztiak kargatzen ditu.
+     */
+    private void kargatuDatuak() {
+        ArrayList<BezeroBean> bezeroak = jasoBezeroak();
+        bezeroList.setAll(bezeroak);
+        filtrazioList.setAll(bezeroList);
+    }
 
-					private final Button btnIkusiEskaerak = new Button("Ikusi Eskaerak");
+    /**
+     * Bilaketa funtzionalitatea konfiguratzen du.
+     * <p>
+     * Erabiltzaileak idazten duen testuaren arabera iragazten ditu datuak
+     * izenaren edo emailaren arabera.
+     * </p>
+     */
+    private void konfiguratuBilaketa() {
+        bilaketaField.textProperty().addListener((observable, oldValue, jasoBilatzekoTestua) -> {
+            if (jasoBilatzekoTestua == null || jasoBilatzekoTestua.trim().isEmpty()) {
+                filtrazioList.setAll(bezeroList);
+            } else {
+                String aurkituIdatzitakoTestua = jasoBilatzekoTestua.toLowerCase().trim();
 
-					{
-						btnIkusiEskaerak.setOnAction(_ -> { // Klick emanez gero, zer gertatuko den definitzen du.
-							BezeroBean bezero = getTableView().getItems().get(getIndex()); // Non dagoen botoia,
-																							// errenkadaren bezeroa
-																							// jasotzen du
-							irekiEskaerakTaula(bezero); // Eskaera leihoa irekitzen du bezero horrekin
-						});
-					}
+                List<BezeroBean> filtrados = bezeroList.stream()
+                        .filter(b -> (b.getIzena() != null && 
+                                     b.getIzena().toLowerCase().contains(aurkituIdatzitakoTestua))
+                                || (b.getEmaila() != null && 
+                                    b.getEmaila().toLowerCase().contains(aurkituIdatzitakoTestua)))
+                        .collect(Collectors.toList());
 
-					@Override
-					protected void updateItem(Void item, boolean empty) {
-						super.updateItem(item, empty); // Gelaxka eguneratu behar den bakoitzean erabiltzen den metodoa.
-						if (empty) {
-							setGraphic(null); // Gelaxka hutsik badago, ez du ezer erakusten
-						} else {
-							setGraphic(btnIkusiEskaerak); // Bistaratzen du botoia datuak egoten badira
-						}
-					}
-				};
-			}
-		});
-	}
+                filtrazioList.setAll(filtrados);
+            }
 
-	private void irekiEskaerakTaula(BezeroBean bezero) {
-		try {
-			EskaerakTaula eskaerak = new EskaerakTaula();
-			Stage newStage = new Stage();
-
-			// Pasar los datos a la nueva ventana
-			eskaerak.setEskaeraBezeroData(bezero);
-			eskaerak.start(newStage);
-
-			itxiOraingoLeihoa();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			irekiAlerta("Errorea", "Ezin izan da leihoa ireki",
-					"Errorea bezeroaren eskaerak irekitzean: " + e.getMessage());
-		}
-
-	}
-
-	private void kargatuDatuak() {
-		ArrayList<BezeroBean> bezeroak = jasoBezeroak();
-		bezeroList.setAll(bezeroak);
-		filtrazioList.setAll(bezeroList);
-	}
-
-	private void konfiguratuBilaketa() {
-		bilaketaField.textProperty().addListener((observable, oldValue, jasoBilatzekoTestua) -> {
-			if (jasoBilatzekoTestua == null || jasoBilatzekoTestua.trim().isEmpty()) {
-				filtrazioList.setAll(bezeroList);
-			} else {
-				String aurkituIdatzitakoTestua = jasoBilatzekoTestua.toLowerCase().trim();
-
-				List<BezeroBean> filtrados = bezeroList.stream().filter(b -> (b.getIzena() != null
-						&& b.getIzena().toLowerCase().contains(aurkituIdatzitakoTestua))
-						|| (b.getEmaila() != null && b.getEmaila().toLowerCase().contains(aurkituIdatzitakoTestua)))
-						.collect(Collectors.toList());
-
-				filtrazioList.setAll(filtrados);
-			}
-
-			pagination.setPageCount((int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE));
-			pagination.setCurrentPageIndex(0);
-			eguneratuBezeroOrriaDatuak(0, filtrazioList, tableView);
-		});
-	}
-
+            pagination.setPageCount((int) Math.ceil((double) filtrazioList.size() / ROWS_PER_PAGE));
+            pagination.setCurrentPageIndex(0);
+            eguneratuBezeroOrriaDatuak(0, filtrazioList, tableView);
+        });
+    }
 }

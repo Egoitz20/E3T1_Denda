@@ -5,6 +5,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+<!--
+  Arazoaren deskribapenaren interfaze grafikoa.
+  
+  Leiho honek abisu jakin baten informazio osoa erakusten du:
+  - Bezeroa: abisua bidali duen bezeroaren izena
+  - Data: abisua bidali zen data eta ordua
+  - Kontzeptua: abisuaren kontzeptua
+  - Deskribapena: arazoaren deskribapen osoa
+  
+  Bi botoi ditu:
+  - Itzuli: abisuen zerrendara itzultzeko
+  - Amaituta: arazoa amaitutzat jo eta abisua zerrendatik ezabatzeko
+  
+  @controller saltzaileLeihoak.arazoDeskribapena.ArazoDeskribapenaKontrolagailua
+-->
+
 <VBox fx:controller="saltzaileLeihoak.arazoDeskribapena.ArazoDeskribapenaKontrolagailua" 
       spacing="15" 
       alignment="TOP_CENTER"

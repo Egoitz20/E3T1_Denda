@@ -6,6 +6,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Bezeroaren eskaeren taularen interfaze grafikoa.
+  
+  Taula honek bezero jakin baten eskaera guztiak erakusten ditu:
+  - Produktu izena, kategoria, kopurua, egoera, eskaera data, saltzailea
+  
+  Bilaketa funtzionalitatea du (produktua, kategoria edo saltzailearen arabera)
+  eta orrikatzea (10 erregistro orriko).
+  
+  @controller saltzaileLeihoak.eskaerakTaula.EskaerakTaulaKontrolagailua
+-->
+
 <VBox fx:controller="saltzaileLeihoak.eskaerakTaula.EskaerakTaulaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"

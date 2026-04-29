@@ -7,6 +7,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--
+  Saltzaile menu nagusiaren interfaze grafikoa.
+  
+  Menu honetatik saltzaileak atal desberdinak atzi ditzake:
+  - Erabiltzaile kudeaketa: saltzaileen informazioa eta kudeaketa
+  - Bezero kudeaketa: bezeroen informazioa, kudeaketa eta eskaerak
+  - Abisuak: bezeroen abisuak, kontrolak eta eguneraketak
+  
+  Eskuineko menuan saioa hasi duen saltzailearen izena agertzen da.
+  
+  @controller saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipalaKontrolagailua
+-->
+
 <GridPane fx:controller="saltzaileLeihoak.saltzaileMenuPrintzipala.SaltzaileMenuPrintzipalaKontrolagailua" 
           maxHeight="-Infinity" 
           maxWidth="-Infinity" 
