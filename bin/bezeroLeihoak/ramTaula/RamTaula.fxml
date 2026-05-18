@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  RAM produktuen taularen interfaze grafikoa.
+  ============================================================================
+  RAM PRODUKTUEN TAULAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek RAM kategorian dauden produktu guztiak erakusten ditu:
-  - Izena: produktuaren izena (adib: Kingston Fury, Corsair Vengeance)
-  - Deskribapena: produktuaren ezaugarriak (adib: 16GB DDR4 3200MHz)
-  - Salneurria (€): produktuaren prezioa
-  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  File: RamTaula.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  @controller bezeroLeihoak.ramTaula.RamTaulaKontrolagailua
+  Description:
+  
+  RAM produktuen taularen interfaze grafikoa. Taula honek RAM kategorian dauden 
+  produktu guztiak erakusten ditu: izena, deskribapena, salneurria eta kantitatea.
+  
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/tienda.css
+  - styleClass: tienda-container, tabla-productos, pagination
+  
+  FXML Controller:
+  
+  @see bezeroLeihoak.ramTaula.RamTaulaKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="bezeroLeihoak.ramTaula.RamTaulaKontrolagailua" 
@@ -24,16 +38,14 @@
       prefHeight="550.0" 
       prefWidth="900.0"
       spacing="10"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/tienda.css"
+      styleClass="tienda-container">
       
    <children>
-      <Label text="RAM Memory">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Label>
+      <Label text="RAM Memory" styleClass="titulo-principal" />
       
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="tabla-productos">
         <columns>
           <TableColumn fx:id="izenaColumn" prefWidth="250.0" text="Izena" />
           <TableColumn fx:id="deskribapenaColumn" prefWidth="300.0" text="Deskribapena" />
@@ -43,24 +55,12 @@
       </TableView>
       
       <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Pagination fx:id="pagination" />
-         </children>
+         <Pagination fx:id="pagination" styleClass="pagination" />
       </HBox>
       
       <HBox spacing="10" alignment="CENTER_RIGHT">
-         <children>
-            <Button onAction="#gehituOtzara" text="Gehitu Otzara" prefWidth="150.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button onAction="#itzuli" text="Itzuli">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
+         <Button onAction="#gehituOtzara" text="Gehitu Otzara" styleClass="boton-primario" />
+         <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
       </HBox>
    </children>
 </VBox>

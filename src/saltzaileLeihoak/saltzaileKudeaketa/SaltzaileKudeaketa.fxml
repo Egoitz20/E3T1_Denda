@@ -4,112 +4,128 @@
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <!--
-  Saltzaileen kudeaketa formularioaren interfaze grafikoa.
-  
-  Formulario honek saltzaileak gehitu, aldatu edo ezabatzeko aukera ematen du:
-  - IDa (automatikoa)
-  - Izena-Abizenak
-  - Erabiltzailea
-  - Pasahitza
-  - Emaila
-  - Telefonoa
-  - Nagusia (automatikoa)
-  - Kontratazio-data
-  - Soldata
-  
-  @controller saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua
+  SALTZAILE KUDEAKETAREN INTERFAZE GRAFIKOA
+  File: SaltzaileKudeaketa.fxml
+  Author: AIA
+  Version: 3.0
+  Since: 2026
+
+  Description: Saltzaileen kudeaketa formularioa. Saltzaileak gehitu, aldatu 
+  edo ezabatzeko aukera ematen du: IDa, Izena-Abizenak, Erabiltzailea, 
+  Pasahitza, Emaila, Telefonoa, Nagusia, Kontratazio-data, Soldata.
+
+  CSS Styles: stylesheets @../../estilos/saltzaileKudeaketa.css
+  FXML Controller: saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua
 -->
 
-<Pane fx:controller="saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua" 
-      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
-      prefHeight="400.0" prefWidth="600.0" 
-      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-      
-   <children>
-      <Label layoutX="117.0" layoutY="14.0" text="Saltzaile Gehitu/Ezabatu/Aldatu" textOverrun="WORD_ELLIPSIS">
-         <font>
-            <Font name="Cambria" size="25.0" />
-         </font>
-      </Label>
-      
-      <ImageView fitHeight="64.0" fitWidth="62.0" layoutX="522.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../irudiak/usuario.png" />
-         </image>
-      </ImageView>
-      
-      <Label layoutX="25.0" layoutY="57.0" text="ID:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniId" layoutX="181.0" layoutY="60.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="ID (Automatikoa)" editable="false"/>
-      
-      <Label layoutX="25.0" layoutY="96.0" text="Izena-Abizenak:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniIzenAbizenak" layoutX="181.0" layoutY="99.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Izena eta Abizenak" />
-      
-      <Label layoutX="24.0" layoutY="139.0" text="Erabiltzailea:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniErabiltzailea" layoutX="181.0" layoutY="142.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Erabiltzailea" />
-      
-      <Label layoutX="25.0" layoutY="177.0" text="Pasahitza:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniPasahitza" layoutX="181.0" layoutY="180.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Pasahitza" />
-      
-      <Label layoutX="24.0" layoutY="215.0" text="Emaila:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniEmaila" layoutX="181.0" layoutY="218.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Emaila" />
-      
-      <Label layoutX="25.0" layoutY="256.0" text="Telefonoa:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniTelefonoa" layoutX="181.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Telefonoa" />
-      
-      <Label layoutX="359.0" layoutY="57.0" text="Nagusi:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniNagusiIzena" layoutX="359.0" layoutY="99.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Nagusi Izena" editable="false"/>
-      
-      <Label layoutX="357.0" layoutY="139.0" text="Kontratazio-Data:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniKontratazioData" layoutX="359.0" layoutY="180.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Kontratazio Data" />
-      
-      <Label layoutX="357.0" layoutY="215.0" text="Soldata:">
-         <font><Font size="20.0" /></font>
-      </Label>
-      <TextField fx:id="ipiniSoldata" layoutX="359.0" layoutY="259.0" prefHeight="25.0" prefWidth="163.0" 
-                 promptText="Soldata (€)" />
-      
-      <Button fx:id="itzuliButton" onAction="#itzuli" layoutX="17.0" layoutY="339.0" text="Itzuli">
-         <font><Font size="20.0" /></font>
-      </Button>
-      
-      <Button fx:id="sortuButton" onAction="#sortu" layoutX="306.0" layoutY="339.0" text="Sortu">
-         <font><Font size="20.0" /></font>
-      </Button>
-      
-      <Button fx:id="aldatuButton" onAction="#aldatu" layoutX="392.0" layoutY="339.0" text="Aldatu">
-         <font><Font size="20.0" /></font>
-      </Button>
-      
-      <Button fx:id="ezabatuButton" onAction="#ezabatu" layoutX="488.0" layoutY="339.0" text="Ezabatu">
-         <font><Font size="20.0" /></font>
-      </Button>
-   </children>
-</Pane>
+<VBox fx:controller="saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketaKontrolagailua" 
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="550.0" 
+      prefWidth="650.0"
+      spacing="15"
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/saltzaileKudeaketa.css"
+      styleClass="saltzaile-kudeaketa-panel">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <children>
+        <!-- Header con titulo e icono -->
+        <HBox spacing="15" alignment="CENTER">
+            <children>
+                <Label text="Saltzaile Gehitu/Ezabatu/Aldatu" styleClass="titulo-principal" />
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../irudiak/usuario.png" />
+                </ImageView>
+            </children>
+        </HBox>
+
+        <Separator />
+
+        <!-- ScrollPane para formulario largo -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <content>
+                <GridPane hgap="15" vgap="12" styleClass="saltzaile-formulario-grid">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+
+                    <children>
+                        <!-- Fila 0: ID -->
+                        <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniId" GridPane.columnIndex="1" GridPane.rowIndex="0" 
+                                   prefWidth="200.0" promptText="ID (Automatikoa)" editable="false" 
+                                   styleClass="bezero-id-field, campo-texto"/>
+
+                        <!-- Fila 1: Izena-Abizenak -->
+                        <Label text="Izena-Abizenak:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniIzenAbizenak" GridPane.columnIndex="1" GridPane.rowIndex="1" 
+                                   prefWidth="250.0" promptText="Izena eta Abizenak" styleClass="campo-texto" />
+
+                        <!-- Fila 2: Erabiltzailea -->
+                        <Label text="Erabiltzailea:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniErabiltzailea" GridPane.columnIndex="1" GridPane.rowIndex="2" 
+                                   prefWidth="250.0" promptText="Erabiltzailea" styleClass="campo-texto" />
+
+                        <!-- Fila 3: Pasahitza -->
+                        <Label text="Pasahitza:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniPasahitza" GridPane.columnIndex="1" GridPane.rowIndex="3" 
+                                   prefWidth="250.0" promptText="Pasahitza" styleClass="campo-texto" />
+
+                        <!-- Fila 4: Emaila -->
+                        <Label text="Emaila:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniEmaila" GridPane.columnIndex="1" GridPane.rowIndex="4" 
+                                   prefWidth="250.0" promptText="Emaila" styleClass="campo-texto" />
+
+                        <!-- Fila 5: Telefonoa -->
+                        <Label text="Telefonoa:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniTelefonoa" GridPane.columnIndex="1" GridPane.rowIndex="5" 
+                                   prefWidth="250.0" promptText="Telefonoa" styleClass="campo-texto" />
+
+                        <!-- Fila 6: Nagusia -->
+                        <Label text="Nagusi:" GridPane.columnIndex="0" GridPane.rowIndex="6" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniNagusiIzena" GridPane.columnIndex="1" GridPane.rowIndex="6" 
+                                   prefWidth="250.0" promptText="Nagusi Izena" editable="false" 
+                                   styleClass="bezero-id-field, campo-texto"/>
+
+                        <!-- Fila 7: Kontratazio-Data -->
+                        <Label text="Kontratazio-Data:" GridPane.columnIndex="0" GridPane.rowIndex="7" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniKontratazioData" GridPane.columnIndex="1" GridPane.rowIndex="7" 
+                                   prefWidth="250.0" promptText="Kontratazio Data" styleClass="campo-texto" />
+
+                        <!-- Fila 8: Soldata -->
+                        <Label text="Soldata:" GridPane.columnIndex="0" GridPane.rowIndex="8" styleClass="saltzaile-formulario-label" />
+                        <TextField fx:id="ipiniSoldata" GridPane.columnIndex="1" GridPane.rowIndex="8" 
+                                   prefWidth="250.0" promptText="Soldata (€)" styleClass="campo-texto" />
+                    </children>
+
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="120" />
+                        <ColumnConstraints halignment="LEFT" minWidth="250" />
+                    </columnConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+
+        <Separator />
+
+        <!-- Botones -->
+        <HBox spacing="15" alignment="CENTER" styleClass="saltzaile-botoiak-container">
+            <children>
+                <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" prefWidth="90" />
+                <Button fx:id="sortuButton" onAction="#sortu" text="Sortu" styleClass="boton-saltzaile-sortu" prefWidth="90" />
+                <Button fx:id="aldatuButton" onAction="#aldatu" text="Aldatu" styleClass="boton-saltzaile-aldatu" prefWidth="90" />
+                <Button fx:id="ezabatuButton" onAction="#ezabatu" text="Ezabatu" styleClass="boton-saltzaile-ezabatu" prefWidth="90" />
+            </children>
+            <VBox.margin>
+                <Insets top="10" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

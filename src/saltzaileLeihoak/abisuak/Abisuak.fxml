@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?> 
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 
 <!--
-  Bezeroen abisuen interfaze grafikoa.
+  ============================================================================
+  ABISUEN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek bezeroen abisu guztiak erakusten ditu:
-  - Bezeroa: abisua bidali duen bezeroaren izena
-  - Kontzeptua: abisuaren kontzeptua
-  - Deskribapena: abisuaren deskribapen laburra
-  - Data: abisua bidali zen data eta ordua
+  File: Abisuak.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  Abisu baten gainean klik bikoitza eginez gero, arazoaren
-  deskribapen osoa ikusteko leihoa irekitzen da.
+  Description:
+ 
+  Bezeroen abisuen interfaze grafikoa. Taula honek bezeroen abisu guztiak 
+  erakusten ditu: bezeroa, kontzeptua, deskribapena eta data. Abisu baten 
+  gainean klik bikoitza eginez gero, arazoaren deskribapen osoa ikusteko leihoa 
+  irekitzen da.
   
-  @controller saltzaileLeihoak.abisuak.AbisuakKontrolagailua
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/abisuak.css
+  - styleClass: abisuak-container, abisuak-tabla, pagination
+  
+  FXML Controller:
+  
+  @see saltzaileLeihoak.abisuak.AbisuakKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="saltzaileLeihoak.abisuak.AbisuakKontrolagailua" 
@@ -29,20 +42,17 @@
       prefWidth="800.0"
       spacing="10"
       alignment="TOP_CENTER"
-      style="-fx-background-color: #f5f5f5;">
+      stylesheets="@../../estilos/abisuak.css"
+      styleClass="abisuak-container">
       
    <children>
-      <!-- Título -->
-      <Label text="Bezeroen Abisuak" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
-         <VBox.margin>
-            <Insets top="15" />
-         </VBox.margin>
+      <Label text="Bezeroen Abisuak" styleClass="titulo-principal">
+         <VBox.margin><Insets top="15" /></VBox.margin>
       </Label>
       
       <Separator prefWidth="600.0" />
       
-      <!-- Lista de abisos -->
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="abisuak-tabla">
         <columns>
           <TableColumn fx:id="bezeroIzenaColumn" prefWidth="150.0" text="Bezeroa" />
           <TableColumn fx:id="kontzeptuaColumn" prefWidth="200.0" text="Kontzeptua" />
@@ -51,19 +61,12 @@
         </columns>
       </TableView>
       
-      <!-- Paginación -->
       <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Pagination fx:id="pagination" />
-         </children>
+         <Pagination fx:id="pagination" styleClass="pagination" />
       </HBox>
       
-      <!-- Botón de volver -->
       <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 20 15 0;">
-         <children>
-            <Button onAction="#itzuli" text="Itzuli" prefWidth="100.0" 
-                    style="-fx-font-size: 14px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
-         </children>
+         <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
       </HBox>
    </children>
 </VBox>

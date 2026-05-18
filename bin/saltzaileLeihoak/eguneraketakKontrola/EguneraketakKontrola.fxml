@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  Eguneraketen kontrolaren interfaze grafikoa.
+  ============================================================================
+  EGUNERAKETEN KONTROLAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek datu-basean egindako eguneraketa guztiak erakusten ditu
-  zutabe bakar batean.
+  File: EguneraketakKontrola.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  @controller saltzaileLeihoak.eguneraketakKontrola.EguneraketakKontrolaKontrolagailua
+  Description:
+ 
+  Eguneraketen kontrolaren interfaze grafikoa. Taula honek datu-basean egindako 
+  eguneraketa guztiak erakusten ditu zutabe bakar batean.
+  
+  CSS Styles:
+ 
+  - stylesheets: @../../estilos/taulak.css
+  - styleClass: taula-kontrola, taula-generikoa
+  
+  FXML Controller:
+  
+  @see saltzaileLeihoak.eguneraketakKontrola.EguneraketakKontrolaKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="saltzaileLeihoak.eguneraketakKontrola.EguneraketakKontrolaKontrolagailua" 
@@ -21,29 +38,21 @@
       prefHeight="550.0" 
       prefWidth="900.0"
       spacing="10"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/taulak.css"
+      styleClass="bezero-kudeaketa-container">
       
    <children>
-      <Label text="Eguneraketak Kontrola">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Label>
+      <Label text="Eguneraketak Kontrola" styleClass="titulo-principal" />
       
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="taula-kontrola">
         <columns>
           <TableColumn fx:id="kontrolaColumn" prefWidth="1000.0" text="KONTROLA" />
         </columns>
       </TableView>
       
       <HBox spacing="10" alignment="CENTER_LEFT">
-         <children>
-            <Button onAction="#itzuli" text="Itzuli">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
+         <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
       </HBox>
    </children>
 </VBox>

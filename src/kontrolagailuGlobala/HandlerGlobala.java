@@ -160,6 +160,7 @@ public class HandlerGlobala {
         try {
             BezeroMenuPrintzipala bezeroMenu = new BezeroMenuPrintzipala();
             Stage newStage = new Stage();
+            bezeroMenu.setBezeroData(bezeroLogeatuta);
             bezeroMenu.start(newStage);
             itxiOraingoLeihoa();
         } catch (Exception e) {

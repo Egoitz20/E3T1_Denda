@@ -49,6 +49,7 @@ public class RamTaula extends Application {
 
         RamTaulaKontrolagailua controller = loader.getController();
         controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData); 
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("RAM Lista");

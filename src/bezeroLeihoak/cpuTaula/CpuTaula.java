@@ -49,6 +49,7 @@ public class CpuTaula extends Application {
 
         CpuTaulaKontrolagailua controller = loader.getController();
         controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData); 
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("CPU Lista");

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
 -- Host: localhost    Database: e2t1dbaplikazioa
 -- ------------------------------------------------------
--- Server version	8.0.44
+-- Server version	8.0.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -34,6 +34,7 @@ CREATE TABLE `txertaketak_eta_ezabaketak_kontrola` (
 
 LOCK TABLES `txertaketak_eta_ezabaketak_kontrola` WRITE;
 /*!40000 ALTER TABLE `txertaketak_eta_ezabaketak_kontrola` DISABLE KEYS */;
+INSERT INTO `txertaketak_eta_ezabaketak_kontrola` VALUES ('BEZERO BERRIA: egoitz - TXERTATU EGIN DA 2026-05-18 DATAREKIN',NULL),(NULL,'BEZERO EZABAKETA: Egoitz Guerras IZEN ABIZENAREKIN ETA egoitz - ERABILTZAILEAREKIN EZABATU EGIN DA 2026-05-18 DATAREKIN');
 /*!40000 ALTER TABLE `txertaketak_eta_ezabaketak_kontrola` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -46,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-17 12:59:34
+-- Dump completed on 2026-05-18 20:22:11

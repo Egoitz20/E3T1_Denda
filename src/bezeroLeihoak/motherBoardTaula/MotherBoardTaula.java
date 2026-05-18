@@ -49,6 +49,7 @@ public class MotherBoardTaula extends Application {
 
         MotherBoardTaulaKontrolagailua controller = loader.getController();
         controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData); 
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Mother Board Lista");

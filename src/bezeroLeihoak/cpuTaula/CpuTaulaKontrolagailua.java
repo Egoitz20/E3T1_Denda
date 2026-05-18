@@ -3,6 +3,7 @@ package bezeroLeihoak.cpuTaula;
 import java.util.HashMap;
 import java.util.Map;
 
+import datuBaseKonexioa.BezeroBean;
 import datuBaseKonexioa.ProduktuBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,9 +23,9 @@ import kontrolagailuGlobala.OtzaraGlobala;
 /**
  * CPU produktuen taula leihoaren kontrolagailua.
  * <p>
- * Klase honek CPU kategorian dauden produktu guztiak erakusten ditu taula batean,
- * orrikatzearekin. Bezeroak produktu bakoitzaren kantitatea hauta dezake
- * (+/- botoiekin) eta "Gehitu Otzara" botoia sakatuz gero, hautatutako
+ * Klase honek CPU kategorian dauden produktu guztiak erakusten ditu taula
+ * batean, orrikatzearekin. Bezeroak produktu bakoitzaren kantitatea hauta
+ * dezake (+/- botoiekin) eta "Gehitu Otzara" botoia sakatuz gero, hautatutako
  * produktuak otzaran gehitzen dira.
  * </p>
  * 
@@ -33,160 +34,179 @@ import kontrolagailuGlobala.OtzaraGlobala;
  */
 public class CpuTaulaKontrolagailua extends HandlerGlobala {
 
-    /** Produktuen taula */
-    @FXML
-    private TableView<ProduktuBean> tableView;
+	/** Produktuen taula */
+	@FXML
+	private TableView<ProduktuBean> tableView;
 
-    /** Produktuaren izenaren zutabea */
-    @FXML
-    private TableColumn<ProduktuBean, String> izenaColumn;
+	/** Produktuaren izenaren zutabea */
+	@FXML
+	private TableColumn<ProduktuBean, String> izenaColumn;
 
-    /** Produktuaren deskribapenaren zutabea */
-    @FXML
-    private TableColumn<ProduktuBean, String> deskribapenaColumn;
+	/** Produktuaren deskribapenaren zutabea */
+	@FXML
+	private TableColumn<ProduktuBean, String> deskribapenaColumn;
 
-    /** Produktuaren salneurriaren zutabea */
-    @FXML
-    private TableColumn<ProduktuBean, Double> salneurriaColumn;
+	/** Produktuaren salneurriaren zutabea */
+	@FXML
+	private TableColumn<ProduktuBean, Double> salneurriaColumn;
 
-    /** Kantitatea zutabea (+/- botoiekin) */
-    @FXML
-    private TableColumn<ProduktuBean, Void> kantitateaColumn;
+	/** Kantitatea zutabea (+/- botoiekin) */
+	@FXML
+	private TableColumn<ProduktuBean, Void> kantitateaColumn;
 
-    /** Orrikatze kontrola */
-    @FXML
-    private Pagination pagination;
+	/** Orrikatze kontrola */
+	@FXML
+	private Pagination pagination;
 
-    /** CPU produktu guztiak gordetzeko zerrenda */
-    private ObservableList<ProduktuBean> cpuList = FXCollections.observableArrayList();
-    
-    /** Bilaketaren emaitzak gordetzeko zerrenda */
-    private ObservableList<ProduktuBean> filtrazioList = FXCollections.observableArrayList();
+	/** CPU produktu guztiak gordetzeko zerrenda */
+	private ObservableList<ProduktuBean> cpuList = FXCollections.observableArrayList();
 
-    /** Produktu bakoitzarentzako hautatutako kantitatea gordetzeko mapa */
-    private Map<Integer, Integer> kantitateak = new HashMap<>();
+	/** Bilaketaren emaitzak gordetzeko zerrenda */
+	private ObservableList<ProduktuBean> filtrazioList = FXCollections.observableArrayList();
 
-    /**
-     * Eraikitzaile lehenetsia.
-     */
-    public CpuTaulaKontrolagailua() {
-    }
-    
-    /**
-     * Itzuli botoiaren metodoa.
-     * <p>
-     * Leihoa ixten du eta bezero menu nagusira itzultzen da.
-     * </p>
-     */
-    @FXML
-    public void itzuli() {
-        itxiOraingoLeihoa();
-        irekiBezeroMenuPrintzipala();
-    }
-    
-    /**
-     * FXMLa kargatzean automatikoki exekutatzen den metodoa.
-     * <p>
-     * Zutabeak konfiguratzen ditu, CPU produktuak kargatzen ditu,
-     * orrikatzea konfiguratzen du eta kantitatea zutabea sortzen du.
-     * </p>
-     */
-    @FXML
-    public void initialize() {
-        konfiguratuKategoriaZutabeak(izenaColumn, deskribapenaColumn, salneurriaColumn);
-        kargatuKategoriaDatuak(cpuList, filtrazioList, kantitateak, "CPU");
-        konfiguratuBezeroKategoriaPaginazioa(pagination, filtrazioList, tableView);
-        konfiguratuKantitateaZutabea();
-    }
+	/** Produktu bakoitzarentzako hautatutako kantitatea gordetzeko mapa */
+	private Map<Integer, Integer> kantitateak = new HashMap<>();
 
-    /**
-     * Gehitu Otzara botoiaren metodoa.
-     * <p>
-     * Hautatutako kantitatearekin produktuak otzaran gehitzen ditu eta
-     * kantitateak berrezartzen ditu.
-     * </p>
-     */
-    @FXML
-    public void gehituOtzara() {
-        OtzaraGlobala otzara = OtzaraGlobala.getInstantzia();
-        
-        for (ProduktuBean produktu : cpuList) {
-            int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
-            if (kantitatea > 0) {
-                otzara.gehituProduktua(produktu, kantitatea);
-                kantitateak.put(produktu.getId(), 0);
-            }
-        }
-        
-        eguneratuBezeroKategoriaOrriaDatuak(pagination.getCurrentPageIndex(), cpuList, tableView);
-        irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", 
-                    "Produktuak ondo gehitu dira zure otzaran.");
-    }
+	private BezeroBean bezeroData;
 
-    /**
-     * Kantitatea zutabea konfiguratzen du, + eta - botoiekin.
-     * <p>
-     * Produktu bakoitzarentzat kantitatea handitzeko edo txikitzeko botoiak sortzen ditu.
-     * </p>
-     */
-    private void konfiguratuKantitateaZutabea() {
-        kantitateaColumn.setCellFactory(new Callback<TableColumn<ProduktuBean, Void>, TableCell<ProduktuBean, Void>>() {
-            @Override
-            public TableCell<ProduktuBean, Void> call(TableColumn<ProduktuBean, Void> param) {
-                return new TableCell<ProduktuBean, Void>() {
+	/**
+	 * Eraikitzaile lehenetsia.
+	 */
+	public CpuTaulaKontrolagailua() {
+	}
 
-                    private final Button btnKendu = new Button("-");
-                    private final Label lblKopurua = new Label("0");
-                    private final Button btnGehitu = new Button("+");
-                    private final HBox container = new HBox(10, btnKendu, lblKopurua, btnGehitu);
+	/**
+	 * Itzuli botoiaren metodoa.
+	 * <p>
+	 * Leihoa ixten du eta bezero menu nagusira itzultzen da.
+	 * </p>
+	 */
 
-                    {
-                        btnKendu.setPrefWidth(40);
-                        btnGehitu.setPrefWidth(40);
-                        lblKopurua.setPrefWidth(40);
-                        lblKopurua.setAlignment(Pos.CENTER);
-                        lblKopurua.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-                        container.setAlignment(Pos.CENTER);
+	public void setBezeroData(BezeroBean data) {
+		this.bezeroData = data;
+	}
 
-                        btnKendu.setOnAction(_ -> {
-                            ProduktuBean produktu = getTableView().getItems().get(getIndex());
-                            if (produktu != null) {
-                                int id = produktu.getId();
-                                int current = kantitateak.getOrDefault(id, 0);
-                                if (current > 0) {
-                                    kantitateak.put(id, current - 1);
-                                    lblKopurua.setText(String.valueOf(current - 1));
-                                }
-                            }
-                        });
+	@FXML
+	public void itzuli() {
+		itxiOraingoLeihoa();
+		irekiBezeroMenuPrintzipala();
+	}
 
-                        btnGehitu.setOnAction(_ -> {
-                            ProduktuBean produktu = getTableView().getItems().get(getIndex());
-                            if (produktu != null) {
-                                int id = produktu.getId();
-                                int current = kantitateak.getOrDefault(id, 0);
-                                kantitateak.put(id, current + 1);
-                                lblKopurua.setText(String.valueOf(current + 1));
-                            }
-                        });
-                    }
+	/**
+	 * FXMLa kargatzean automatikoki exekutatzen den metodoa.
+	 * <p>
+	 * Zutabeak konfiguratzen ditu, CPU produktuak kargatzen ditu, orrikatzea
+	 * konfiguratzen du eta kantitatea zutabea sortzen du.
+	 * </p>
+	 */
+	@FXML
+	public void initialize() {
 
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            ProduktuBean produktu = getTableView().getItems().get(getIndex());
-                            if (produktu != null) {
-                                int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
-                                lblKopurua.setText(String.valueOf(kantitatea));
-                            }
-                            setGraphic(container);
-                        }
-                    }
-                };
-            }
-        });
-    }
+		if (bezeroData == null) {
+			bezeroData = getBezeroLogeatuta();
+		}
+
+		if (bezeroData == null) {
+			irekiAlerta("Errorea", "Sesiorik ez", "Ez dago saiorik hasita. Mesedez, hasi saio berriro.");
+			itxiOraingoLeihoa();
+			irekiLogina();
+			return;
+		}
+		
+		konfiguratuKategoriaZutabeak(izenaColumn, deskribapenaColumn, salneurriaColumn);
+		kargatuKategoriaDatuak(cpuList, filtrazioList, kantitateak, "CPU");
+		konfiguratuBezeroKategoriaPaginazioa(pagination, filtrazioList, tableView);
+		konfiguratuKantitateaZutabea();
+	}
+
+	/**
+	 * Gehitu Otzara botoiaren metodoa.
+	 * <p>
+	 * Hautatutako kantitatearekin produktuak otzaran gehitzen ditu eta kantitateak
+	 * berrezartzen ditu.
+	 * </p>
+	 */
+	@FXML
+	public void gehituOtzara() {
+		OtzaraGlobala otzara = OtzaraGlobala.getInstantzia();
+
+		for (ProduktuBean produktu : cpuList) {
+			int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
+			if (kantitatea > 0) {
+				otzara.gehituProduktua(produktu, kantitatea);
+				kantitateak.put(produktu.getId(), 0);
+			}
+		}
+
+		eguneratuBezeroKategoriaOrriaDatuak(pagination.getCurrentPageIndex(), cpuList, tableView);
+		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", "Produktuak ondo gehitu dira zure otzaran.");
+	}
+
+	/**
+	 * Kantitatea zutabea konfiguratzen du, + eta - botoiekin.
+	 * <p>
+	 * Produktu bakoitzarentzat kantitatea handitzeko edo txikitzeko botoiak sortzen
+	 * ditu.
+	 * </p>
+	 */
+	private void konfiguratuKantitateaZutabea() {
+		kantitateaColumn.setCellFactory(new Callback<TableColumn<ProduktuBean, Void>, TableCell<ProduktuBean, Void>>() {
+			@Override
+			public TableCell<ProduktuBean, Void> call(TableColumn<ProduktuBean, Void> param) {
+				return new TableCell<ProduktuBean, Void>() {
+
+					private final Button btnKendu = new Button("-");
+					private final Label lblKopurua = new Label("0");
+					private final Button btnGehitu = new Button("+");
+					private final HBox container = new HBox(10, btnKendu, lblKopurua, btnGehitu);
+
+					{
+						btnKendu.setPrefWidth(40);
+						btnGehitu.setPrefWidth(40);
+						lblKopurua.setPrefWidth(40);
+						lblKopurua.setAlignment(Pos.CENTER);
+						lblKopurua.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+						container.setAlignment(Pos.CENTER);
+
+						btnKendu.setOnAction(_ -> {
+							ProduktuBean produktu = getTableView().getItems().get(getIndex());
+							if (produktu != null) {
+								int id = produktu.getId();
+								int current = kantitateak.getOrDefault(id, 0);
+								if (current > 0) {
+									kantitateak.put(id, current - 1);
+									lblKopurua.setText(String.valueOf(current - 1));
+								}
+							}
+						});
+
+						btnGehitu.setOnAction(_ -> {
+							ProduktuBean produktu = getTableView().getItems().get(getIndex());
+							if (produktu != null) {
+								int id = produktu.getId();
+								int current = kantitateak.getOrDefault(id, 0);
+								kantitateak.put(id, current + 1);
+								lblKopurua.setText(String.valueOf(current + 1));
+							}
+						});
+					}
+
+					@Override
+					protected void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty) {
+							setGraphic(null);
+						} else {
+							ProduktuBean produktu = getTableView().getItems().get(getIndex());
+							if (produktu != null) {
+								int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
+								lblKopurua.setText(String.valueOf(kantitatea));
+							}
+							setGraphic(container);
+						}
+					}
+				};
+			}
+		});
+	}
 }

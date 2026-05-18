@@ -4,6 +4,34 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<!--
+  ============================================================================
+  SAIOAREN INFORMAZIOAREN INTERFAZE GRAFIKOA
+  ============================================================================
+  
+  File: SaioInformazioa.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
+  
+  Description:
+ 
+  Saioaren informazioaren interfaze grafikoa. Bezeroaren datu pertsonalak 
+  ikusteko eta editatzeko leihoa. Bi modu ditu: irakurketa modua eta edizio modua.
+  
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/formularios.css
+  - styleClass: formulario-panel, boton-editar, boton-exito, boton-secundario
+  
+  FXML Controller:
+ 
+  @see bezeroLeihoak.saioInformazioa.SaioInformazioaKontrolagailua
+  
+  ============================================================================
+-->
 
 <VBox fx:controller="bezeroLeihoak.saioInformazioa.SaioInformazioaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
@@ -12,123 +40,69 @@
       prefWidth="600.0"
       spacing="15"
       alignment="TOP_CENTER"
-      style="-fx-padding: 20; -fx-background-color: #f5f5f5;">
+      stylesheets="@../../estilos/formularios.css"
+      styleClass="formulario-panel">
       
    <children>
-      <!-- Título -->
       <HBox spacing="15" alignment="CENTER">
          <children>
-            <Label text="Saioaren Informazioa">
-               <font>
-                  <Font name="Cambria" size="28.0" />
-               </font>
-            </Label>
+            <Label text="Saioaren Informazioa" styleClass="titulo-principal" />
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../../irudiak/usuario.png" />
             </ImageView>
          </children>
       </HBox>
       
-      <!-- Separador -->
       <Separator prefWidth="400.0" />
       
-      <!-- Formulario -->
       <GridPane hgap="15" vgap="12" alignment="CENTER">
          <children>
-            <!-- Izena -->
-            <Label text="Izena *:" GridPane.columnIndex="0" GridPane.rowIndex="0">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Izena *:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
-               <children>
-                  <TextField fx:id="ipiniIzena" prefWidth="250.0" promptText="Izena" />
-                  <Button fx:id="editatuIzenaButton" text="✏️" prefWidth="40" 
-                          onAction="#editatuIzena" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniIzena" prefWidth="250.0" promptText="Izena" styleClass="campo-texto" />
+               <Button fx:id="editatuIzenaButton" text="✏️" prefWidth="40" onAction="#editatuIzena" styleClass="boton-editar" />
             </HBox>
             
-            <!-- Abizena -->
-            <Label text="Abizena:" GridPane.columnIndex="0" GridPane.rowIndex="1">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Abizena:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <TextField fx:id="ipiniAbizenak" prefWidth="250.0" promptText="Abizenak" />
-                  <Button fx:id="editatuAbizenaButton" text="✏️" prefWidth="40"
-                          onAction="#editatuAbizena" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniAbizenak" prefWidth="250.0" promptText="Abizenak" styleClass="campo-texto" />
+               <Button fx:id="editatuAbizenaButton" text="✏️" prefWidth="40" onAction="#editatuAbizena" styleClass="boton-editar" />
             </HBox>
             
-            <!-- NAN -->
-            <Label text="NAN *:" GridPane.columnIndex="0" GridPane.rowIndex="2">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="NAN *:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <TextField fx:id="ipiniNan" prefWidth="250.0" promptText="NAN" />
-                  <Button fx:id="editatuNanButton" text="✏️" prefWidth="40"
-                          onAction="#editatuNan" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniNan" prefWidth="250.0" promptText="NAN" styleClass="campo-texto" />
+               <Button fx:id="editatuNanButton" text="✏️" prefWidth="40" onAction="#editatuNan" styleClass="boton-editar" />
             </HBox>
             
-            <!-- Telefonoa -->
-            <Label text="Telefonoa *:" GridPane.columnIndex="0" GridPane.rowIndex="3">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Telefonoa *:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <TextField fx:id="ipiniTelefonoa" prefWidth="250.0" promptText="Telefonoa" />
-                  <Button fx:id="editatuTelefonoaButton" text="✏️" prefWidth="40"
-                          onAction="#editatuTelefonoa" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniTelefonoa" prefWidth="250.0" promptText="Telefonoa" styleClass="campo-texto" />
+               <Button fx:id="editatuTelefonoaButton" text="✏️" prefWidth="40" onAction="#editatuTelefonoa" styleClass="boton-editar" />
             </HBox>
             
-            <!-- Helbidea -->
-            <Label text="Helbidea:" GridPane.columnIndex="0" GridPane.rowIndex="4">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Helbidea:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                  <TextField fx:id="ipiniHelbidea" prefWidth="250.0" promptText="Helbidea" />
-                  <Button fx:id="editatuHelbideaButton" text="✏️" prefWidth="40"
-                          onAction="#editatuHelbidea" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniHelbidea" prefWidth="250.0" promptText="Helbidea" styleClass="campo-texto" />
+               <Button fx:id="editatuHelbideaButton" text="✏️" prefWidth="40" onAction="#editatuHelbidea" styleClass="boton-editar" />
             </HBox>
             
-            <!-- Emaila -->
-            <Label text="Emaila *:" GridPane.columnIndex="0" GridPane.rowIndex="5">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Emaila *:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <children>
-                  <TextField fx:id="ipiniEmaila" prefWidth="250.0" promptText="Emaila" />
-                  <Button fx:id="editatuEmailaButton" text="✏️" prefWidth="40"
-                          onAction="#editatuEmaila" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniEmaila" prefWidth="250.0" promptText="Emaila" styleClass="campo-texto" />
+               <Button fx:id="editatuEmailaButton" text="✏️" prefWidth="40" onAction="#editatuEmaila" styleClass="boton-editar" />
             </HBox>
             
-             <!-- Erabiltzailea -->
-            <Label text="Erabiltzailea *:" GridPane.columnIndex="0" GridPane.rowIndex="6">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Erabiltzailea *:" GridPane.columnIndex="0" GridPane.rowIndex="6" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <children>
-                  <TextField fx:id="ipiniErabiltzailea" prefWidth="250.0" promptText="Erabiltzailea" />
-                  <Button fx:id="editatuErabiltzaileaButton" text="✏️" prefWidth="40"
-                          onAction="#editatuErabiltzailea" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniErabiltzailea" prefWidth="250.0" promptText="Erabiltzailea" styleClass="campo-texto" />
+               <Button fx:id="editatuErabiltzaileaButton" text="✏️" prefWidth="40" onAction="#editatuErabiltzailea" styleClass="boton-editar" />
             </HBox>
             
-             <!-- Pasahitza -->
-            <Label text="Pasahitza *:" GridPane.columnIndex="0" GridPane.rowIndex="7">
-               <font><Font size="14.0" /></font>
-            </Label>
+            <Label text="Pasahitza *:" GridPane.columnIndex="0" GridPane.rowIndex="7" styleClass="campo-etiqueta" />
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <children>
-                  <TextField fx:id="ipiniPasahitza" prefWidth="250.0" promptText="Pasahitza" />
-                  <Button fx:id="editatuPasahitzaButton" text="✏️" prefWidth="40"
-                          onAction="#editatuPasahitza" style="-fx-cursor: hand;"/>
-               </children>
+               <TextField fx:id="ipiniPasahitza" prefWidth="250.0" promptText="Pasahitza" styleClass="campo-texto" />
+               <Button fx:id="editatuPasahitzaButton" text="✏️" prefWidth="40" onAction="#editatuPasahitza" styleClass="boton-editar" />
             </HBox>
          </children>
          
@@ -138,18 +112,12 @@
          </columnConstraints>
       </GridPane>
       
-      <!-- Separador -->
       <Separator prefWidth="400.0" />
       
-      <!-- Botones -->
       <HBox spacing="20" alignment="CENTER">
          <children>
-            <Button fx:id="gordeButton" onAction="#gordeInfo" text="Gorde" prefWidth="100">
-               <font><Font size="14.0" /></font>
-            </Button>
-            <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli" prefWidth="100">
-               <font><Font size="14.0" /></font>
-            </Button>
+            <Button fx:id="gordeButton" onAction="#gordeInfo" text="Gorde" styleClass="boton-exito" prefWidth="100" />
+            <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" prefWidth="100" />
          </children>
       </HBox>
    </children>

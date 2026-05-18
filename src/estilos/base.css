@@ -1,0 +1,135 @@
+/**
+ * base.css - Estilos globales de la aplicación
+ * 
+ * Paleta de colores clara y profesional
+ * @author AIA
+ * @version 2.0
+ */
+
+.root {
+    -fx-font-family: "Segoe UI", "System", "Arial", sans-serif;
+    -fx-background-color: #f8f9fa;
+}
+
+/* ============================================================
+   ETIQUETAS
+   ============================================================ */
+
+.label {
+    -fx-text-fill: #2d3748;
+}
+
+/* ============================================================
+   TÍTULOS
+   ============================================================ */
+
+.titulo-principal {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3748;
+}
+
+.titulo-secundario {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a5568;
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
+.boton-primario {
+    -fx-background-color: #3182ce;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 20px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-primario:hover {
+    -fx-background-color: #2c5282;
+}
+
+.boton-secundario {
+    -fx-background-color: #718096;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 20px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: #4a5568;
+}
+
+.boton-peligro {
+    -fx-background-color: #e53e3e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 20px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-peligro:hover {
+    -fx-background-color: #c53030;
+}
+
+.boton-exito {
+    -fx-background-color: #38a169;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 20px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-exito:hover {
+    -fx-background-color: #2f855a;
+}
+
+/* ============================================================
+   CAMPOS DE TEXTO
+   ============================================================ */
+
+.campo-texto {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 13px;
+}
+
+.campo-texto:focused {
+    -fx-border-color: #3182ce;
+    -fx-border-width: 2px;
+}
+
+/* ============================================================
+   SEPARADORES
+   ============================================================ */
+
+.separator .line {
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+}
+
+/* ============================================================
+   SCROLL PANE
+   ============================================================ */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

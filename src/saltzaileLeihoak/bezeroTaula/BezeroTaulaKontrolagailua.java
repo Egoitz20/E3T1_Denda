@@ -26,7 +26,7 @@ import saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketa;
  * </p>
  * 
  * @author AIA
- * @version 1.0
+ * @version 2.0
  */
 public class BezeroTaulaKontrolagailua extends HandlerGlobala {
 
@@ -91,6 +91,9 @@ public class BezeroTaulaKontrolagailua extends HandlerGlobala {
     
     /**
      * Bezeroaren kudeaketa leihoa irekitzen du hautatutako bezeroarekin.
+     * <p>
+     * Leiho berria irekitzen du eta itxi egiten du unekoa.
+     * </p>
      *
      * @param bezeroa editatzeko hautatutako bezeroa
      */
@@ -99,12 +102,14 @@ public class BezeroTaulaKontrolagailua extends HandlerGlobala {
             BezeroKudeaketa kudeaketa = new BezeroKudeaketa();
             Stage newStage = new Stage();
             kudeaketa.setBezeroData(bezeroa);
-            kudeaketa.start(newStage);
+            
+            // Itxi uneko leihoa
             itxiOraingoLeihoa();
-
-            newStage.setOnHidden(_ -> {
-                irekiSaltzaileMenuPrintzipala();
-            });
+            
+            // Ireki kudeaketa leihoa
+            kudeaketa.start(newStage);
+            
+            // Ez da onHidden event-ik behar
         } catch (Exception e) {
             e.printStackTrace();
             irekiAlerta("Errorea", "Ezin izan da leihoa ireki",

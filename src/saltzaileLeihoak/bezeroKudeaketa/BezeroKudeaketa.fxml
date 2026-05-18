@@ -2,121 +2,124 @@
 
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <!--
-  Bezeroen kudeaketa formularioaren interfaze grafikoa.
-  
-  Formulario honek bezeroak gehitu, aldatu edo ezabatzeko aukera ematen du:
-  - IDa (automatikoa)
-  - Izena-Abizenak
-  - NAN
-  - Emaila
-  - Telefonoa
-  - Helbidea
-  - Erabiltzailea
-  - Pasahitza
-  
-  @controller saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketaKontrolagailua
+  BEZERO KUDEAKETAREN INTERFAZE GRAFIKOA
+  File: BezeroKudeaketa.fxml
+  Author: AIA
+  Version: 3.0
+  Since: 2026
+
+  Description: Bezeroen kudeaketa formularioa. Bezeroak gehitu, aldatu 
+  edo ezabatzeko aukera ematen du: IDa, Izena-Abizenak, NAN, Emaila, 
+  Telefonoa, Helbidea, Erabiltzailea, Pasahitza.
+
+  CSS Styles: stylesheets @../../estilos/bezeroKudeaketa.css
+  FXML Controller: saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketaKontrolagailua
 -->
 
 <VBox fx:controller="saltzaileLeihoak.bezeroKudeaketa.BezeroKudeaketaKontrolagailua" 
       xmlns="http://javafx.com/javafx/8" 
       xmlns:fx="http://javafx.com/fxml/1"
-      prefHeight="500.0" 
-      prefWidth="550.0"
-      spacing="10"
-      alignment="TOP_CENTER">
-      
-   <children>
-      <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Label text="Bezero Gehitu/Ezabatu/Aldatu">
-               <font>
-                  <Font name="Cambria" size="25.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../irudiak/usuario.png" />
-            </ImageView>
-         </children>
-      </HBox>
-      
-       <GridPane hgap="10" vgap="10" alignment="CENTER">
-         <children>
-            <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniId" GridPane.columnIndex="1" GridPane.rowIndex="0" 
-                       prefWidth="250.0" promptText="ID (Automatikoa)" editable="false"/>
-            
-            <Label text="Izena-Abizenak:" GridPane.columnIndex="0" GridPane.rowIndex="1">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniIzenAbizenak" GridPane.columnIndex="1" GridPane.rowIndex="1" 
-                       prefWidth="250.0" promptText="Izena eta Abizenak" />
-            
-            <Label text="NAN:" GridPane.columnIndex="0" GridPane.rowIndex="2">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniNan" GridPane.columnIndex="1" GridPane.rowIndex="2" 
-                       prefWidth="250.0" promptText="NAN" />
-            
-            <Label text="Emaila:" GridPane.columnIndex="0" GridPane.rowIndex="3">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniEmaila" GridPane.columnIndex="1" GridPane.rowIndex="3" 
-                       prefWidth="250.0" promptText="Emaila" />
-            
-            <Label text="Telefonoa:" GridPane.columnIndex="0" GridPane.rowIndex="4">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniTelefonoa" GridPane.columnIndex="1" GridPane.rowIndex="4" 
-                       prefWidth="250.0" promptText="Telefonoa" />
-            
-            <Label text="Helbidea:" GridPane.columnIndex="0" GridPane.rowIndex="5">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniHelbidea" GridPane.columnIndex="1" GridPane.rowIndex="5" 
-                       prefWidth="250.0" promptText="Helbidea" />
-            
-            <Label text="Erabiltzailea:" GridPane.columnIndex="0" GridPane.rowIndex="6">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniErabiltzailea" GridPane.columnIndex="1" GridPane.rowIndex="6" 
-                       prefWidth="250.0" promptText="Erabiltzailea" />
-            
-            <Label text="Pasahitza:" GridPane.columnIndex="0" GridPane.rowIndex="7">
-               <font><Font size="14.0" /></font>
-            </Label>
-            <TextField fx:id="ipiniPasahitza" GridPane.columnIndex="1" GridPane.rowIndex="7" 
-                       prefWidth="250.0" promptText="Pasahitza" />
+      prefHeight="600.0" 
+      prefWidth="600.0"
+      spacing="15"
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/bezeroKudeaketa.css"
+      styleClass="bezero-kudeaketa-container">
 
-         </children>
-         
-         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" minWidth="100" />
-            <ColumnConstraints halignment="LEFT" minWidth="260" />
-         </columnConstraints>
-      </GridPane>
-      
-      <HBox spacing="15" alignment="CENTER">
-         <children>
-            <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli" prefWidth="80">
-               <font><Font size="14.0" /></font>
-            </Button>
-            <Button fx:id="sortuButton" onAction="#sortu" text="Sortu" prefWidth="80">
-               <font><Font size="14.0" /></font>
-            </Button>
-            <Button fx:id="aldatuButton" onAction="#aldatu" text="Aldatu" prefWidth="80">
-               <font><Font size="14.0" /></font>
-            </Button>
-            <Button fx:id="ezabatuButton" onAction="#ezabatu" text="Ezabatu" prefWidth="80">
-               <font><Font size="14.0" /></font>
-            </Button>
-         </children>
-      </HBox>
-   </children>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <children>
+        <!-- Header con titulo e icono -->
+        <HBox spacing="15" alignment="CENTER">
+            <children>
+                <Label text="Bezero Gehitu/Ezabatu/Aldatu" styleClass="titulo-principal" />
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../irudiak/usuario.png" />
+                </ImageView>
+            </children>
+        </HBox>
+
+        <Separator />
+
+        <!-- ScrollPane para formulario largo -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <content>
+                <GridPane hgap="15" vgap="12" styleClass="bezero-formulario-panel">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+
+                    <children>
+                        <!-- Fila 0: ID -->
+                        <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniId" GridPane.columnIndex="1" GridPane.rowIndex="0" 
+                                   prefWidth="250.0" promptText="ID (Automatikoa)" editable="false" 
+                                   styleClass="bezero-id-field, campo-texto"/>
+
+                        <!-- Fila 1: Izena-Abizenak -->
+                        <Label text="Izena-Abizenak:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniIzenAbizenak" GridPane.columnIndex="1" GridPane.rowIndex="1" 
+                                   prefWidth="300.0" promptText="Izena eta Abizenak" styleClass="campo-texto" />
+
+                        <!-- Fila 2: NAN -->
+                        <Label text="NAN:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniNan" GridPane.columnIndex="1" GridPane.rowIndex="2" 
+                                   prefWidth="300.0" promptText="NAN" styleClass="campo-texto" />
+
+                        <!-- Fila 3: Emaila -->
+                        <Label text="Emaila:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniEmaila" GridPane.columnIndex="1" GridPane.rowIndex="3" 
+                                   prefWidth="300.0" promptText="Emaila" styleClass="campo-texto" />
+
+                        <!-- Fila 4: Telefonoa -->
+                        <Label text="Telefonoa:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniTelefonoa" GridPane.columnIndex="1" GridPane.rowIndex="4" 
+                                   prefWidth="300.0" promptText="Telefonoa" styleClass="campo-texto" />
+
+                        <!-- Fila 5: Helbidea -->
+                        <Label text="Helbidea:" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniHelbidea" GridPane.columnIndex="1" GridPane.rowIndex="5" 
+                                   prefWidth="300.0" promptText="Helbidea" styleClass="campo-texto" />
+
+                        <!-- Fila 6: Erabiltzailea -->
+                        <Label text="Erabiltzailea:" GridPane.columnIndex="0" GridPane.rowIndex="6" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniErabiltzailea" GridPane.columnIndex="1" GridPane.rowIndex="6" 
+                                   prefWidth="300.0" promptText="Erabiltzailea" styleClass="campo-texto" />
+
+                        <!-- Fila 7: Pasahitza -->
+                        <Label text="Pasahitza:" GridPane.columnIndex="0" GridPane.rowIndex="7" styleClass="bezero-formulario-label" />
+                        <TextField fx:id="ipiniPasahitza" GridPane.columnIndex="1" GridPane.rowIndex="7" 
+                                   prefWidth="300.0" promptText="Pasahitza" styleClass="campo-texto" />
+                    </children>
+
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="100" />
+                        <ColumnConstraints halignment="LEFT" minWidth="300" />
+                    </columnConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+
+        <Separator />
+
+        <!-- Botones -->
+        <HBox spacing="15" alignment="CENTER" styleClass="bezero-botoiak-container">
+            <children>
+                <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" prefWidth="90" />
+                <Button fx:id="sortuButton" onAction="#sortu" text="Sortu" styleClass="boton-bezero-sortu" prefWidth="90" />
+                <Button fx:id="aldatuButton" onAction="#aldatu" text="Aldatu" styleClass="boton-bezero-aldatu" prefWidth="90" />
+                <Button fx:id="ezabatuButton" onAction="#ezabatu" text="Ezabatu" styleClass="boton-bezero-ezabatu" prefWidth="90" />
+            </children>
+            <VBox.margin>
+                <Insets top="10" />
+            </VBox.margin>
+        </HBox>
+    </children>
 </VBox>

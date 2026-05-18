@@ -1,0 +1,79 @@
+/**
+ * tienda.css - Estilos para las tablas de productos
+ * @author AIA
+ * @version 2.0
+ */
+
+@import url('base.css');
+
+.tienda-container {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+}
+
+.tabla-productos {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6px;
+}
+
+.tabla-productos .column-header-background {
+    -fx-background-color: #f7fafc;
+    -fx-background-radius: 6px 6px 0 0;
+}
+
+.tabla-productos .column-header {
+    -fx-background-color: transparent;
+}
+
+.tabla-productos .column-header .label {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.tabla-productos .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+.tabla-productos .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.tabla-productos .table-row-cell:hover {
+    -fx-background-color: #ebf4ff;
+    -fx-cursor: hand;
+}
+
+.tabla-productos .table-row-cell:selected {
+    -fx-background-color: #3182ce;
+}
+
+.tabla-productos .table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+.pagination {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.pagination .pagination-control {
+    -fx-background-color: transparent;
+}
+
+.pagination .button {
+    -fx-background-color: #edf2f7;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #2d3748;
+    -fx-cursor: hand;
+}
+
+.pagination .button:hover {
+    -fx-background-color: #3182ce;
+    -fx-text-fill: white;
+}

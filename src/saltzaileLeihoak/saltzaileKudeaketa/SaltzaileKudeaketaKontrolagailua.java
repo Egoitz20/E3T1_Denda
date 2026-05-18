@@ -48,6 +48,19 @@ public class SaltzaileKudeaketaKontrolagailua extends HandlerGlobala {
      */
     public SaltzaileKudeaketaKontrolagailua() {
     }
+    
+    @FXML
+    public void initialize() {
+        // Egiaztatu baimenak
+        LangileSaltzaileBean saltzaileLogeatuta = getSaltzaileLogeatuta();
+        if (saltzaileLogeatuta == null || saltzaileLogeatuta.getId() != 1) {
+            irekiAlerta("Baimenik ez", "Sarbide ukatu", 
+                "Ez duzu baimenik atal honetara sartzeko. Administratzaileak soilik.");
+            itxiOraingoLeihoa();
+            irekiSaltzaileMenuPrintzipala();
+            return;
+        }
+    }
 
     /**
      * Saltzailearen datuak jasotzen ditu eta interfazea konfiguratzen du moduaren arabera.

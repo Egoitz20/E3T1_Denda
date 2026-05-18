@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  CPU produktuen taularen interfaze grafikoa.
+  ============================================================================
+  CPU PRODUKTUEN TAULAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek CPU kategorian dauden produktu guztiak erakusten ditu:
-  - Izena: produktuaren izena
-  - Deskribapena: produktuaren deskribapena
-  - Salneurria (€): produktuaren prezioa
-  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  File: CpuTaula.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  Bi botoi ditu:
-  - Gehitu Otzara: hautatutako produktuak otzaran gehitzeko
-  - Itzuli: bezero menu nagusira itzultzeko
+  Description:
+ 
+  CPU produktuen taularen interfaze grafikoa. Taula honek CPU kategorian dauden 
+  produktu guztiak erakusten ditu: izena, deskribapena, salneurria eta kantitatea 
+  (+/- botoiekin). Bi botoi ditu: Gehitu Otzara eta Itzuli.
   
-  @controller bezeroLeihoak.cpuTaula.CpuTaulaKontrolagailua
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/tienda.css
+  - styleClass: tienda-container, tabla-productos, pagination
+  
+  FXML Controller:
+  
+  @see bezeroLeihoak.cpuTaula.CpuTaulaKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="bezeroLeihoak.cpuTaula.CpuTaulaKontrolagailua" 
@@ -28,16 +39,14 @@
       prefHeight="550.0" 
       prefWidth="900.0"
       spacing="10"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/tienda.css"
+      styleClass="tienda-container">
       
    <children>
-      <Label text="CPU">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Label>
+      <Label text="CPU" styleClass="titulo-principal" />
       
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="tabla-productos">
         <columns>
           <TableColumn fx:id="izenaColumn" prefWidth="250.0" text="Izena" />
           <TableColumn fx:id="deskribapenaColumn" prefWidth="300.0" text="Deskribapena" />
@@ -47,24 +56,12 @@
       </TableView>
       
       <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Pagination fx:id="pagination" />
-         </children>
+         <Pagination fx:id="pagination" styleClass="pagination" />
       </HBox>
       
       <HBox spacing="10" alignment="CENTER_RIGHT">
-         <children>
-            <Button onAction="#gehituOtzara" text="Gehitu Otzara" prefWidth="150.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button onAction="#itzuli" text="Itzuli">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
+         <Button onAction="#gehituOtzara" text="Gehitu Otzara" styleClass="boton-primario" />
+         <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
       </HBox>
    </children>
 </VBox>

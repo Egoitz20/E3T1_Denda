@@ -49,6 +49,7 @@ public class VideoCardTaula extends Application {
 
         VideoCardTaulaKontrolagailua controller = loader.getController();
         controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData); 
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Video Card Lista");

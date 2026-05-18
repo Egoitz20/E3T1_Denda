@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  Video Card (Txartel grafikoa) produktuen taularen interfaze grafikoa.
+  ============================================================================
+  VIDEO CARD PRODUKTUEN TAULAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek Video Card kategorian dauden produktu guztiak erakusten ditu:
-  - Izena: produktuaren izena (adib: NVIDIA RTX 4060, AMD RX 7800 XT)
-  - Deskribapena: produktuaren ezaugarriak (adib: 8GB GDDR6, 256-bit)
-  - Salneurria (€): produktuaren prezioa
-  - Kantitatea: +/- botoiekin kantitatea hautatzeko eremua
+  File: VideoCardTaula.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  @controller bezeroLeihoak.videoCardTaula.VideoCardTaulaKontrolagailua
+  Description:
+
+  Video Card (Txartel grafikoa) produktuen taularen interfaze grafikoa. Taula honek 
+  Video Card kategorian dauden produktu guztiak erakusten ditu.
+  
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/tienda.css
+  - styleClass: tienda-container, tabla-productos, pagination
+  
+  FXML Controller:
+  
+  @see bezeroLeihoak.videoCardTaula.VideoCardTaulaKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="bezeroLeihoak.videoCardTaula.VideoCardTaulaKontrolagailua" 
@@ -24,16 +38,14 @@
       prefHeight="550.0" 
       prefWidth="900.0"
       spacing="10"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/tienda.css"
+      styleClass="tienda-container">
       
    <children>
-      <Label text="Video Card">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Label>
+      <Label text="Video Card" styleClass="titulo-principal" />
       
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="tabla-productos">
         <columns>
           <TableColumn fx:id="izenaColumn" prefWidth="250.0" text="Izena" />
           <TableColumn fx:id="deskribapenaColumn" prefWidth="300.0" text="Deskribapena" />
@@ -43,24 +55,12 @@
       </TableView>
       
       <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Pagination fx:id="pagination" />
-         </children>
+         <Pagination fx:id="pagination" styleClass="pagination" />
       </HBox>
       
       <HBox spacing="10" alignment="CENTER_RIGHT">
-         <children>
-            <Button onAction="#gehituOtzara" text="Gehitu Otzara" prefWidth="150.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button onAction="#itzuli" text="Itzuli">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
+         <Button onAction="#gehituOtzara" text="Gehitu Otzara" styleClass="boton-primario" />
+         <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
       </HBox>
    </children>
 </VBox>

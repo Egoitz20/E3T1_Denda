@@ -3,19 +3,36 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  Bezeroaren eskaeren taularen interfaze grafikoa.
+  ============================================================================
+  BEZEROAREN ESKAEREN TAULAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek bezero jakin baten eskaera guztiak erakusten ditu:
-  - Produktu izena, kategoria, kopurua, egoera, eskaera data, saltzailea
+  File: EskaeraTaula.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  Bilaketa funtzionalitatea du (produktua, kategoria edo saltzailearen arabera)
-  eta orrikatzea (10 erregistro orriko).
+  Description:
   
-  @controller saltzaileLeihoak.eskaerakTaula.EskaerakTaulaKontrolagailua
+  Bezeroaren eskaeren taularen interfaze grafikoa. Taula honek bezero jakin baten 
+  eskaera guztiak erakusten ditu: produktu izena, kategoria, kopurua, egoera, 
+  eskaera data, saltzailea. Bilaketa funtzionalitatea du (produktua, kategoria 
+  edo saltzailearen arabera) eta orrikatzea.
+  
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/taulak.css
+  - styleClass: taula-generikoa, pagination
+  
+  FXML Controller:
+  
+  @see saltzaileLeihoak.eskaerakTaula.EskaerakTaulaKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="saltzaileLeihoak.eskaerakTaula.EskaerakTaulaKontrolagailua" 
@@ -24,16 +41,14 @@
       prefHeight="550.0" 
       prefWidth="900.0"
       spacing="10"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/taulak.css"
+      styleClass="bezero-kudeaketa-container">
       
    <children>
-      <Label fx:id="bezeroIzenburua" text="Bezeroaren Eskaerak">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Label>
+      <Label fx:id="bezeroIzenburua" text="Bezeroaren Eskaerak" styleClass="titulo-principal" />
       
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="taula-generikoa">
         <columns>
           <TableColumn fx:id="produktuIzenaColumn" prefWidth="200.0" text="Produktu Izena" />
           <TableColumn fx:id="produktuKategoriaColumn" prefWidth="150.0" text="Kategoria" />
@@ -45,22 +60,16 @@
       </TableView>
       
       <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Pagination fx:id="pagination" />
-         </children>
+         <Pagination fx:id="pagination" styleClass="pagination" />
       </HBox>
       
-      <HBox spacing="10" alignment="CENTER_LEFT">
+      <HBox spacing="10" alignment="CENTER_LEFT" styleClass="bezero-bilaketa-bar">
          <children>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="boton-bilaketa">
                 <Image url="@../../irudiak/lupa.png" />
             </ImageView>
-            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu produktua, kategoria edo saltzailea..." />
-            <Button onAction="#itzuli" text="Itzuli">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
+            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu produktua, kategoria edo saltzailea..." styleClass="bezero-bilaketa-field" />
+            <Button onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
          </children>
       </HBox>
    </children>

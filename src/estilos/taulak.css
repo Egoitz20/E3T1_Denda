@@ -1,0 +1,59 @@
+/**
+ * taulak.css - Estilos comunes para tablas
+ * @author AIA
+ * @version 2.0
+ */
+
+@import url('base.css');
+
+.taula-generikoa {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-pref-height: 400px;
+}
+
+.taula-generikoa .column-header-background {
+    -fx-background-color: #f7fafc;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.taula-generikoa .column-header .label {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+}
+
+.taula-generikoa .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+.taula-generikoa .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.taula-generikoa .table-row-cell:hover {
+    -fx-background-color: #ebf4ff;
+}
+
+.taula-kontrola {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+}
+
+.taula-kontrola .column-header-background {
+    -fx-background-color: #f7fafc;
+}
+
+.taula-kontrola .table-row-cell {
+    -fx-background-color: white;
+}
+
+.taula-kontrola .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.taula-kontrola .table-row-cell .text {
+    -fx-fill: #2d3748;
+}

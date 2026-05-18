@@ -1,0 +1,55 @@
+/**
+ * abisuak.css - Estilos para ventanas de avisos
+ * @author AIA
+ * @version 2.0
+ */
+
+@import url('base.css');
+
+.abisuak-container {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 20px;
+}
+
+.abisuak-tabla {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-pref-height: 400px;
+}
+
+.abisuak-tabla .column-header-background {
+    -fx-background-color: #f7fafc;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.abisuak-tabla .column-header .label {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+}
+
+.abisuak-info-panel {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-padding: 15px;
+}
+
+.abisuak-campo-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3748;
+}
+
+.boton-amaituta {
+    -fx-background-color: #38a169;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 20px;
+    -fx-cursor: hand;
+}
+
+.boton-amaituta:hover {
+    -fx-background-color: #2f855a;
+}

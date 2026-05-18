@@ -1,0 +1,67 @@
+/**
+ * saltzaileKudeaketa.css - Estilos para gestión de vendedores
+ * @author AIA
+ * @version 2.0
+ */
+
+@import url('base.css');
+
+.saltzaile-kudeaketa-panel {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+}
+
+.saltzaile-formulario-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d3748;
+    -fx-font-size: 13px;
+}
+
+.bezero-id-field {
+    -fx-background-color: #f7fafc;
+    -fx-text-fill: #718096;
+}
+
+.boton-saltzaile-sortu {
+    -fx-background-color: #38a169;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 80px;
+    -fx-padding: 8px 0;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-saltzaile-sortu:hover {
+    -fx-background-color: #2f855a;
+}
+
+.boton-saltzaile-aldatu {
+    -fx-background-color: #3182ce;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 80px;
+    -fx-padding: 8px 0;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-saltzaile-aldatu:hover {
+    -fx-background-color: #2c5282;
+}
+
+.boton-saltzaile-ezabatu {
+    -fx-background-color: #e53e3e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 80px;
+    -fx-padding: 8px 0;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.boton-saltzaile-ezabatu:hover {
+    -fx-background-color: #c53030;
+}

@@ -49,6 +49,7 @@ public class StorageTaula extends Application {
 
         StorageTaulaKontrolagailua controller = loader.getController();
         controller.setStage(primaryStage);
+        controller.setBezeroData(bezeroData); 
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Storage Lista");

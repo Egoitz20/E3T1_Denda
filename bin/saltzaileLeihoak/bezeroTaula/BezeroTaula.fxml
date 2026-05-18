@@ -3,21 +3,35 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  Bezeroen taularen interfaze grafikoa (informazio orokorra).
+  ============================================================================
+  BEZEROEN TAULAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Taula honek bezero guztien informazio orokorra erakusten du:
-  - Izena
-  - Emaila
-  - Helbidea
+  File: BezeroTaula.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  Bilaketa funtzionalitatea du (izena, emaila edo helbidearen arabera)
-  eta orrikatzea (10 erregistro orriko).
+  Description:
+
+  Bezeroen taularen interfaze grafikoa (informazio orokorra). Taula honek bezero 
+  guztien informazio orokorra erakusten du: izena, emaila, helbidea. Bilaketa 
+  funtzionalitatea du (izena, emaila edo helbidearen arabera) eta orrikatzea.
   
-  @controller saltzaileLeihoak.bezeroTaula.BezeroTaulaKontrolagailua
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/taulak.css
+  - styleClass: bezero-taula, taula-generikoa, pagination
+  
+  FXML Controller:
+  
+  @see saltzaileLeihoak.bezeroTaula.BezeroTaulaKontrolagailua
+  
+  ============================================================================
 -->
 
 <VBox fx:controller="saltzaileLeihoak.bezeroTaula.BezeroTaulaKontrolagailua" 
@@ -26,40 +40,32 @@
       prefHeight="550.0" 
       prefWidth="700.0"
       spacing="10"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      stylesheets="@../../estilos/taulak.css"
+      styleClass="bezero-kudeaketa-container">
       
    <children>
-      <Label text="Bezeroen informazioa">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Label>
+      <Label text="Bezeroen informazioa" styleClass="titulo-principal" />
       
-      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0">
+      <TableView fx:id="tableView" VBox.vgrow="ALWAYS" prefHeight="400.0" styleClass="bezero-taula, taula-generikoa">
         <columns>
-          <TableColumn fx:id="izenaColumn" prefWidth="200.0" text="Izena" />
-          <TableColumn fx:id="emailaColumn" prefWidth="250.0" text="Emaila" />
-          <TableColumn fx:id="helbideaColumn" prefWidth="200.0" text="Helbidea" />
+          <TableColumn fx:id="izenaColumn" prefWidth="200.0" text="Izena" styleClass="izena-column" />
+          <TableColumn fx:id="emailaColumn" prefWidth="250.0" text="Emaila" styleClass="emaila-column" />
+          <TableColumn fx:id="helbideaColumn" prefWidth="200.0" text="Helbidea" styleClass="helbidea-column" />
         </columns>
       </TableView>
       
       <HBox spacing="10" alignment="CENTER">
-         <children>
-            <Pagination fx:id="pagination" />
-         </children>
+         <Pagination fx:id="pagination" styleClass="pagination" />
       </HBox>
       
-      <HBox spacing="10" alignment="CENTER_LEFT">
+      <HBox spacing="10" alignment="CENTER_LEFT" styleClass="bezero-bilaketa-bar">
          <children>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="boton-bilaketa">
                 <Image url="@../../irudiak/lupa.png" />
             </ImageView>
-            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu izena edo emaila..." />
-            <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
+            <TextField fx:id="bilaketaField" prefWidth="350.0" promptText="Bilatu izena edo emaila..." styleClass="bezero-bilaketa-field" />
+            <Button fx:id="itzuliButton" onAction="#itzuli" text="Itzuli" styleClass="boton-secundario" />
          </children>
       </HBox>
    </children>

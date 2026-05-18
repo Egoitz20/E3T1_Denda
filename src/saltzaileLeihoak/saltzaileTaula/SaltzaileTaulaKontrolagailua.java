@@ -26,7 +26,7 @@ import saltzaileLeihoak.saltzaileKudeaketa.SaltzaileKudeaketa;
  * </p>
  * 
  * @author AIA
- * @version 1.0
+ * @version 2.0
  */
 public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 
@@ -86,6 +86,16 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
      */
     @FXML
     public void initialize() {
+        // Egiaztatu baimenak
+        LangileSaltzaileBean saltzaileLogeatuta = getSaltzaileLogeatuta();
+        if (saltzaileLogeatuta == null || saltzaileLogeatuta.getId() != 1) {
+            irekiAlerta("Baimenik ez", "Sarbide ukatu", 
+                "Ez duzu baimenik atal honetara sartzeko. Administratzaileak soilik.");
+            itxiOraingoLeihoa();
+            irekiSaltzaileMenuPrintzipala();
+            return;
+        }
+        
         konfiguratuZutabeak();
         kargatuDatuak();
         konfiguratuSaltzailePaginazioa(pagination, filtrazioList, tableView);
@@ -103,6 +113,9 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
 
     /**
      * Saltzailearen kudeaketa leihoa irekitzen du hautatutako saltzailearekin.
+     * <p>
+     * Leiho berria irekitzen du eta itxi egiten du unekoa.
+     * </p>
      *
      * @param saltzailea editatzeko hautatutako saltzailea
      */
@@ -111,12 +124,14 @@ public class SaltzaileTaulaKontrolagailua extends HandlerGlobala {
             SaltzaileKudeaketa kudeaketa = new SaltzaileKudeaketa();
             Stage newStage = new Stage();
             kudeaketa.setSaltzaileData(saltzailea);
-            kudeaketa.start(newStage);
+            
+            // Itxi uneko leihoa
             itxiOraingoLeihoa();
-
-            newStage.setOnHidden(_ -> {
-                irekiSaltzaileMenuPrintzipala();
-            });
+            
+            // Ireki kudeaketa leihoa
+            kudeaketa.start(newStage);
+            
+            // Ez da onHidden event-ik behar, itzultzeko menua irekiko da
         } catch (Exception e) {
             e.printStackTrace();
             irekiAlerta("Errorea", "Ezin izan da leihoa ireki",

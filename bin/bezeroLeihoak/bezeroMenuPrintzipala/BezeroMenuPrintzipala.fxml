@@ -1,73 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.image.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <!--
-  Bezero menu nagusiaren interfaze grafikoa.
+  ============================================================================
+  BEZERO MENU NAGUSIAREN INTERFAZE GRAFIKOA
+  ============================================================================
   
-  Menu honetatik bezeroak atal desberdinak atzi ditzake:
-  - Denda: produktu kategoria desberdinak ikusteko (CPU, RAM, Mother Board, Storage, Video Card)
-  - Bezeroarentzako arreta: arazoak edo zalantzak bidaltzeko formularioa
-  - Bezero menu (eskuinean): saioaren informazioa, otzara eta saioa ixteko aukerak
+  File: BezeroMenuPrintzipala.fxml
+  Author: AIA
+  Version: 2.0
+  Since: 2026
   
-  Eskuineko menuan saioa hasi duen bezeroaren izena agertzen da.
+  Description:
   
-  @controller bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua
+  Bezero menu nagusiaren interfaze grafikoa. Menu honetatik bezeroak atal 
+  desberdinak atzi ditzake: Denda (produktu kategoria desberdinak), 
+  Bezeroarentzako arreta, eta eskuineko menuan saioaren informazioa, otzara 
+  eta saioa ixteko aukerak.
+  
+  CSS Styles:
+  
+  - stylesheets: @../../estilos/bezeroMenu.css
+  - styleClass: bezero-menu-container, bezero-menu-bar, bezero-user-menu
+  
+  FXML Controller:
+  
+  @see bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua
+  
+  ============================================================================
 -->
 
-<GridPane fx:controller="bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua"  alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:controller="bezeroLeihoak.bezeroMenuPrintzipala.BezeroMenuPrintzipalaKontrolagailua"  
+          alignment="TOP_CENTER" 
+          maxHeight="-Infinity" 
+          maxWidth="-Infinity" 
+          minHeight="-Infinity" 
+          minWidth="-Infinity" 
+          prefHeight="295.0" 
+          prefWidth="647.0" 
+          stylesheets="@../../estilos/bezeroMenu.css"
+          styleClass="bezero-menu-container"
+          xmlns="http://javafx.com/javafx/8" 
+          xmlns:fx="http://javafx.com/fxml/1">
+          
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="151.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="0.0" prefWidth="249.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
+  
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="102.0" minHeight="56.0" prefHeight="74.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
+  
    <children>
-      <MenuBar prefHeight="66.0" prefWidth="249.0" GridPane.columnIndex="1">
+      <MenuBar prefHeight="66.0" prefWidth="249.0" GridPane.columnIndex="1" styleClass="bezero-menu-bar">
         <menus>
-          <Menu mnemonicParsing="false" text="Bezeroarentzako arreta">
+          <Menu mnemonicParsing="false" text="Bezeroarentzako arreta" styleClass="menu-arreta">
                <items>
                   <MenuItem onAction="#irekiArreta" mnemonicParsing="false" text="Formularioa" />
                </items>
           </Menu>
         </menus>
       </MenuBar>
-      <MenuBar blendMode="DARKEN" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="52.0" prefWidth="225.0" scaleShape="false">
+      
+      <MenuBar blendMode="DARKEN" cacheShape="false" centerShape="false" focusTraversable="false" 
+               prefHeight="52.0" prefWidth="225.0" scaleShape="false" styleClass="bezero-menu-bar">
         <menus>
-          <Menu mnemonicParsing="false" text="Denda">
+          <Menu mnemonicParsing="false" text="Denda" styleClass="menu-denda">
                <items>
                   <MenuItem onAction="#irekiStorageTaula" mnemonicParsing="false" text="Storage" />
                   <MenuItem onAction="#irekiMotherBoardTaula" mnemonicParsing="false" text="Mother board" />
                   <MenuItem onAction="#irekiVideoCardTaula" mnemonicParsing="false" text="Video Card" />
                   <MenuItem onAction="#irekiRamTaula" mnemonicParsing="false" text="RAM" />
-              <MenuItem onAction="#irekiCpuTaula" mnemonicParsing="false" text="CPU" />
+                  <MenuItem onAction="#irekiCpuTaula" mnemonicParsing="false" text="CPU" />
                </items>
           </Menu>
         </menus>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
       </MenuBar>
-      <MenuBar prefHeight="116.0" prefWidth="173.0" GridPane.columnIndex="2">
+      
+      <MenuBar prefHeight="116.0" prefWidth="173.0" GridPane.columnIndex="2" styleClass="bezero-user-menu">
         <menus>
           <Menu fx:id="bezeroMenu" mnemonicParsing="false" text="Kaixo, &quot;bezeroIzena&quot;">
             <items>
                   <MenuItem onAction="#irekiSaioarenInformazioa" mnemonicParsing="false" text="Saioaren informazioa" />
-              <MenuItem onAction="#irekiOtzara" mnemonicParsing="false" text="Otzara" />
-                  <MenuItem onAction="#saioaItxi" mnemonicParsing="false" text="Saioa itxi" />
+                  <MenuItem onAction="#irekiOtzara" mnemonicParsing="false" text="Otzara" />
+                  <MenuItem onAction="#saioaItxi" mnemonicParsing="false" text="Saioa itxi" styleClass="menu-item-saioaItxi" />
             </items>
           </Menu>
         </menus>

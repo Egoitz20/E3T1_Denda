@@ -3,6 +3,7 @@ package bezeroLeihoak.motherBoardTaula;
 import java.util.HashMap;
 import java.util.Map;
 
+import datuBaseKonexioa.BezeroBean;
 import datuBaseKonexioa.ProduktuBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,9 +23,9 @@ import kontrolagailuGlobala.OtzaraGlobala;
 /**
  * Mother Board produktuen taula leihoaren kontrolagailua.
  * <p>
- * Klase honek Mother Board kategorian dauden produktu guztiak erakusten ditu taula batean,
- * orrikatzearekin. Bezeroak produktu bakoitzaren kantitatea hauta dezake
- * (+/- botoiekin) eta "Gehitu Otzara" botoia sakatuz gero, hautatutako
+ * Klase honek Mother Board kategorian dauden produktu guztiak erakusten ditu
+ * taula batean, orrikatzearekin. Bezeroak produktu bakoitzaren kantitatea hauta
+ * dezake (+/- botoiekin) eta "Gehitu Otzara" botoia sakatuz gero, hautatutako
  * produktuak otzaran gehitzen dira.
  * </p>
  * 
@@ -33,120 +34,138 @@ import kontrolagailuGlobala.OtzaraGlobala;
  */
 public class MotherBoardTaulaKontrolagailua extends HandlerGlobala {
 
-    @FXML
-    private TableView<ProduktuBean> tableView;
+	@FXML
+	private TableView<ProduktuBean> tableView;
 
-    @FXML
-    private TableColumn<ProduktuBean, String> izenaColumn;
+	@FXML
+	private TableColumn<ProduktuBean, String> izenaColumn;
 
-    @FXML
-    private TableColumn<ProduktuBean, String> deskribapenaColumn;
+	@FXML
+	private TableColumn<ProduktuBean, String> deskribapenaColumn;
 
-    @FXML
-    private TableColumn<ProduktuBean, Double> salneurriaColumn;
+	@FXML
+	private TableColumn<ProduktuBean, Double> salneurriaColumn;
 
-    @FXML
-    private TableColumn<ProduktuBean, Void> kantitateaColumn;
+	@FXML
+	private TableColumn<ProduktuBean, Void> kantitateaColumn;
 
-    @FXML
-    private Pagination pagination;
+	@FXML
+	private Pagination pagination;
 
-    private ObservableList<ProduktuBean> motherBoardList = FXCollections.observableArrayList();
-    private ObservableList<ProduktuBean> filtrazioList = FXCollections.observableArrayList();
+	private ObservableList<ProduktuBean> motherBoardList = FXCollections.observableArrayList();
+	private ObservableList<ProduktuBean> filtrazioList = FXCollections.observableArrayList();
 
-    private Map<Integer, Integer> kantitateak = new HashMap<>();
+	private Map<Integer, Integer> kantitateak = new HashMap<>();
 
-    public MotherBoardTaulaKontrolagailua() {
-    }
+	private BezeroBean bezeroData;
 
-    @FXML
-    public void itzuli() {
-        itxiOraingoLeihoa();
-        irekiBezeroMenuPrintzipala();
-    }
+	public MotherBoardTaulaKontrolagailua() {
+	}
 
-    @FXML
-    public void initialize() {
-        konfiguratuKategoriaZutabeak(izenaColumn, deskribapenaColumn, salneurriaColumn);
-        kargatuKategoriaDatuak(motherBoardList, filtrazioList, kantitateak, "Mother Board");
-        konfiguratuBezeroKategoriaPaginazioa(pagination, filtrazioList, tableView);
-        konfiguratuKantitateaZutabea();
-    }
+	public void setBezeroData(BezeroBean data) {
+		this.bezeroData = data;
+	}
 
-    @FXML
-    public void gehituOtzara() {
-        OtzaraGlobala otzara = OtzaraGlobala.getInstantzia();
+	@FXML
+	public void itzuli() {
+		itxiOraingoLeihoa();
+		irekiBezeroMenuPrintzipala();
+	}
 
-        for (ProduktuBean produktu : motherBoardList) {
-            int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
-            if (kantitatea > 0) {
-                otzara.gehituProduktua(produktu, kantitatea);
-                kantitateak.put(produktu.getId(), 0);
-            }
-        }
+	@FXML
+	public void initialize() {
 
-        eguneratuBezeroKategoriaOrriaDatuak(pagination.getCurrentPageIndex(), motherBoardList, tableView);
-        irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", "Produktuak ondo gehitu dira zure otzaran.");
-    }
+		if (bezeroData == null) {
+			bezeroData = getBezeroLogeatuta();
+		}
 
-    private void konfiguratuKantitateaZutabea() {
-        kantitateaColumn.setCellFactory(new Callback<TableColumn<ProduktuBean, Void>, TableCell<ProduktuBean, Void>>() {
-            @Override
-            public TableCell<ProduktuBean, Void> call(TableColumn<ProduktuBean, Void> param) {
-                return new TableCell<ProduktuBean, Void>() {
+		if (bezeroData == null) {
+			irekiAlerta("Errorea", "Sesiorik ez", "Ez dago saiorik hasita. Mesedez, hasi saio berriro.");
+			itxiOraingoLeihoa();
+			irekiLogina();
+			return;
+		}
 
-                    private final Button btnKendu = new Button("-");
-                    private final Label lblKopurua = new Label("0");
-                    private final Button btnGehitu = new Button("+");
-                    private final HBox container = new HBox(10, btnKendu, lblKopurua, btnGehitu);
+		konfiguratuKategoriaZutabeak(izenaColumn, deskribapenaColumn, salneurriaColumn);
+		kargatuKategoriaDatuak(motherBoardList, filtrazioList, kantitateak, "Mother Board");
+		konfiguratuBezeroKategoriaPaginazioa(pagination, filtrazioList, tableView);
+		konfiguratuKantitateaZutabea();
+	}
 
-                    {
-                        btnKendu.setPrefWidth(40);
-                        btnGehitu.setPrefWidth(40);
-                        lblKopurua.setPrefWidth(40);
-                        lblKopurua.setAlignment(Pos.CENTER);
-                        lblKopurua.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-                        container.setAlignment(Pos.CENTER);
+	@FXML
+	public void gehituOtzara() {
+		OtzaraGlobala otzara = OtzaraGlobala.getInstantzia();
 
-                        btnKendu.setOnAction(_ -> {
-                            ProduktuBean produktu = getTableView().getItems().get(getIndex());
-                            if (produktu != null) {
-                                int id = produktu.getId();
-                                int current = kantitateak.getOrDefault(id, 0);
-                                if (current > 0) {
-                                    kantitateak.put(id, current - 1);
-                                    lblKopurua.setText(String.valueOf(current - 1));
-                                }
-                            }
-                        });
+		for (ProduktuBean produktu : motherBoardList) {
+			int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
+			if (kantitatea > 0) {
+				otzara.gehituProduktua(produktu, kantitatea);
+				kantitateak.put(produktu.getId(), 0);
+			}
+		}
 
-                        btnGehitu.setOnAction(_ -> {
-                            ProduktuBean produktu = getTableView().getItems().get(getIndex());
-                            if (produktu != null) {
-                                int id = produktu.getId();
-                                int current = kantitateak.getOrDefault(id, 0);
-                                kantitateak.put(id, current + 1);
-                                lblKopurua.setText(String.valueOf(current + 1));
-                            }
-                        });
-                    }
+		eguneratuBezeroKategoriaOrriaDatuak(pagination.getCurrentPageIndex(), motherBoardList, tableView);
+		irekiAlerta("Arrakasta", "Produktuak otzaran gehitu dira", "Produktuak ondo gehitu dira zure otzaran.");
+	}
 
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            ProduktuBean produktu = getTableView().getItems().get(getIndex());
-                            if (produktu != null) {
-                                int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
-                                lblKopurua.setText(String.valueOf(kantitatea));
-                            }
-                            setGraphic(container);
-                        }
-                    }
-                };
-            }
-        });
-    }
+	private void konfiguratuKantitateaZutabea() {
+		kantitateaColumn.setCellFactory(new Callback<TableColumn<ProduktuBean, Void>, TableCell<ProduktuBean, Void>>() {
+			@Override
+			public TableCell<ProduktuBean, Void> call(TableColumn<ProduktuBean, Void> param) {
+				return new TableCell<ProduktuBean, Void>() {
+
+					private final Button btnKendu = new Button("-");
+					private final Label lblKopurua = new Label("0");
+					private final Button btnGehitu = new Button("+");
+					private final HBox container = new HBox(10, btnKendu, lblKopurua, btnGehitu);
+
+					{
+						btnKendu.setPrefWidth(40);
+						btnGehitu.setPrefWidth(40);
+						lblKopurua.setPrefWidth(40);
+						lblKopurua.setAlignment(Pos.CENTER);
+						lblKopurua.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+						container.setAlignment(Pos.CENTER);
+
+						btnKendu.setOnAction(_ -> {
+							ProduktuBean produktu = getTableView().getItems().get(getIndex());
+							if (produktu != null) {
+								int id = produktu.getId();
+								int current = kantitateak.getOrDefault(id, 0);
+								if (current > 0) {
+									kantitateak.put(id, current - 1);
+									lblKopurua.setText(String.valueOf(current - 1));
+								}
+							}
+						});
+
+						btnGehitu.setOnAction(_ -> {
+							ProduktuBean produktu = getTableView().getItems().get(getIndex());
+							if (produktu != null) {
+								int id = produktu.getId();
+								int current = kantitateak.getOrDefault(id, 0);
+								kantitateak.put(id, current + 1);
+								lblKopurua.setText(String.valueOf(current + 1));
+							}
+						});
+					}
+
+					@Override
+					protected void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty) {
+							setGraphic(null);
+						} else {
+							ProduktuBean produktu = getTableView().getItems().get(getIndex());
+							if (produktu != null) {
+								int kantitatea = kantitateak.getOrDefault(produktu.getId(), 0);
+								lblKopurua.setText(String.valueOf(kantitatea));
+							}
+							setGraphic(container);
+						}
+					}
+				};
+			}
+		});
+	}
 }
